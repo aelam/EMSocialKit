@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = 'Unify multi share channels.'
   s.homepage     = 'https://github.com/aelam/EMSocial'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
-  s.author       = { 'nickcheng' => 'ryanwang@gmail.com' }
+  s.author       = { 'aelam' => 'ryanwang@gmail.com' }
 
   s.source       = { :git => 'https://github.com/aelam/emsocial.git' }
   s.platform     = :ios, '7.0'

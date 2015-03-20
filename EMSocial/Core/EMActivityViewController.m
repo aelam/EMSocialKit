@@ -10,11 +10,16 @@
 #import "EMSlideUpTransitionAnimator.h"
 #import "_EMActivityViewCell.h"
 #import "EMActivity.h"
+#import "EMActivityHandler.h"
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
 static CGFloat kDefaultHeight = 200.f;
-//static CGFloat kActivityViewHeight = 160.f;
 
+@interface EMActivityHandler ()
+
+- (void)registerApplicationActivities:(NSArray *)activities;
+
+@end
 
 @interface EMActivityViewController () <UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -36,6 +41,8 @@ static CGFloat kDefaultHeight = 200.f;
         
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
+        
+        [[EMActivityHandler defaultHandler] registerApplicationActivities:self.applicationActivities];
     }
     
     return self;

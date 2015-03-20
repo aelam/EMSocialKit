@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
 
+UIKIT_EXTERN NSString *const UIActivityTypePostToSinaWeibo;
+
 @interface EMActivityWeibo : EMBridgeActivity
+
++ (void)registerAppKey:(NSString *)appKey;
 
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, strong) NSString *shareString;

@@ -63,28 +63,30 @@
 }
 
 - (void)performActivity {
-    NSLog(@"11");
   // Genterate WBMessageObject
-  WBMessageObject *message = [WBMessageObject message];
-  if (self.shareString)
-    message.text = self.shareString;
-  if (self.shareImage) {
-    WBImageObject *imageObject = [WBImageObject object];
-    imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
-    message.imageObject = imageObject;
-  }
-  
-  //
-  WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-//  authRequest.redirectURI = self.authRedirectURI;
-  authRequest.scope = (self.authScope && self.authScope.length > 0) ? self.authScope : @"all";
-//  WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message
-//                                                                                authInfo:authRequest
-//                                                                            access_token:self.authAccessToken];
-    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message];
-
-  [WeiboSDK sendRequest:request];
-  [self activityDidFinish:YES];
+    
+    if([WeiboSDK isWeiboAppInstalled]) {
+        WBMessageObject *message = [WBMessageObject message];
+        if (self.shareString)
+            message.text = self.shareString;
+        if (self.shareImage) {
+            WBImageObject *imageObject = [WBImageObject object];
+            imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
+            message.imageObject = imageObject;
+        }
+        
+        //
+        WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+        authRequest.scope = (self.authScope && self.authScope.length > 0) ? self.authScope : @"all";
+        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message];
+        
+        [WeiboSDK sendRequest:request];
+        
+    } else {
+        
+    }
+    
+    [self activityDidFinish:YES];
 }
 
 #pragma mark -
