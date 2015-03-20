@@ -131,21 +131,21 @@ static CGFloat kDefaultHeight = 200.f;
 }
 
 #pragma mark UIGestureRecognizerDelegate -
-- (void)handleTapBehind:(UITapGestureRecognizer *)sender
-{
-    if (sender.state == UIGestureRecognizerStateEnded)
-    {
-        CGPoint location = [sender locationInView:nil];
-        
-        // if tap outside pincode inputscreen
-        BOOL inView = [self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil];
-        if (!inView)
-        {
-            [self.view.window removeGestureRecognizer:sender];
-            [self dismiss:nil];
-        }
-    }
-}
+//- (void)handleTapBehind:(UITapGestureRecognizer *)sender
+//{
+//    if (sender.state == UIGestureRecognizerStateEnded)
+//    {
+//        CGPoint location = [sender locationInView:nil];
+//        
+//        // if tap outside pincode inputscreen
+//        BOOL inView = [self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil];
+//        if (!inView)
+//        {
+//            [self.view.window removeGestureRecognizer:sender];
+//            [self dismiss:nil];
+//        }
+//    }
+//}
 
 - (void)dismiss:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -186,7 +186,13 @@ static CGFloat kDefaultHeight = 200.f;
         EMActivity *activity = self.applicationActivities[indexPath.row];
         NSLog(@"Selected activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
         [activity prepareWithActivityItems:self.activityItems];
-        [activity performActivity];
+        
+        UIViewController *viewcontroller = [activity activityViewController];
+        if (viewcontroller) {
+            [self presentViewController:viewcontroller animated:YES completion:NULL];
+        } else {
+            [activity performActivity];
+        }
     }
 }
 

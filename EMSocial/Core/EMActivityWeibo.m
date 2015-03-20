@@ -99,4 +99,8 @@
   return result;
 }
 
+- (UIViewController *)activityViewController {
+    return [[UIViewController alloc] init];
+}
+
 @end

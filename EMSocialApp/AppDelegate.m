@@ -27,6 +27,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [WXApi registerApp:kWeiChatAppID];
     [WeiboSDK registerApp:@"1779442884"];
+    [WeiboSDK enableDebugMode:YES];
     // Override point for customization after application launch.
     return YES;
 }
