@@ -10,16 +10,11 @@
 #import "EMSlideUpTransitionAnimator.h"
 #import "_EMActivityViewCell.h"
 #import "EMActivity.h"
-#import "EMActivityHandler.h"
+#import "EMSocialSDK.h"
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
-static CGFloat kDefaultHeight = 200.f;
+static CGFloat kDefaultHeight = 160.f;
 
-@interface EMActivityHandler ()
-
-- (void)registerApplicationActivities:(NSArray *)activities;
-
-@end
 
 @interface EMActivityViewController () <UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -27,7 +22,7 @@ static CGFloat kDefaultHeight = 200.f;
 @property (nonatomic, strong) NSArray *applicationActivities;
 @property (nonatomic, strong, readwrite) UICollectionView *collectionView;
 @property (nonatomic, strong, readwrite) UIButton *closeButton;
-@property (nonatomic, assign) BOOL activityInitialized;
+@property (nonatomic, assign) NSString *selectedActivityType;
 
 @end
 
@@ -42,7 +37,6 @@ static CGFloat kDefaultHeight = 200.f;
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
         
-        [[EMActivityHandler defaultHandler] registerApplicationActivities:self.applicationActivities];
     }
     
     return self;
@@ -56,8 +50,6 @@ static CGFloat kDefaultHeight = 200.f;
     [super viewDidLoad];
 
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, kDefaultHeight);
-    self.view.layer.borderColor = [UIColor yellowColor].CGColor;
-    self.view.layer.borderWidth = 1;
     [self setUpActivitiesUI];
 }
 
@@ -78,9 +70,9 @@ static CGFloat kDefaultHeight = 200.f;
 }
 
 - (void)addCloseGestureOnWindow {
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBehind:)];
-    tap.delegate = self;
-    [self.view.window addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBehind:)];
+//    tap.delegate = self;
+//    [self.view.window addGestureRecognizer:tap];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -126,7 +118,7 @@ static CGFloat kDefaultHeight = 200.f;
     self.closeButton.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.closeButton];
     
-    [self.closeButton setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
     [self.closeButton addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -183,22 +175,21 @@ static CGFloat kDefaultHeight = 200.f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.applicationActivities.count > indexPath.row) {
-        [self dismiss:YES];
-        
+        [self dismiss:nil];
         EMActivity *activity = self.applicationActivities[indexPath.row];
         NSLog(@"Selected activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
+        self.selectedActivityType = activity.activityType;
         [activity prepareWithActivityItems:self.activityItems];
-        
-        UIViewController *viewcontroller = [activity activityViewController];
-        if (viewcontroller) {
-            [self presentViewController:viewcontroller animated:YES completion:NULL];
-        } else {
-            [activity performActivity];
-        }
+        [activity performActivity];
     }
 }
 
 
+- (void)complete {
+    if (self.completionWithItemsHandler) {
+        self.completionWithItemsHandler(self.selectedActivityType,YES, nil, nil);
+    }
+}
 
 
 #pragma mark - UIVieControllerTransitioningDelegate -

@@ -25,7 +25,7 @@
 }
 
 - (UIImage *)activityImage {
-  return [UIImage imageNamed:@"wechattimeline"];
+    return [UIImage imageNamed:@"EMSocial.bundle/moment"];
 }
 
 - (NSString *)activityTitle {

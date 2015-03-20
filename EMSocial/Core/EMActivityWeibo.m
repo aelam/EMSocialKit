@@ -9,6 +9,8 @@
 #import "EMActivityWeibo.h"
 #import "WeiboSDK.h"
 #import "UIImage+ResizeMagick.h"
+#import "EMSocialSDK+Private.h"
+#import "EMSocialSDK+Private.h"
 
 @implementation EMActivityWeibo
 
@@ -21,14 +23,14 @@
 }
 
 - (NSString *)activityTitle {
-  return @"Sina Weibo"; // todo: i18n
+  return @"新浪微博";
 }
 
 - (UIImage *)activityImage {
   if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)
-    return [UIImage imageNamed:@"weibo"];
+    return [UIImage imageNamed:@"EMSocial.bundle/weibo"];
   else
-    return [UIImage imageNamed:@"weiboline"];
+    return [UIImage imageNamed:@"EMSocial.bundle/weibo"];
 }
 
 // URL will be converted to string
@@ -56,35 +58,35 @@
     } else if ([item isKindOfClass:[NSString class]]) {
       self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
     } else if ([item isKindOfClass:[NSURL class]]) {
-      self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" ": @""), [item absoluteString]];
+        self.shareURL = item;
     } else
       NSLog(@"EMActivityWeibo: Unknown item type: %@", item);
   }
 }
 
 - (void)performActivity {
-  // Genterate WBMessageObject
     
-    if([WeiboSDK isWeiboAppInstalled]) {
-        WBMessageObject *message = [WBMessageObject message];
-        if (self.shareString)
-            message.text = self.shareString;
-        if (self.shareImage) {
-            WBImageObject *imageObject = [WBImageObject object];
-            imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
-            message.imageObject = imageObject;
-        }
-        
-        //
-        WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
-        authRequest.scope = (self.authScope && self.authScope.length > 0) ? self.authScope : @"all";
-        WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message];
-        
-        [WeiboSDK sendRequest:request];
-        
-    } else {
-        
+    WBMessageObject *message = [WBMessageObject message];
+    if (self.shareString)
+        message.text = self.shareString;
+
+    if (self.shareImage) {
+        WBImageObject *imageObject = [WBImageObject object];
+        imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
+        message.imageObject = imageObject;
     }
+    if (self.shareURL) {
+        WBWebpageObject *webObject = [WBWebpageObject object];
+        webObject.webpageUrl = [self.shareURL absoluteString];
+        message.mediaObject = webObject;
+    }
+    
+    //
+    WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
+    authRequest.scope =  @"all";
+    WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
+    
+    [WeiboSDK sendRequest:request];
     
     [self activityDidFinish:YES];
 }

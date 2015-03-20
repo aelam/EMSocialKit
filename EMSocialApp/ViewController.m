@@ -31,6 +31,10 @@
     NSArray *activies = @[weibo,[[EMActivityWeChatTimeline alloc]init],[[EMActivityWeChatSession alloc]init]];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test",  [NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
 
+    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+        
+    };
+    
     [self presentViewController:activityViewController animated:YES completion:^{
         NSLog(@"DONE");
     }];

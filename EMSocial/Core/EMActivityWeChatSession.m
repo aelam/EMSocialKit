@@ -16,7 +16,7 @@
 }
 
 - (UIImage *)activityImage {
-  return [UIImage imageNamed:@"wechatsession"];
+    return [UIImage imageNamed:@"EMSocial.bundle/wechat"];
 }
 
 - (NSString *)activityTitle {

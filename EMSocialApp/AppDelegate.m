@@ -13,6 +13,9 @@
 #import "WXApi.h"
 #import "WeiboSDK.h"
 
+#import "EMSocialSDK.h"
+
+
 #define kWeiChatAppID               @"wx85e5bbec559cd907"//wxd50de003b78b9c87 // old wx6f0c62844c4ebbb5
 #define kWeiChatAppKey              @"637c8424532704e01532cbb3634f3031"  // old f8c106a9a0bc385a02abd8db4a29790f
 
@@ -25,9 +28,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
     [WXApi registerApp:kWeiChatAppID];
-//    [WeiboSDK registerApp:@"2045436852"];
-//    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:@"2045436852"];
+    [WeiboSDK enableDebugMode:YES];
     // Override point for customization after application launch.
     return YES;
 }
@@ -52,6 +57,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [EMSocialSDK handleOpenURL:url sourceApplication:sourceApplication delegate:[EMSocialSDK class]];
 }
 
 @end
