@@ -183,6 +183,8 @@ static CGFloat kDefaultHeight = 200.f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.applicationActivities.count > indexPath.row) {
+        [self dismiss:YES];
+        
         EMActivity *activity = self.applicationActivities[indexPath.row];
         NSLog(@"Selected activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
         [activity prepareWithActivityItems:self.activityItems];

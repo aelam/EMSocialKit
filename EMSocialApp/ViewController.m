@@ -29,7 +29,7 @@
     NSLog(@"%@",weibo.activityImage);
     
     NSArray *activies = @[weibo,[[EMActivityWeChatTimeline alloc]init],[[EMActivityWeChatSession alloc]init]];
-    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test", [UIImage imageNamed:@"weibo"], [NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
+    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test",  [NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
 
     [self presentViewController:activityViewController animated:YES completion:^{
         NSLog(@"DONE");

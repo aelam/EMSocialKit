@@ -17,9 +17,9 @@ end
 
 target 'EMSocial' do
 
-pod 'WeChatSDK', '~> 0.0.1'
-pod 'WeiboSDK', '~> 3.0.1'
-pod 'UIImage-ResizeMagick', '~> 0.0.1'
+#pod 'WeChatSDK', '~> 0.0.1'
+#pod 'WeiboSDK', '~> 3.0.1'
+#pod 'UIImage-ResizeMagick', '~> 0.0.1'
 
 end
 

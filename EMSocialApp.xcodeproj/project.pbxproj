@@ -10,6 +10,7 @@
 		2178C71260C101BDF6681177 /* libPods-EMSocialApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */; };
 		550A6575ADD5D4B82E430524 /* libPods-EMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */; };
 		9419BF221AB9454200DF81A4 /* libEMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419BF171AB9454100DF81A4 /* libEMSocial.a */; };
+		949287C51ABBCAAE00B7D478 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949287C41ABBCAAE00B7D478 /* AdSupport.framework */; };
 		949C625B1ABAC0FF006B4E0A /* EMStockActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */; };
 		949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FB1ABAD877006B4E0A /* ImageIO.framework */; };
 		949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */; };
@@ -78,7 +79,8 @@
 		9419BF171AB9454100DF81A4 /* libEMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEMSocial.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF271AB9454200DF81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		949287C31ABBBDD500B7D478 /* EMSocialApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EMSocialApp copy-Info.plist"; path = "/Users/ryan/Documents/EMSocialApp-fix/EMSocialApp copy-Info.plist"; sourceTree = "<absolute>"; };
+		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		949287C61ABBE30F00B7D478 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
 		949C62591ABAC0FF006B4E0A /* EMStockActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMStockActivityWeibo.h; sourceTree = "<group>"; };
 		949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMStockActivityWeibo.m; sourceTree = "<group>"; };
 		949C62F91ABAD834006B4E0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -126,7 +128,6 @@
 		94E5F2641ABA8F7F00348FC3 /* EMSocialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialViewController.m; sourceTree = "<group>"; };
 		94E5F2651ABA8F7F00348FC3 /* EMSocialWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialWebViewController.h; sourceTree = "<group>"; };
 		94E5F2661ABA8F7F00348FC3 /* EMSocialWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialWebViewController.m; sourceTree = "<group>"; };
-		94E5F2851ABA922800348FC3 /* EMSocial.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = EMSocial.xcassets; sourceTree = "<group>"; };
 		94FA51151AB8282700A81E96 /* EMSocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMSocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94FA51191AB8282700A81E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94FA511A1AB8282700A81E96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -165,6 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949287C51ABBCAAE00B7D478 /* AdSupport.framework in Frameworks */,
 				949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */,
 				949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */,
 				94E5F2121ABA7C1000348FC3 /* libsqlite3.dylib in Frameworks */,
@@ -185,6 +187,7 @@
 		275F0F52A7F943FCDF20B20E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				949287C41ABBCAAE00B7D478 /* AdSupport.framework */,
 				949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */,
 				949C62FD1ABAD883006B4E0A /* Security.framework */,
 				949C62FB1ABAD877006B4E0A /* ImageIO.framework */,
@@ -223,7 +226,7 @@
 				94E5F21A1ABA8F7F00348FC3 /* Core */,
 				94E5F2341ABA8F7F00348FC3 /* EMTransition */,
 				94E5F2601ABA8F7F00348FC3 /* UIKit */,
-				94E5F2851ABA922800348FC3 /* EMSocial.xcassets */,
+				949287C61ABBE30F00B7D478 /* EMSocial.bundle */,
 			);
 			path = EMSocial;
 			sourceTree = "<group>";
@@ -330,7 +333,6 @@
 				94FA51161AB8282700A81E96 /* Products */,
 				60BBCBCF42207D5D009F4086 /* Pods */,
 				275F0F52A7F943FCDF20B20E /* Frameworks */,
-				949287C31ABBBDD500B7D478 /* EMSocialApp copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -681,6 +683,13 @@
 					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
 					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-EMSocial-UIImage-ResizeMagick\"",
+					"-l\"Pods-EMSocial-WeChatSDK\"",
+					"-l\"Pods-EMSocial-WeiboSDK\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -710,6 +719,13 @@
 					"$(PROJECT_DIR)/EMSocial/social/Vendors/WeChat",
 					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
 					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"Pods-EMSocial-UIImage-ResizeMagick\"",
+					"-l\"Pods-EMSocial-WeChatSDK\"",
+					"-l\"Pods-EMSocial-WeiboSDK\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -839,23 +855,6 @@
 					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
 					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Pods-EMSocialApp-EMSocial\"",
-					"-l\"Pods-EMSocialApp-JSONKit-NoWarning\"",
-					"-l\"Pods-EMSocialApp-UIImage-ResizeMagick\"",
-					"-l\"Pods-EMSocialApp-WeChatSDK\"",
-					"-l\"Pods-EMSocialApp-WeiboSDK\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -876,23 +875,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
 					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Pods-EMSocialApp-EMSocial\"",
-					"-l\"Pods-EMSocialApp-JSONKit-NoWarning\"",
-					"-l\"Pods-EMSocialApp-UIImage-ResizeMagick\"",
-					"-l\"Pods-EMSocialApp-WeChatSDK\"",
-					"-l\"Pods-EMSocialApp-WeiboSDK\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
