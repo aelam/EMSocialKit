@@ -10,19 +10,6 @@
 		550A6575ADD5D4B82E430524 /* libPods-EMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */; };
 		9419BF221AB9454200DF81A4 /* libEMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419BF171AB9454100DF81A4 /* libEMSocial.a */; };
 		949287C91ABBE4EC00B7D478 /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */; };
-		949288601ABC1F1E00B7D478 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288261ABC1F1E00B7D478 /* EMActivity.m */; };
-		949288611ABC1F1E00B7D478 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288281ABC1F1E00B7D478 /* EMActivityViewController.m */; };
-		949288621ABC1F1E00B7D478 /* EMActivityWeChatBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492882A1ABC1F1E00B7D478 /* EMActivityWeChatBase.m */; };
-		949288631ABC1F1E00B7D478 /* EMActivityWeChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492882C1ABC1F1E00B7D478 /* EMActivityWeChatSession.m */; };
-		949288641ABC1F1E00B7D478 /* EMActivityWeChatTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492882E1ABC1F1E00B7D478 /* EMActivityWeChatTimeline.m */; };
-		949288651ABC1F1E00B7D478 /* EMActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288301ABC1F1E00B7D478 /* EMActivityWeibo.m */; };
-		949288661ABC1F1E00B7D478 /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288321ABC1F1E00B7D478 /* EMBridgeActivity.m */; };
-		949288681ABC1F1E00B7D478 /* EMSocialSDK+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288381ABC1F1E00B7D478 /* EMSocialSDK+Private.m */; };
-		949288691ABC1F1E00B7D478 /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492883A1ABC1F1E00B7D478 /* EMSocialSDK.m */; };
-		9492886A1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492883D1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.m */; };
-		9492886B1ABC1F1E00B7D478 /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9492883F1ABC1F1E00B7D478 /* EMTransitionAnimator.m */; };
-		9492886C1ABC1F1E00B7D478 /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288421ABC1F1E00B7D478 /* _EMActivityViewCell.m */; };
-		9492886D1ABC1F1E00B7D478 /* EMSocialWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288441ABC1F1E00B7D478 /* EMSocialWebViewController.m */; };
 		9492886E1ABC1F1E00B7D478 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949288471ABC1F1E00B7D478 /* libWeiboSDK.a */; };
 		9492886F1ABC1F1E00B7D478 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9492884F1ABC1F1E00B7D478 /* WeiboSDK.bundle */; };
 		9492887D1ABC206900B7D478 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 949288771ABC206900B7D478 /* LICENSE */; };
@@ -31,7 +18,6 @@
 		949288851ABC208400B7D478 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 949288811ABC208400B7D478 /* LICENSE */; };
 		949288861ABC208400B7D478 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 949288821ABC208400B7D478 /* README.md */; };
 		949288871ABC208400B7D478 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 949288841ABC208400B7D478 /* UIImage+ResizeMagick.m */; };
-		949288881ABC20D000B7D478 /* EMSocial.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 949288351ABC1F1E00B7D478 /* EMSocial.bundle */; };
 		949C625B1ABAC0FF006B4E0A /* EMStockActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */; };
 		949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FB1ABAD877006B4E0A /* ImageIO.framework */; };
 		949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */; };
@@ -40,6 +26,21 @@
 		949C63141ABBBCDA006B4E0A /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630B1ABBBCDA006B4E0A /* SBJSON.m */; };
 		949C63151ABBBCDA006B4E0A /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */; };
 		949C63161ABBBCDA006B4E0A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */; };
+		94B1FB5C1ABDC242001CCD3F /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB3A1ABDC242001CCD3F /* EMActivity.m */; };
+		94B1FB5D1ABDC242001CCD3F /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB3C1ABDC242001CCD3F /* EMActivityViewController.m */; };
+		94B1FB5E1ABDC242001CCD3F /* EMActivityWeChatBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB3E1ABDC242001CCD3F /* EMActivityWeChatBase.m */; };
+		94B1FB5F1ABDC242001CCD3F /* EMActivityWeChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB401ABDC242001CCD3F /* EMActivityWeChatSession.m */; };
+		94B1FB601ABDC242001CCD3F /* EMActivityWeChatTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB421ABDC242001CCD3F /* EMActivityWeChatTimeline.m */; };
+		94B1FB611ABDC242001CCD3F /* EMActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB441ABDC242001CCD3F /* EMActivityWeibo.m */; };
+		94B1FB621ABDC242001CCD3F /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB461ABDC242001CCD3F /* EMBridgeActivity.m */; };
+		94B1FB631ABDC242001CCD3F /* EMSocialOpenURLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB4B1ABDC242001CCD3F /* EMSocialOpenURLHandler.m */; };
+		94B1FB641ABDC242001CCD3F /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */; };
+		94B1FB651ABDC242001CCD3F /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */; };
+		94B1FB661ABDC242001CCD3F /* EMSocialSDK+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */; };
+		94B1FB671ABDC242001CCD3F /* EMSocialWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */; };
+		94B1FB681ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB571ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m */; };
+		94B1FB691ABDC242001CCD3F /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB591ABDC242001CCD3F /* EMTransitionAnimator.m */; };
+		94B1FB6A1ABDC242001CCD3F /* EMSocial.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94B1FB5B1ABDC242001CCD3F /* EMSocial.bundle */; };
 		94E5F2121ABA7C1000348FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */; };
 		94E5F2671ABA8F7F00348FC3 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */; };
 		94E5F2681ABA8F7F00348FC3 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */; };
@@ -97,40 +98,12 @@
 		9419BF171AB9454100DF81A4 /* libEMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEMSocial.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF271AB9454200DF81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		947D569A1ABDD93C00F510D3 /* _EMSocialOpenURLHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _EMSocialOpenURLHandler.h; sourceTree = "<group>"; };
+		947D569B1ABDD9EB00F510D3 /* _EMActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _EMActivity.h; sourceTree = "<group>"; };
 		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		949287C61ABBE30F00B7D478 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
 		949287C71ABBE4EC00B7D478 /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
 		949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
-		949288251ABC1F1E00B7D478 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
-		949288261ABC1F1E00B7D478 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
-		949288271ABC1F1E00B7D478 /* EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityViewController.h; sourceTree = "<group>"; };
-		949288281ABC1F1E00B7D478 /* EMActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityViewController.m; sourceTree = "<group>"; };
-		949288291ABC1F1E00B7D478 /* EMActivityWeChatBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatBase.h; sourceTree = "<group>"; };
-		9492882A1ABC1F1E00B7D478 /* EMActivityWeChatBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatBase.m; sourceTree = "<group>"; };
-		9492882B1ABC1F1E00B7D478 /* EMActivityWeChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatSession.h; sourceTree = "<group>"; };
-		9492882C1ABC1F1E00B7D478 /* EMActivityWeChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatSession.m; sourceTree = "<group>"; };
-		9492882D1ABC1F1E00B7D478 /* EMActivityWeChatTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatTimeline.h; sourceTree = "<group>"; };
-		9492882E1ABC1F1E00B7D478 /* EMActivityWeChatTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatTimeline.m; sourceTree = "<group>"; };
-		9492882F1ABC1F1E00B7D478 /* EMActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeibo.h; sourceTree = "<group>"; };
-		949288301ABC1F1E00B7D478 /* EMActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeibo.m; sourceTree = "<group>"; };
-		949288311ABC1F1E00B7D478 /* EMBridgeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMBridgeActivity.h; sourceTree = "<group>"; };
-		949288321ABC1F1E00B7D478 /* EMBridgeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMBridgeActivity.m; sourceTree = "<group>"; };
-		949288331ABC1F1E00B7D478 /* EMSocialDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialDefines.h; sourceTree = "<group>"; };
-		949288341ABC1F1E00B7D478 /* EMSocialKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKey.h; sourceTree = "<group>"; };
-		949288351ABC1F1E00B7D478 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
-		949288361ABC1F1E00B7D478 /* EMSocialKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKit.h; sourceTree = "<group>"; };
-		949288371ABC1F1E00B7D478 /* EMSocialSDK+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMSocialSDK+Private.h"; sourceTree = "<group>"; };
-		949288381ABC1F1E00B7D478 /* EMSocialSDK+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMSocialSDK+Private.m"; sourceTree = "<group>"; };
-		949288391ABC1F1E00B7D478 /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
-		9492883A1ABC1F1E00B7D478 /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
-		9492883C1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
-		9492883D1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
-		9492883E1ABC1F1E00B7D478 /* EMTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTransitionAnimator.h; sourceTree = "<group>"; };
-		9492883F1ABC1F1E00B7D478 /* EMTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTransitionAnimator.m; sourceTree = "<group>"; };
-		949288411ABC1F1E00B7D478 /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
-		949288421ABC1F1E00B7D478 /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
-		949288431ABC1F1E00B7D478 /* EMSocialWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialWebViewController.h; sourceTree = "<group>"; };
-		949288441ABC1F1E00B7D478 /* EMSocialWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialWebViewController.m; sourceTree = "<group>"; };
 		949288471ABC1F1E00B7D478 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		949288481ABC1F1E00B7D478 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
 		949288491ABC1F1E00B7D478 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
@@ -170,6 +143,39 @@
 		949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		949C63101ABBBCDA006B4E0A /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		949C63111ABBBCDA006B4E0A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		94B1FB391ABDC242001CCD3F /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
+		94B1FB3A1ABDC242001CCD3F /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
+		94B1FB3B1ABDC242001CCD3F /* EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityViewController.h; sourceTree = "<group>"; };
+		94B1FB3C1ABDC242001CCD3F /* EMActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityViewController.m; sourceTree = "<group>"; };
+		94B1FB3D1ABDC242001CCD3F /* EMActivityWeChatBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatBase.h; sourceTree = "<group>"; };
+		94B1FB3E1ABDC242001CCD3F /* EMActivityWeChatBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatBase.m; sourceTree = "<group>"; };
+		94B1FB3F1ABDC242001CCD3F /* EMActivityWeChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatSession.h; sourceTree = "<group>"; };
+		94B1FB401ABDC242001CCD3F /* EMActivityWeChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatSession.m; sourceTree = "<group>"; };
+		94B1FB411ABDC242001CCD3F /* EMActivityWeChatTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatTimeline.h; sourceTree = "<group>"; };
+		94B1FB421ABDC242001CCD3F /* EMActivityWeChatTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatTimeline.m; sourceTree = "<group>"; };
+		94B1FB431ABDC242001CCD3F /* EMActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeibo.h; sourceTree = "<group>"; };
+		94B1FB441ABDC242001CCD3F /* EMActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeibo.m; sourceTree = "<group>"; };
+		94B1FB451ABDC242001CCD3F /* EMBridgeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMBridgeActivity.h; sourceTree = "<group>"; };
+		94B1FB461ABDC242001CCD3F /* EMBridgeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMBridgeActivity.m; sourceTree = "<group>"; };
+		94B1FB471ABDC242001CCD3F /* EMSocialDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialDefines.h; sourceTree = "<group>"; };
+		94B1FB481ABDC242001CCD3F /* EMSocialKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKey.h; sourceTree = "<group>"; };
+		94B1FB491ABDC242001CCD3F /* EMSocialKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKit.h; sourceTree = "<group>"; };
+		94B1FB4A1ABDC242001CCD3F /* EMSocialOpenURLHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialOpenURLHandler.h; sourceTree = "<group>"; };
+		94B1FB4B1ABDC242001CCD3F /* EMSocialOpenURLHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialOpenURLHandler.m; sourceTree = "<group>"; };
+		94B1FB4C1ABDC242001CCD3F /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
+		94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
+		94B1FB4F1ABDC242001CCD3F /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
+		94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
+		94B1FB511ABDC242001CCD3F /* EMSocialSDK+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMSocialSDK+Private.h"; sourceTree = "<group>"; };
+		94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMSocialSDK+Private.m"; sourceTree = "<group>"; };
+		94B1FB531ABDC242001CCD3F /* EMSocialWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialWebViewController.h; sourceTree = "<group>"; };
+		94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialWebViewController.m; sourceTree = "<group>"; };
+		94B1FB561ABDC242001CCD3F /* EMSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
+		94B1FB571ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
+		94B1FB581ABDC242001CCD3F /* EMTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTransitionAnimator.h; sourceTree = "<group>"; };
+		94B1FB591ABDC242001CCD3F /* EMTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTransitionAnimator.m; sourceTree = "<group>"; };
+		94B1FB5B1ABDC242001CCD3F /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
+		94B1FB6B1ABDC289001CCD3F /* _EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewController.h; sourceTree = "<group>"; };
 		94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		94E5F21B1ABA8F7F00348FC3 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
 		94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
@@ -318,64 +324,33 @@
 		949288231ABC1F1E00B7D478 /* EMSocial */ = {
 			isa = PBXGroup;
 			children = (
-				949288241ABC1F1E00B7D478 /* Core */,
-				949288351ABC1F1E00B7D478 /* EMSocial.bundle */,
-				949288361ABC1F1E00B7D478 /* EMSocialKit.h */,
-				949288371ABC1F1E00B7D478 /* EMSocialSDK+Private.h */,
-				949288381ABC1F1E00B7D478 /* EMSocialSDK+Private.m */,
-				949288391ABC1F1E00B7D478 /* EMSocialSDK.h */,
-				9492883A1ABC1F1E00B7D478 /* EMSocialSDK.m */,
-				9492883B1ABC1F1E00B7D478 /* EMTransition */,
-				949288401ABC1F1E00B7D478 /* UIKit */,
+				94B1FB481ABDC242001CCD3F /* EMSocialKey.h */,
+				94B1FB491ABDC242001CCD3F /* EMSocialKit.h */,
+				94B1FB391ABDC242001CCD3F /* EMActivity.h */,
+				94B1FB3A1ABDC242001CCD3F /* EMActivity.m */,
+				94B1FB3B1ABDC242001CCD3F /* EMActivityViewController.h */,
+				94B1FB3C1ABDC242001CCD3F /* EMActivityViewController.m */,
+				94B1FB3D1ABDC242001CCD3F /* EMActivityWeChatBase.h */,
+				94B1FB3E1ABDC242001CCD3F /* EMActivityWeChatBase.m */,
+				94B1FB3F1ABDC242001CCD3F /* EMActivityWeChatSession.h */,
+				94B1FB401ABDC242001CCD3F /* EMActivityWeChatSession.m */,
+				94B1FB411ABDC242001CCD3F /* EMActivityWeChatTimeline.h */,
+				94B1FB421ABDC242001CCD3F /* EMActivityWeChatTimeline.m */,
+				94B1FB431ABDC242001CCD3F /* EMActivityWeibo.h */,
+				94B1FB441ABDC242001CCD3F /* EMActivityWeibo.m */,
+				94B1FB451ABDC242001CCD3F /* EMBridgeActivity.h */,
+				94B1FB461ABDC242001CCD3F /* EMBridgeActivity.m */,
+				94B1FB471ABDC242001CCD3F /* EMSocialDefines.h */,
+				94B1FB4A1ABDC242001CCD3F /* EMSocialOpenURLHandler.h */,
+				94B1FB4B1ABDC242001CCD3F /* EMSocialOpenURLHandler.m */,
+				94B1FB4C1ABDC242001CCD3F /* EMSocialSDK.h */,
+				94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */,
+				94B1FB4E1ABDC242001CCD3F /* Private */,
+				94B1FB5A1ABDC242001CCD3F /* Resources */,
 				949288451ABC1F1E00B7D478 /* Vendors */,
 			);
 			path = EMSocial;
 			sourceTree = SOURCE_ROOT;
-		};
-		949288241ABC1F1E00B7D478 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				949288251ABC1F1E00B7D478 /* EMActivity.h */,
-				949288261ABC1F1E00B7D478 /* EMActivity.m */,
-				949288271ABC1F1E00B7D478 /* EMActivityViewController.h */,
-				949288281ABC1F1E00B7D478 /* EMActivityViewController.m */,
-				949288291ABC1F1E00B7D478 /* EMActivityWeChatBase.h */,
-				9492882A1ABC1F1E00B7D478 /* EMActivityWeChatBase.m */,
-				9492882B1ABC1F1E00B7D478 /* EMActivityWeChatSession.h */,
-				9492882C1ABC1F1E00B7D478 /* EMActivityWeChatSession.m */,
-				9492882D1ABC1F1E00B7D478 /* EMActivityWeChatTimeline.h */,
-				9492882E1ABC1F1E00B7D478 /* EMActivityWeChatTimeline.m */,
-				9492882F1ABC1F1E00B7D478 /* EMActivityWeibo.h */,
-				949288301ABC1F1E00B7D478 /* EMActivityWeibo.m */,
-				949288311ABC1F1E00B7D478 /* EMBridgeActivity.h */,
-				949288321ABC1F1E00B7D478 /* EMBridgeActivity.m */,
-				949288331ABC1F1E00B7D478 /* EMSocialDefines.h */,
-				949288341ABC1F1E00B7D478 /* EMSocialKey.h */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		9492883B1ABC1F1E00B7D478 /* EMTransition */ = {
-			isa = PBXGroup;
-			children = (
-				9492883C1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.h */,
-				9492883D1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.m */,
-				9492883E1ABC1F1E00B7D478 /* EMTransitionAnimator.h */,
-				9492883F1ABC1F1E00B7D478 /* EMTransitionAnimator.m */,
-			);
-			path = EMTransition;
-			sourceTree = "<group>";
-		};
-		949288401ABC1F1E00B7D478 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				949288411ABC1F1E00B7D478 /* _EMActivityViewCell.h */,
-				949288421ABC1F1E00B7D478 /* _EMActivityViewCell.m */,
-				949288431ABC1F1E00B7D478 /* EMSocialWebViewController.h */,
-				949288441ABC1F1E00B7D478 /* EMSocialWebViewController.m */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
 		};
 		949288451ABC1F1E00B7D478 /* Vendors */ = {
 			isa = PBXGroup;
@@ -463,6 +438,42 @@
 				949C63111ABBBCDA006B4E0A /* SBJsonWriter.m */,
 			);
 			path = SBJSON;
+			sourceTree = "<group>";
+		};
+		94B1FB4E1ABDC242001CCD3F /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				94B1FB6B1ABDC289001CCD3F /* _EMActivityViewController.h */,
+				94B1FB4F1ABDC242001CCD3F /* _EMActivityViewCell.h */,
+				94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */,
+				947D569A1ABDD93C00F510D3 /* _EMSocialOpenURLHandler.h */,
+				947D569B1ABDD9EB00F510D3 /* _EMActivity.h */,
+				94B1FB511ABDC242001CCD3F /* EMSocialSDK+Private.h */,
+				94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */,
+				94B1FB531ABDC242001CCD3F /* EMSocialWebViewController.h */,
+				94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */,
+				94B1FB551ABDC242001CCD3F /* EMTransition */,
+			);
+			path = Private;
+			sourceTree = "<group>";
+		};
+		94B1FB551ABDC242001CCD3F /* EMTransition */ = {
+			isa = PBXGroup;
+			children = (
+				94B1FB561ABDC242001CCD3F /* EMSlideUpTransitionAnimator.h */,
+				94B1FB571ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m */,
+				94B1FB581ABDC242001CCD3F /* EMTransitionAnimator.h */,
+				94B1FB591ABDC242001CCD3F /* EMTransitionAnimator.m */,
+			);
+			path = EMTransition;
+			sourceTree = "<group>";
+		};
+		94B1FB5A1ABDC242001CCD3F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				94B1FB5B1ABDC242001CCD3F /* EMSocial.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		94E5F21A1ABA8F7F00348FC3 /* Core */ = {
@@ -709,7 +720,7 @@
 			files = (
 				949288851ABC208400B7D478 /* LICENSE in Resources */,
 				94FA51241AB8282700A81E96 /* Main.storyboard in Resources */,
-				949288881ABC20D000B7D478 /* EMSocial.bundle in Resources */,
+				94B1FB6A1ABDC242001CCD3F /* EMSocial.bundle in Resources */,
 				9492886F1ABC1F1E00B7D478 /* WeiboSDK.bundle in Resources */,
 				94FA51291AB8282700A81E96 /* LaunchScreen.xib in Resources */,
 				94FA51261AB8282700A81E96 /* Images.xcassets in Resources */,
@@ -761,26 +772,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B1FB651ABDC242001CCD3F /* _EMActivityViewCell.m in Sources */,
+				94B1FB671ABDC242001CCD3F /* EMSocialWebViewController.m in Sources */,
 				94FA51211AB8282700A81E96 /* ViewController.m in Sources */,
-				949288641ABC1F1E00B7D478 /* EMActivityWeChatTimeline.m in Sources */,
-				949288621ABC1F1E00B7D478 /* EMActivityWeChatBase.m in Sources */,
-				949288651ABC1F1E00B7D478 /* EMActivityWeibo.m in Sources */,
+				94B1FB5E1ABDC242001CCD3F /* EMActivityWeChatBase.m in Sources */,
+				94B1FB661ABDC242001CCD3F /* EMSocialSDK+Private.m in Sources */,
 				94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */,
-				949288631ABC1F1E00B7D478 /* EMActivityWeChatSession.m in Sources */,
+				94B1FB691ABDC242001CCD3F /* EMTransitionAnimator.m in Sources */,
 				9492887E1ABC206900B7D478 /* README.md in Sources */,
-				9492886A1ABC1F1E00B7D478 /* EMSlideUpTransitionAnimator.m in Sources */,
 				949C625B1ABAC0FF006B4E0A /* EMStockActivityWeibo.m in Sources */,
-				949288661ABC1F1E00B7D478 /* EMBridgeActivity.m in Sources */,
-				9492886C1ABC1F1E00B7D478 /* _EMActivityViewCell.m in Sources */,
 				949288871ABC208400B7D478 /* UIImage+ResizeMagick.m in Sources */,
-				9492886B1ABC1F1E00B7D478 /* EMTransitionAnimator.m in Sources */,
 				94FA511B1AB8282700A81E96 /* main.m in Sources */,
+				94B1FB641ABDC242001CCD3F /* EMSocialSDK.m in Sources */,
+				94B1FB631ABDC242001CCD3F /* EMSocialOpenURLHandler.m in Sources */,
+				94B1FB621ABDC242001CCD3F /* EMBridgeActivity.m in Sources */,
+				94B1FB601ABDC242001CCD3F /* EMActivityWeChatTimeline.m in Sources */,
+				94B1FB681ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m in Sources */,
+				94B1FB5F1ABDC242001CCD3F /* EMActivityWeChatSession.m in Sources */,
+				94B1FB5C1ABDC242001CCD3F /* EMActivity.m in Sources */,
+				94B1FB611ABDC242001CCD3F /* EMActivityWeibo.m in Sources */,
 				949288861ABC208400B7D478 /* README.md in Sources */,
-				949288681ABC1F1E00B7D478 /* EMSocialSDK+Private.m in Sources */,
-				949288601ABC1F1E00B7D478 /* EMActivity.m in Sources */,
-				949288611ABC1F1E00B7D478 /* EMActivityViewController.m in Sources */,
-				9492886D1ABC1F1E00B7D478 /* EMSocialWebViewController.m in Sources */,
-				949288691ABC1F1E00B7D478 /* EMSocialSDK.m in Sources */,
+				94B1FB5D1ABDC242001CCD3F /* EMActivityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,14 +11,12 @@
 #import "EMActivityWeibo.h"
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
+#import "EMSocialOpenURLHandler.h"
 
 @interface EMSocialSDK : NSObject
 
-+ (void)registerWeiboWithAppKey:(NSString *)appKey appSecret:(NSString *)secret redirectURI:(NSString *)redirectURI;
++ (void)registerWeiboWithAppKey:(NSString *)appKey;
 + (void)registerWeChatWithAppId:(NSString *)appKey;
 + (void)registerQQWithAppKey:(NSString *)appKey;
-
-+ (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application delegate:(id)delegate;
-
 
 @end

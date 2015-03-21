@@ -29,10 +29,11 @@
     NSLog(@"%@",weibo.activityImage);
     
     NSArray *activies = @[weibo,[[EMActivityWeChatTimeline alloc]init],[[EMActivityWeChatSession alloc]init]];
-    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test",  [NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
+    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test",[NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
 
-    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-        
+    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hello" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
     };
     
     [self presentViewController:activityViewController animated:YES completion:^{

@@ -60,7 +60,8 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    return [EMSocialSDK handleOpenURL:url sourceApplication:sourceApplication delegate:[EMSocialSDK class]];
+//    return [EMSocialSDK handleOpenURL:url sourceApplication:sourceApplication delegate:[EMSocialSDK class]];
+    return [[EMSocialOpenURLHandler sharedHandler] handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 @end
