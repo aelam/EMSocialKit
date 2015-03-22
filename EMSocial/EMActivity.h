@@ -32,6 +32,6 @@
 - (BOOL)canHandleActivityURL:(NSURL *)url;
 - (void)handleActivityURL:(NSURL *)url;
 
-- (void)handledActivityResponse:(id)response activityError:(NSError *)error;
+- (void)handledActivityResponse:(id)response activityError:(NSError *)error; //breaks the retain cycle in it
 
 @end

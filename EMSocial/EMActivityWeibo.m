@@ -20,6 +20,14 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 @interface EMActivityWeibo () <WeiboSDKDelegate>
 
+//@property (nonatomic, strong) WBMessageObject *message;
+
+@property (nonatomic, strong) UIImage *shareImage; // only support one image
+@property (nonatomic, strong) NSString *shareString;
+@property (nonatomic, strong) NSURL *shareURL; // will be converted to String
+
+
+
 @end
 
 @implementation EMActivityWeibo
@@ -60,22 +68,21 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
-  for (id item in activityItems) {
-    if ([item isKindOfClass:[UIImage class]] && !self.shareImage) {
-      self.shareImage = [self optimizedImageFromOriginalImage:item];
-    } else if ([item isKindOfClass:[NSData class]] && !self.shareImage) {
-      self.shareImage = [self optimizedImageFromOriginalImage:[UIImage imageWithData:item]];
-    } else if ([item isKindOfClass:[NSString class]]) {
-      self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
-    } else if ([item isKindOfClass:[NSURL class]]) {
-        self.shareURL = item;
-    } else
-      NSLog(@"EMActivityWeibo: Unknown item type: %@", item);
-  }
+    for (id item in activityItems) {
+        if ([item isKindOfClass:[UIImage class]] && !self.shareImage) {
+            self.shareImage = [self optimizedImageFromOriginalImage:item];
+        } else if ([item isKindOfClass:[NSData class]] && !self.shareImage) {
+            self.shareImage = [self optimizedImageFromOriginalImage:[UIImage imageWithData:item]];
+        } else if ([item isKindOfClass:[NSString class]]) {
+            self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
+        } else if ([item isKindOfClass:[NSURL class]]) {
+            self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" ": @""), [item absoluteString]];
+        } else
+            NSLog(@"NCActivityWeibo: Unknown item type: %@", item);
+    }
 }
 
 - (void)performActivity {
-    
     WBMessageObject *message = [WBMessageObject message];
     if (self.shareString)
         message.text = self.shareString;
@@ -87,6 +94,9 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     }
     if (self.shareURL) {
         WBWebpageObject *webObject = [WBWebpageObject object];
+        webObject.objectID = [NSString stringWithFormat:@"%ld", time(NULL)];
+        webObject.title = self.shareString;
+        webObject.thumbnailData = UIImageJPEGRepresentation(self.shareImage, 1);
         webObject.webpageUrl = [self.shareURL absoluteString];
         message.mediaObject = webObject;
     }
@@ -97,6 +107,12 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
     
     [WeiboSDK sendRequest:request];
+    
+    if ([WeiboSDK isWeiboAppInstalled]) {
+        // Let openURLHandler handle it
+    } else {
+        
+    }
     
     [self activityDidFinish:YES];
 }
@@ -111,7 +127,10 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (BOOL)canHandleActivityURL:(NSURL *)url {
-    BOOL can = [WeiboSDK handleOpenURL:url delegate:nil];
+    // If we use `+handleOpenURL:delegate:` to check URL
+    // It will casue problem when we use URL in `-handleActivityURL:` again.
+    //
+    BOOL can = [[url scheme] hasPrefix:@"wb"]; //[WeiboSDK handleOpenURL:url delegate:nil];
     if (can && ![[url absoluteString] containsString:@"pay"]) {
         return YES;
     }
@@ -133,8 +152,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
-//        NSString *title = NSLocalizedString(@"发送结果", nil);
-//        NSString *message = [NSString stringWithFormat:@"%@: %d\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode, NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil),response.requestUserInfo];
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
         NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
         NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
@@ -144,18 +161,11 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class])
     {
-//        NSString *title = NSLocalizedString(@"认证结果", nil);
-//        NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.userId: %@\nresponse.accessToken: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBAuthorizeResponse *)response userID], [(WBAuthorizeResponse *)response accessToken],  NSLocalizedString(@"响应UserInfo数据", nil), response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
         NSString* accessToken = [(WBAuthorizeResponse *)response accessToken];
         NSString* userID = [(WBAuthorizeResponse *)response userID];
         [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
     }
-//    else if ([response isKindOfClass:WBPaymentResponse.class])
-//    {
-//        NSString *title = NSLocalizedString(@"支付结果", nil);
-//        NSString *message = [NSString stringWithFormat:@"%@: %d\nresponse.payStatusCode: %@\nresponse.payStatusMessage: %@\n%@: %@\n%@: %@", NSLocalizedString(@"响应状态", nil), (int)response.statusCode,[(WBPaymentResponse *)response payStatusCode], [(WBPaymentResponse *)response payStatusMessage], NSLocalizedString(@"响应UserInfo数据", nil),response.userInfo, NSLocalizedString(@"原请求UserInfo数据", nil), response.requestUserInfo];
-//    }
 
     [self handledActivityResponse:userInfo activityError:nil];
 }

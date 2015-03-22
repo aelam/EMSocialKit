@@ -48,10 +48,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {}
 
-//- (UIViewController *)activityViewController {
-//    return nil;
-//}
-
 - (void)performActivity {
     
 }
@@ -69,6 +65,10 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
     [(EMActivityViewController *)self.activityViewController _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
+    
+    // break retain cycle
+    self.activityViewController = nil;
+
 }
 
 

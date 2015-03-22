@@ -28,15 +28,12 @@ UIKIT_EXTERN NSString *const UIActivityTypePostToSinaWeibo;
 UIKIT_EXTERN NSString *const EMActivityWeiboAccessTokenKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboUserIdKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboStatusCodeKey;
+// Needn't handle PayMessages
 //UIKIT_EXTERN NSString *const EMActivityWeiboStatusMessageKey;
 //UIKIT_EXTERN NSString *const EMActivityWeiboPayStatusCodeKey;
 
 
 @interface EMActivityWeibo : EMBridgeActivity
-
-@property (nonatomic, strong) UIImage *shareImage;
-@property (nonatomic, strong) NSString *shareString;
-@property (nonatomic, strong) NSURL *shareURL;
 
 
 @end
