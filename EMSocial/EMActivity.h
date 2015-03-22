@@ -29,9 +29,8 @@
 
 // default return YES, if activity needn't handle some url return NO
 // implement in subclass
-- (BOOL)canHandleActivityURL:(NSURL *)url;
-- (void)handleActivityURL:(NSURL *)url;
-
+- (BOOL)canHandleOpenURL:(NSURL *)url;
+- (void)handleOpenURL:(NSURL *)url;
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error; //breaks the retain cycle in it
 
 @end

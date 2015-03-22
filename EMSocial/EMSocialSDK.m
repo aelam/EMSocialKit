@@ -12,7 +12,7 @@
 //#import <TencentOpenAPI/QQApi.h>
 #import "EMActivityViewController.h"
 
-@interface EMSocialSDK () <WXApiDelegate,WeiboSDKDelegate>
+@interface EMSocialSDK ()
 
 @property (nonatomic, strong) NSString *weiboAppKey;
 @property (nonatomic, strong) NSString *weiboAppSecret;
@@ -52,12 +52,5 @@
 + (void)registerQQWithAppKey:(NSString *)appKey {
 //    [QQApi ]
 }
-
-+ (void)registerActivityViewController:(EMActivityViewController *)controller applicationActivities:(NSArray *)applicationActivities {
-    [EMSocialSDK sharedSDK].activityViewController = controller;
-    [EMSocialSDK sharedSDK].applicationActivities = applicationActivities;
-}
-
-
 
 @end

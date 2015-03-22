@@ -98,7 +98,7 @@ NSString *const EMActivityWeChatSummaryKey    = @"EMActivityWeChatSummaryKey";
   return scaledImage;
 }
 
-- (BOOL)canHandleActivityURL:(NSURL *)url {
+- (BOOL)canHandleOpenURL:(NSURL *)url {
     NSString *urlString = [url absoluteString];
                            
     BOOL can = [urlString containsString:@"wx"];
@@ -108,7 +108,7 @@ NSString *const EMActivityWeChatSummaryKey    = @"EMActivityWeChatSummaryKey";
     return NO;
 }
 
-- (void)handleActivityURL:(NSURL *)url {
+- (void)handleOpenURL:(NSURL *)url {
     [WXApi handleOpenURL:url delegate:self];
 }
 

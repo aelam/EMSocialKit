@@ -8,10 +8,12 @@
 
 #import "EMSocialOpenURLHandler.h"
 #import "EMActivity.h"
+#import "EMLogin.h"
 
 @interface EMSocialOpenURLHandler ()
 
 @property (nonatomic, strong) EMActivity *watchingActivity;
+@property (nonatomic, strong) EMLogin *watchingLogin;
 
 @end
 
@@ -27,13 +29,33 @@
     return handler;
 }
 
+- (void)setWatchingLogin:(EMLogin *)aLogin {
+    _watchingLogin = aLogin;
+    if (_watchingLogin != nil) {
+        _watchingActivity = nil;
+    }
+}
+
+- (void)setWatchingActivity:(EMActivity *)watchingActivity {
+    _watchingActivity = watchingActivity;
+    if (_watchingActivity != nil) {
+        _watchingLogin = nil;
+    }
+}
+
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application {
-    if (self.watchingActivity && [self.watchingActivity respondsToSelector:@selector(canHandleActivityURL:)]) {
-        BOOL canHandle = [self.watchingActivity canHandleActivityURL:URL];
+    if (self.watchingActivity && [self.watchingActivity respondsToSelector:@selector(canHandleOpenURL:)]) {
+        BOOL canHandle = [self.watchingActivity canHandleOpenURL:URL];
         if (canHandle) {
-            [self.watchingActivity handleActivityURL:URL];
+            [self.watchingActivity handleOpenURL:URL];
             return YES;
         }
+    } else if (self.watchingLogin && [self.watchingLogin respondsToSelector:@selector(canHandleOpenURL:)]) {
+            BOOL canHandle = [self.watchingLogin canHandleOpenURL:URL];
+            if (canHandle) {
+                [self.watchingLogin handleOpenURL:URL];
+                return YES;
+            }
     }
     
     return NO;

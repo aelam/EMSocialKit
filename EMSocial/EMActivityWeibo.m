@@ -26,6 +26,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 @property (nonatomic, strong) NSString *shareString;
 @property (nonatomic, strong) NSURL *shareURL; // will be converted to String
 
+@property (nonatomic, strong) WBBaseResponse *response;
 
 
 @end
@@ -126,19 +127,29 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
   return result;
 }
 
-- (BOOL)canHandleActivityURL:(NSURL *)url {
+- (BOOL)canHandleOpenURL:(NSURL *)url {
     // If we use `+handleOpenURL:delegate:` to check URL
-    // It will casue problem when we use URL in `-handleActivityURL:` again.
+    // It will casue problem when we use URL in `-handleOpenURL:` again.
     //
     BOOL can = [[url scheme] hasPrefix:@"wb"]; //[WeiboSDK handleOpenURL:url delegate:nil];
     if (can && ![[url absoluteString] containsString:@"pay"]) {
         return YES;
     }
     return NO;
+    
+//    return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-- (void)handleActivityURL:(NSURL *)url {
+- (void)handleOpenURL:(NSURL *)url {
     [WeiboSDK handleOpenURL:url delegate:self];
+}
+
+
+- (void)performActivityLogin {
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = @"http://weibo.com";
+    request.scope = @"all";
+    [WeiboSDK sendRequest:request];
 }
 
 #pragma mark - WBSDKDelegate
@@ -149,6 +160,8 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
+//    self.response = response; //##TODO
+    
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {

@@ -25,6 +25,24 @@
                                     <action selector="share" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yqk-RV-iSU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtN-4M-0NA">
+                                <rect key="frame" x="117" y="94" width="85" height="30"/>
+                                <state key="normal" title="Weibo Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="weiboLogin" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mQs-dv-8qv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEj-z3-ZAu">
+                                <rect key="frame" x="109" y="149" width="97" height="30"/>
+                                <state key="normal" title="WeChat Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="wechatLogin" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ft1-Lw-3R5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

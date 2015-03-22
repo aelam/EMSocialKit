@@ -56,11 +56,11 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     
 }
 
-- (BOOL)canHandleActivityURL:(NSURL *)url {
+- (BOOL)canHandleOpenURL:(NSURL *)url {
     return YES;
 }
 
-- (void)handleActivityURL:(NSURL *)url {
+- (void)handleOpenURL:(NSURL *)url {
 }
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
