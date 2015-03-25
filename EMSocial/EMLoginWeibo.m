@@ -28,7 +28,6 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
     return EMLoginTypeWeibo;
 }
 
-
 - (void)handleOpenURLNotification:(NSNotification *)notification {
     NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
     [WeiboSDK handleOpenURL:url delegate:self];
@@ -66,11 +65,13 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
     
 }
 
-- (void)handledActivityResponse:(id)response activityError:(NSError *)error {
-    if (self.completionWithItemsHandler) {
-        self.completionWithItemsHandler(YES, response, error);
-    }
-}
+//- (void)handledActivityResponse:(id)response activityError:(NSError *)error {
+//    [super handle]
+//    if (self.completionWithItemsHandler) {
+//        self.completionWithItemsHandler(YES, response, error);
+//    }
+    
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -7,14 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "EMActivityViewController.h"
-#import "EMActivityWeibo.h"
-#import "EMActivityWeChatTimeline.h"
-#import "EMActivityWeChatSession.h"
 #import "EMStockActivityWeibo.h"
-#import "WeiboSDK.h"
-#import "EMSocialLoginController.h"
-#import "EMLoginWeibo.h"
+
+#import "EMSocialSDK.h"
 
 @interface ViewController ()
 
@@ -63,19 +58,12 @@
 //    [WeiboSDK sendRequest:request];
     
     EMLoginWeibo *weibo = [[EMLoginWeibo alloc] init];
-//    EMSocialLoginController *controller = [[EMSocialLoginController alloc] initWithLogin:weibo];
-    [weibo performLogin];
-    weibo.completionWithItemsHandler = ^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-        
-    };
+    [[EMSocialSDK sharedSDK] loginWithSession:weibo completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"login result %@", returnedInfo);
+    }];
 }
-    
-//    controller.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError){
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"登录" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
-//
-//    };
-//    [controller performLogin];
     
 
 

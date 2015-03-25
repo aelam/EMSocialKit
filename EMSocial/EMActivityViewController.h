@@ -8,13 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-//
-// Notice the differenc
-//
-//typedef void (^UIActivityViewControllerCompletionWithItemsHandler)(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError);
-
 typedef void (^EMActivityViewControllerCompletionWithItemsHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
-
 
 @interface EMActivityViewController : UIViewController
 
@@ -22,7 +16,7 @@ typedef void (^EMActivityViewControllerCompletionWithItemsHandler)(NSString *act
 
 @property(nonatomic,copy) EMActivityViewControllerCompletionWithItemsHandler completionWithItemsHandler;
 
-@property(nonatomic,copy) NSArray *excludedActivityTypes; // default is nil. activity types listed will not be displayed
+//@property(nonatomic,copy) NSArray *excludedActivityTypes; // default is nil. activity types listed will not be displayed
 
 
 @end

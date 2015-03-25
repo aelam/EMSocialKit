@@ -9,21 +9,27 @@
 #import "EMSocialSDK.h"
 #import "WeiboSDK.h"
 #import "WXApi.h"
-//#import <TencentOpenAPI/QQApi.h>
 #import "EMActivityViewController.h"
 #import "EMActivity.h"
+#import "EMLoginSession.h"
 
 @interface EMSocialSDK ()
 
+// Weibo
 @property (nonatomic, strong) NSString *weiboAppKey;
 @property (nonatomic, strong) NSString *weiboAppSecret;
 @property (nonatomic, strong) NSString *weiboRedirectURI;
 
+// weixin
 @property (nonatomic, strong) NSString *wechatAppId;
 @property (nonatomic, strong) NSString *qqAppKey;
 
-@property (nonatomic, strong) NSArray *applicationActivities;
-@property (nonatomic, strong) EMActivityViewController *activityViewController;
+//
+//@property (nonatomic, strong, readwrite) EMActivityViewController *activityViewController;
+
+// Login
+@property (nonatomic, strong, readwrite) EMLoginSession *loginSession;
+@property (nonatomic, copy) EMSocialLoginCompletionHandler loginCompletionHandler;
 
 @end
 
@@ -58,6 +64,18 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:URL}];
     return YES;
 }
+
+// Login
+- (void)loginWithSession:(EMLoginSession *)session completionHandler:(EMSocialLoginCompletionHandler) completion{
+    self.loginSession = session;
+    self.loginCompletionHandler = completion;
+//    if (completion) {
+//        session.completionWithItemsHandler = completion;
+//    }
+    [self.loginSession performLogin];
+}
+
+
 
 
 @end

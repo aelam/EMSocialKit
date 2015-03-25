@@ -11,15 +11,7 @@
 #import "_EMActivityViewCell.h"
 #import "EMActivity.h"
 #import "EMSocialSDK.h"
-#import "_EMSocialOpenURLHandler.h"
-#import "_EMActivity.h"
 #import "EMSocialOpenURLHandler.h"
-
-@interface EMSocialOpenURLHandler (Private1)
-
-@property (nonatomic, strong, readwrite) EMActivityViewController *activityViewController;
-
-@end
 
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
@@ -190,12 +182,8 @@ static CGFloat kDefaultHeight = 160.f;
         NSLog(@"Selected activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
         self.selectedActivityType = activity.activityType;
         
-//        [EMSocialOpenURLHandler sharedHandler].watchingActivity = activity;
-//        activity.activityViewController = self;
-//        [[NSNotificationCenter defaultCenter] addObserver:activity selector:@selector(handleOpenURL:) name:EMActivityOpenURLNotification object:self];
         
-        [EMSocialOpenURLHandler sharedHandler].activityViewController = self;;
-//        activity.activityViewController = self;
+        [EMSocialSDK sharedSDK].activityViewController = self;;
         [activity prepareWithActivityItems:self.activityItems];
         [activity performActivity];
     }
@@ -203,7 +191,7 @@ static CGFloat kDefaultHeight = 160.f;
 
 
 - (void)_handleAcitivityType:(NSString *)activityType completed:(BOOL)completed returnInfo:(NSDictionary *)returnedInfo activityError:(NSError *) activityError {
-    [EMSocialOpenURLHandler sharedHandler].activityViewController = nil;
+        [EMSocialSDK sharedSDK].activityViewController = nil;
     if (self.completionWithItemsHandler) {
         self.completionWithItemsHandler(activityType,completed, returnedInfo, activityError);
     }

@@ -1,5 +1,5 @@
 //
-//  EMLogin.h
+//  EMLoginSession.h
 //  EMSocialApp
 //
 //  Created by Ryan Wang on 15/3/22.
@@ -11,15 +11,15 @@
 typedef void (^EMSocialLoginCompletionWithItemsHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 
-@interface EMLogin : NSObject
+@interface EMLoginSession : NSObject
 
+@property (nonatomic, copy) NSString *scope;
+@property (nonatomic, copy) NSString *redirectURL;
 @property (nonatomic, copy) EMSocialLoginCompletionWithItemsHandler completionWithItemsHandler;
 
 - (NSString *)loginType;
-//- (BOOL)canHandleOpenURL:(NSURL *)url;
-//- (void)handleOpenURL:(NSURL *)url;
 - (void)performLogin;
 
-//- (void)handledActivityResponse:(id)response activityError:(NSError *)error;
+- (void)handledActivityResponse:(id)response activityError:(NSError *)error;
 
 @end

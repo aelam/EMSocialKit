@@ -6,30 +6,29 @@
 //  Copyright (c) 2015年 Ryan Wang. All rights reserved.
 //
 
-#import "EMSocialOpenURLHandler.h"
-#import "EMActivity.h"
-#import "EMLogin.h"
-#import "EMActivityViewController.h"
+//#import "EMSocialOpenURLHandler.h"
+//#import "EMActivity.h"
+//#import "EMLoginSession.h"
+//#import "EMActivityViewController.h"
+//
+//@interface EMSocialOpenURLHandler ()
+//
+//@property (nonatomic, strong) EMActivity *watchingActivity;
+//@property (nonatomic, strong) EMActivityViewController *activityViewController;
+//
+//@end
+//
+//
+//@implementation EMSocialOpenURLHandler
 
-@interface EMSocialOpenURLHandler ()
-
-@property (nonatomic, strong) EMActivity *watchingActivity;
-@property (nonatomic, strong) EMLogin *watchingLogin;
-@property (nonatomic, strong) EMActivityViewController *activityViewController;
-
-@end
-
-
-@implementation EMSocialOpenURLHandler
-
-+ (instancetype)sharedHandler {
-    static EMSocialOpenURLHandler *handler = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        handler = [[EMSocialOpenURLHandler alloc] init];
-    });
-    return handler;
-}
+//+ (instancetype)sharedHandler {
+//    static EMSocialOpenURLHandler *handler = nil;
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        handler = [[EMSocialOpenURLHandler alloc] init];
+//    });
+//    return handler;
+//}
 
 //- (void)setWatchingLogin:(EMLogin *)aLogin {
 //    _watchingLogin = aLogin;
@@ -64,4 +63,4 @@
 //}
 
 
-@end
+//@end

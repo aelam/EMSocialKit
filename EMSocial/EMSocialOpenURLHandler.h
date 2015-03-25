@@ -6,11 +6,11 @@
 //  Copyright (c) 2015年 Ryan Wang. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface EMSocialOpenURLHandler : NSObject
-
-+ (instancetype)sharedHandler;
-- (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
-
-@end
+//#import <Foundation/Foundation.h>
+//
+//@interface EMSocialOpenURLHandler : NSObject
+//
+//+ (instancetype)sharedHandler;
+//- (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
+//
+//@end

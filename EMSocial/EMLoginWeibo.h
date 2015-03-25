@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "EMLogin.h"
+#import "EMLoginSession.h"
 
 FOUNDATION_EXPORT NSString *const EMLoginWeiboAccessTokenKey;
 FOUNDATION_EXPORT NSString *const EMLoginWeiboUserIdKey;
@@ -16,6 +16,6 @@ FOUNDATION_EXPORT NSString *const EMLoginWeiboStatusMessageKey;
 
 FOUNDATION_EXPORT NSString *const EMLoginTypeWeibo;
 
-@interface EMLoginWeibo : EMLogin
+@interface EMLoginWeibo : EMLoginSession
 
 @end

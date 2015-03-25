@@ -8,7 +8,7 @@
 
 #import "EMActivity.h"
 #import "_EMActivityViewController.h"
-#import "_EMSocialOpenURLHandler.h"
+#import "EMSocialSDK.h"
 
 @class EMActivityViewController;
 
@@ -69,7 +69,7 @@ NSString *const EMActivityOpenURLKey = @"EMActivityOpenURLKey";
 }
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
-    EMActivityViewController *activityViewController_ = [EMSocialOpenURLHandler sharedHandler].activityViewController;
+    EMActivityViewController *activityViewController_ = [EMSocialSDK sharedSDK].activityViewController;
     [activityViewController_ _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
 }
 

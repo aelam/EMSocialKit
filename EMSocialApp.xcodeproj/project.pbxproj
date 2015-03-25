@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		550A6575ADD5D4B82E430524 /* libPods-EMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */; };
 		9419BF221AB9454200DF81A4 /* libEMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419BF171AB9454100DF81A4 /* libEMSocial.a */; };
-		946FB6DE1ABF18C000DE5F0E /* EMSocialLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946FB6DD1ABF18C000DE5F0E /* EMSocialLoginController.m */; };
 		949287C91ABBE4EC00B7D478 /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */; };
 		9492886E1ABC1F1E00B7D478 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949288471ABC1F1E00B7D478 /* libWeiboSDK.a */; };
 		9492886F1ABC1F1E00B7D478 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9492884F1ABC1F1E00B7D478 /* WeiboSDK.bundle */; };
@@ -37,7 +36,6 @@
 		94B1FB631ABDC242001CCD3F /* EMSocialOpenURLHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB4B1ABDC242001CCD3F /* EMSocialOpenURLHandler.m */; };
 		94B1FB641ABDC242001CCD3F /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */; };
 		94B1FB651ABDC242001CCD3F /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */; };
-		94B1FB661ABDC242001CCD3F /* EMSocialSDK+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */; };
 		94B1FB671ABDC242001CCD3F /* EMSocialWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */; };
 		94B1FB681ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB571ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m */; };
 		94B1FB691ABDC242001CCD3F /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B1FB591ABDC242001CCD3F /* EMTransitionAnimator.m */; };
@@ -53,7 +51,7 @@
 		94E5F2711ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2361ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m */; };
 		94E5F2721ABA8F7F00348FC3 /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2381ABA8F7F00348FC3 /* EMTransitionAnimator.m */; };
 		94E5F2821ABA8F7F00348FC3 /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2621ABA8F7F00348FC3 /* _EMActivityViewCell.m */; };
-		94ED393C1ABF1B6000742A04 /* EMLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED393B1ABF1B6000742A04 /* EMLogin.m */; };
+		94ED393C1ABF1B6000742A04 /* EMLoginSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED393B1ABF1B6000742A04 /* EMLoginSession.m */; };
 		94ED393F1ABF1B6E00742A04 /* EMLoginWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94ED393E1ABF1B6E00742A04 /* EMLoginWeibo.m */; };
 		94FA511B1AB8282700A81E96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511A1AB8282700A81E96 /* main.m */; };
 		94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511D1AB8282700A81E96 /* AppDelegate.m */; };
@@ -101,10 +99,6 @@
 		9419BF171AB9454100DF81A4 /* libEMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEMSocial.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9419BF271AB9454200DF81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		946FB6DC1ABF18C000DE5F0E /* EMSocialLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialLoginController.h; sourceTree = "<group>"; };
-		946FB6DD1ABF18C000DE5F0E /* EMSocialLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialLoginController.m; sourceTree = "<group>"; };
-		947D569A1ABDD93C00F510D3 /* _EMSocialOpenURLHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _EMSocialOpenURLHandler.h; sourceTree = "<group>"; };
-		947D569B1ABDD9EB00F510D3 /* _EMActivity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _EMActivity.h; sourceTree = "<group>"; };
 		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		949287C61ABBE30F00B7D478 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
 		949287C71ABBE4EC00B7D478 /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
@@ -171,8 +165,6 @@
 		94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
 		94B1FB4F1ABDC242001CCD3F /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
 		94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
-		94B1FB511ABDC242001CCD3F /* EMSocialSDK+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMSocialSDK+Private.h"; sourceTree = "<group>"; };
-		94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMSocialSDK+Private.m"; sourceTree = "<group>"; };
 		94B1FB531ABDC242001CCD3F /* EMSocialWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialWebViewController.h; sourceTree = "<group>"; };
 		94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialWebViewController.m; sourceTree = "<group>"; };
 		94B1FB561ABDC242001CCD3F /* EMSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
@@ -205,8 +197,8 @@
 		94E5F2381ABA8F7F00348FC3 /* EMTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTransitionAnimator.m; sourceTree = "<group>"; };
 		94E5F2611ABA8F7F00348FC3 /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
 		94E5F2621ABA8F7F00348FC3 /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
-		94ED393A1ABF1B6000742A04 /* EMLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMLogin.h; sourceTree = "<group>"; };
-		94ED393B1ABF1B6000742A04 /* EMLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMLogin.m; sourceTree = "<group>"; };
+		94ED393A1ABF1B6000742A04 /* EMLoginSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMLoginSession.h; sourceTree = "<group>"; };
+		94ED393B1ABF1B6000742A04 /* EMLoginSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMLoginSession.m; sourceTree = "<group>"; };
 		94ED393D1ABF1B6E00742A04 /* EMLoginWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMLoginWeibo.h; sourceTree = "<group>"; };
 		94ED393E1ABF1B6E00742A04 /* EMLoginWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMLoginWeibo.m; sourceTree = "<group>"; };
 		94FA51151AB8282700A81E96 /* EMSocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMSocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -354,12 +346,10 @@
 				94B1FB4B1ABDC242001CCD3F /* EMSocialOpenURLHandler.m */,
 				94B1FB4C1ABDC242001CCD3F /* EMSocialSDK.h */,
 				94B1FB4D1ABDC242001CCD3F /* EMSocialSDK.m */,
-				94ED393A1ABF1B6000742A04 /* EMLogin.h */,
-				94ED393B1ABF1B6000742A04 /* EMLogin.m */,
+				94ED393A1ABF1B6000742A04 /* EMLoginSession.h */,
+				94ED393B1ABF1B6000742A04 /* EMLoginSession.m */,
 				94ED393D1ABF1B6E00742A04 /* EMLoginWeibo.h */,
 				94ED393E1ABF1B6E00742A04 /* EMLoginWeibo.m */,
-				946FB6DC1ABF18C000DE5F0E /* EMSocialLoginController.h */,
-				946FB6DD1ABF18C000DE5F0E /* EMSocialLoginController.m */,
 				94B1FB4E1ABDC242001CCD3F /* Private */,
 				94B1FB5A1ABDC242001CCD3F /* Resources */,
 				949288451ABC1F1E00B7D478 /* Vendors */,
@@ -461,10 +451,6 @@
 				94B1FB6B1ABDC289001CCD3F /* _EMActivityViewController.h */,
 				94B1FB4F1ABDC242001CCD3F /* _EMActivityViewCell.h */,
 				94B1FB501ABDC242001CCD3F /* _EMActivityViewCell.m */,
-				947D569A1ABDD93C00F510D3 /* _EMSocialOpenURLHandler.h */,
-				947D569B1ABDD9EB00F510D3 /* _EMActivity.h */,
-				94B1FB511ABDC242001CCD3F /* EMSocialSDK+Private.h */,
-				94B1FB521ABDC242001CCD3F /* EMSocialSDK+Private.m */,
 				94B1FB531ABDC242001CCD3F /* EMSocialWebViewController.h */,
 				94B1FB541ABDC242001CCD3F /* EMSocialWebViewController.m */,
 				94B1FB551ABDC242001CCD3F /* EMTransition */,
@@ -791,7 +777,6 @@
 				94B1FB671ABDC242001CCD3F /* EMSocialWebViewController.m in Sources */,
 				94FA51211AB8282700A81E96 /* ViewController.m in Sources */,
 				94B1FB5E1ABDC242001CCD3F /* EMActivityWeChatBase.m in Sources */,
-				94B1FB661ABDC242001CCD3F /* EMSocialSDK+Private.m in Sources */,
 				94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */,
 				94B1FB691ABDC242001CCD3F /* EMTransitionAnimator.m in Sources */,
 				9492887E1ABC206900B7D478 /* README.md in Sources */,
@@ -803,11 +788,10 @@
 				94B1FB631ABDC242001CCD3F /* EMSocialOpenURLHandler.m in Sources */,
 				94B1FB621ABDC242001CCD3F /* EMBridgeActivity.m in Sources */,
 				94B1FB601ABDC242001CCD3F /* EMActivityWeChatTimeline.m in Sources */,
-				946FB6DE1ABF18C000DE5F0E /* EMSocialLoginController.m in Sources */,
 				94B1FB681ABDC242001CCD3F /* EMSlideUpTransitionAnimator.m in Sources */,
 				94B1FB5F1ABDC242001CCD3F /* EMActivityWeChatSession.m in Sources */,
 				94B1FB5C1ABDC242001CCD3F /* EMActivity.m in Sources */,
-				94ED393C1ABF1B6000742A04 /* EMLogin.m in Sources */,
+				94ED393C1ABF1B6000742A04 /* EMLoginSession.m in Sources */,
 				94B1FB611ABDC242001CCD3F /* EMActivityWeibo.m in Sources */,
 				949288861ABC208400B7D478 /* README.md in Sources */,
 				94B1FB5D1ABDC242001CCD3F /* EMActivityViewController.m in Sources */,

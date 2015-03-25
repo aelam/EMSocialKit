@@ -7,16 +7,38 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "EMActivityViewController.h"
 #import "EMActivityWeibo.h"
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
 #import "EMSocialOpenURLHandler.h"
 
+#import "EMLoginSession.h"
+#import "EMLoginWeibo.h"
+
+
+typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+
+@class EMLoginSession;
+@class EMActivity;
+@class EMActivityViewController;
+
 @interface EMSocialSDK : NSObject
 
-+ (void)registerWeiboWithAppKey:(NSString *)appKey;
++ (instancetype)sharedSDK;
+
++ (void)registerWeiboWithAppKey:(NSString *)appKey appSecret:(NSString *)secret redirectURI:(NSString *)redirectURI;
 + (void)registerWeChatWithAppId:(NSString *)appKey;
 + (void)registerQQWithAppKey:(NSString *)appKey;
+
+- (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
+
+// Share
+@property (nonatomic, strong) EMActivityViewController *activityViewController;
+
+
+- (void)loginWithSession:(EMLoginSession *)session completionHandler:(EMSocialLoginCompletionHandler) completion;
+
 
 @end

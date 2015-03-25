@@ -9,9 +9,6 @@
 #import "EMActivityWeibo.h"
 #import "WeiboSDK.h"
 #import "UIImage+ResizeMagick.h"
-#import "EMSocialSDK+Private.h"
-#import "EMSocialOpenURLHandler.h"
-#import "_EMSocialOpenURLHandler.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
@@ -20,15 +17,12 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 @interface EMActivityWeibo () <WeiboSDKDelegate>
 
-//@property (nonatomic, strong) WBMessageObject *message;
-
 @property (nonatomic, strong) UIImage *shareImage; // only support one image
 @property (nonatomic, strong) NSString *shareString;
 @property (nonatomic, strong) NSURL *shareURL; // will be converted to String
 
 @property (nonatomic, strong) WBBaseResponse *response;
 
-@property (nonatomic, weak) EMActivityViewController *activityViewController;
 
 @end
 
