@@ -34,6 +34,8 @@
     [WeiboSDK registerApp:@"2045436852"];
     [WeiboSDK enableDebugMode:YES];
     // Override point for customization after application launch.
+    
+    NSLog(@"%@", [NSURL URLWithString:@"social://com.terrence.ProductID?http://192.168.0.100:8080/gamedata"]);
     return YES;
 }
 
@@ -61,7 +63,14 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 //    return [EMSocialSDK handleOpenURL:url sourceApplication:sourceApplication delegate:[EMSocialSDK class]];
-    return [[EMSocialOpenURLHandler sharedHandler] handleOpenURL:url sourceApplication:sourceApplication];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:url}];
+    
+    NSLog(@"sourceApplication: %@", sourceApplication);
+    NSLog(@"annotation: %@", annotation);
+    NSLog(@"url: %@", url);
+
+    return YES;//[[EMSocialOpenURLHandler sharedHandler] handleOpenURL:url sourceApplication:sourceApplication];
 }
 
 @end

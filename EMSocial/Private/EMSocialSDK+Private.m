@@ -10,4 +10,7 @@
 
 @implementation EMSocialSDK (Private)
 
+- (instancetype)sharedSDK;
+- (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
+
 @end

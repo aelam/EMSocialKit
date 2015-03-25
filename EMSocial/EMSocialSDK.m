@@ -11,6 +11,7 @@
 #import "WXApi.h"
 //#import <TencentOpenAPI/QQApi.h>
 #import "EMActivityViewController.h"
+#import "EMActivity.h"
 
 @interface EMSocialSDK ()
 
@@ -52,5 +53,11 @@
 + (void)registerQQWithAppKey:(NSString *)appKey {
 //    [QQApi ]
 }
+
+- (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application {
+    [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:URL}];
+    return YES;
+}
+
 
 @end

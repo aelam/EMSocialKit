@@ -7,9 +7,11 @@
 //
 
 #import "EMSocialOpenURLHandler.h"
+#import "EMActivityViewController.h"
 
 @interface EMSocialOpenURLHandler ()
 
 @property (nonatomic, strong) EMActivity *watchingActivity;
+@property (nonatomic, strong) EMActivityViewController *activityViewController;
 
 @end

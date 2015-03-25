@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+UIKIT_EXTERN NSString *const EMActivityOpenURLNotification;
+UIKIT_EXTERN NSString *const EMActivityOpenURLKey;
+
 
 @interface EMActivity : NSObject
 
@@ -29,8 +32,9 @@
 
 // default return YES, if activity needn't handle some url return NO
 // implement in subclass
-- (BOOL)canHandleOpenURL:(NSURL *)url;
-- (void)handleOpenURL:(NSURL *)url;
+- (void)handleOpenURLNotification:(NSNotification *)notification;
+//- (BOOL)canHandleOpenURL:(NSURL *)url;
+//- (void)handleOpenURL:(NSURL *)url;
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error; //breaks the retain cycle in it
 
 @end

@@ -8,6 +8,7 @@
 
 #import "EMLoginWeibo.h"
 #import "WeiboSDK.h"
+#import "EMActivity.h"
 
 NSString *const EMLoginWeiboAccessTokenKey   = @"EMLoginWeiboAccessTokenKey";
 NSString *const EMLoginWeiboUserIdKey        = @"EMLoginWeiboUserIdKey";
@@ -24,23 +25,18 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
 @implementation EMLoginWeibo
 
 - (NSString *)loginType {
-    return @"EMLoginTypeWeibo";
+    return EMLoginTypeWeibo;
 }
 
 
-- (BOOL)canHandleOpenURL:(NSURL *)url {
-    BOOL can = [[url scheme] hasPrefix:@"wb"] || [[url scheme] containsString:@"sso"]; //[WeiboSDK handleOpenURL:url delegate:nil];
-    if (can && ![[url absoluteString] containsString:@"pay"]) {
-        return YES;
-    }
-    return NO;
-}
-
-- (void)handleOpenURL:(NSURL *)url {
+- (void)handleOpenURLNotification:(NSNotification *)notification {
+    NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 
 - (void)performLogin {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
+
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = @"http://weibo.com";
     request.scope = @"all";
@@ -56,17 +52,6 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-//    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
-//    {
-//        WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
-//        NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
-//        NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
-//        
-//        [userInfo setObject:accessToken forKey:EMLoginWeiboAccessTokenKey];
-//        [userInfo setObject:userID forKey:EMLoginWeiboUserIdKey];
-//    }
-//    else
-
     if ([response isKindOfClass:WBAuthorizeResponse.class])
     {
         NSString* accessToken = [(WBAuthorizeResponse *)response accessToken];
@@ -81,6 +66,14 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
     
 }
 
+- (void)handledActivityResponse:(id)response activityError:(NSError *)error {
+    if (self.completionWithItemsHandler) {
+        self.completionWithItemsHandler(YES, response, error);
+    }
+}
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

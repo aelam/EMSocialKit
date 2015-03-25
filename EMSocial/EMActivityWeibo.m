@@ -10,13 +10,13 @@
 #import "WeiboSDK.h"
 #import "UIImage+ResizeMagick.h"
 #import "EMSocialSDK+Private.h"
+#import "EMSocialOpenURLHandler.h"
+#import "_EMSocialOpenURLHandler.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
 NSString *const EMActivityWeiboStatusCodeKey    = @"EMActivityWeiboStatusCodeKey";
 NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessageKey";
-//NSString *const EMActivityWeiboPayStatusCodeKey = @"EMActivityWeiboPayStatusCodeKey";
-//NSString *const EMActivityWeiboPayStatusMessageKey = @"EMActivityWeiboPayMessageCodeKey";
 
 @interface EMActivityWeibo () <WeiboSDKDelegate>
 
@@ -28,6 +28,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 @property (nonatomic, strong) WBBaseResponse *response;
 
+@property (nonatomic, weak) EMActivityViewController *activityViewController;
 
 @end
 
@@ -84,6 +85,9 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (void)performActivity {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
+    
     WBMessageObject *message = [WBMessageObject message];
     if (self.shareString)
         message.text = self.shareString;
@@ -109,12 +113,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     
     [WeiboSDK sendRequest:request];
     
-    if ([WeiboSDK isWeiboAppInstalled]) {
-        // Let openURLHandler handle it
-    } else {
-        
-    }
-    
     [self activityDidFinish:YES];
 }
 
@@ -127,30 +125,29 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
   return result;
 }
 
-- (BOOL)canHandleOpenURL:(NSURL *)url {
-    // If we use `+handleOpenURL:delegate:` to check URL
-    // It will casue problem when we use URL in `-handleOpenURL:` again.
-    //
-    BOOL can = [[url scheme] hasPrefix:@"wb"]; //[WeiboSDK handleOpenURL:url delegate:nil];
-    if (can && ![[url absoluteString] containsString:@"pay"]) {
-        return YES;
-    }
-    return NO;
-    
-//    return [WeiboSDK handleOpenURL:url delegate:self];
-}
 
-- (void)handleOpenURL:(NSURL *)url {
+- (void)handleOpenURLNotification:(NSNotification *)notification {
+    NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-
-- (void)performActivityLogin {
-    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = @"http://weibo.com";
-    request.scope = @"all";
-    [WeiboSDK sendRequest:request];
-}
+//- (BOOL)canHandleOpenURL:(NSURL *)url {
+//    // If we use `+handleOpenURL:delegate:` to check URL
+//    // It will casue problem when we use URL in `-handleOpenURL:` again.
+//    //
+//    BOOL can = [[url scheme] hasPrefix:@"wb"]; //[WeiboSDK handleOpenURL:url delegate:nil];
+//    if (can && ![[url absoluteString] containsString:@"pay"]) {
+//        return YES;
+//    }
+//    return NO;
+//    
+////    return [WeiboSDK handleOpenURL:url delegate:self];
+//}
+//
+//- (void)handleOpenURL:(NSURL *)url {
+//    [WeiboSDK handleOpenURL:url delegate:self];
+//}
+//
 
 #pragma mark - WBSDKDelegate
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request
@@ -160,7 +157,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
-//    self.response = response; //##TODO
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
@@ -169,6 +165,14 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
         NSString* accessToken = [sendMessageToWeiboResponse.authResponse accessToken];
         NSString* userID = [sendMessageToWeiboResponse.authResponse userID];
         
+        if (accessToken.length == 0) {
+            accessToken = [sendMessageToWeiboResponse.requestUserInfo valueForKeyPath:@"access_token"];
+        }
+
+        if (userID.length == 0) {
+            userID = [sendMessageToWeiboResponse.requestUserInfo valueForKeyPath:@"uid"];
+        }
+        
         [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
     }
@@ -176,6 +180,15 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     {
         NSString* accessToken = [(WBAuthorizeResponse *)response accessToken];
         NSString* userID = [(WBAuthorizeResponse *)response userID];
+        
+        if (accessToken.length == 0) {
+            accessToken = [response.requestUserInfo valueForKeyPath:@"access_token"];
+        }
+        
+        if (userID.length == 0) {
+            userID = [response.requestUserInfo valueForKeyPath:@"uid"];
+        }
+
         [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
     }
@@ -184,6 +197,8 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

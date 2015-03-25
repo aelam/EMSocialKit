@@ -8,13 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^EMSocialLoginCompletionWithItemsHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+
+
 @interface EMLogin : NSObject
 
+@property (nonatomic, copy) EMSocialLoginCompletionWithItemsHandler completionWithItemsHandler;
+
 - (NSString *)loginType;
-- (BOOL)canHandleOpenURL:(NSURL *)url;
-- (void)handleOpenURL:(NSURL *)url;
+//- (BOOL)canHandleOpenURL:(NSURL *)url;
+//- (void)handleOpenURL:(NSURL *)url;
 - (void)performLogin;
 
-- (void)handledActivityResponse:(id)response activityError:(NSError *)error;
+//- (void)handledActivityResponse:(id)response activityError:(NSError *)error;
 
 @end

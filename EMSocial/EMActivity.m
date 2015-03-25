@@ -8,12 +8,17 @@
 
 #import "EMActivity.h"
 #import "_EMActivityViewController.h"
+#import "_EMSocialOpenURLHandler.h"
 
 @class EMActivityViewController;
 
 NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
 NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
 NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
+
+
+NSString *const EMActivityOpenURLNotification = @"EMActivityOpenURLNotification";
+NSString *const EMActivityOpenURLKey = @"EMActivityOpenURLKey";
 
 @interface EMActivity ()
 
@@ -64,11 +69,8 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 }
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
-    [(EMActivityViewController *)self.activityViewController _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
-    
-    // break retain cycle
-    self.activityViewController = nil;
-
+    EMActivityViewController *activityViewController_ = [EMSocialOpenURLHandler sharedHandler].activityViewController;
+    [activityViewController_ _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
 }
 
 
