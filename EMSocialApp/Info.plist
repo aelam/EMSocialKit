@@ -68,6 +68,18 @@
 				<string>social</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string> </string>
+			<key>CFBundleURLName</key>
+			<string>   </string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1103441607</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>

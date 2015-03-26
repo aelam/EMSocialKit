@@ -30,8 +30,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-    [WXApi registerApp:kWeiChatAppID];
-    [WeiboSDK registerApp:@"2045436852"];
+    [EMSocialSDK registerWeiboWithAppKey:@"2045436852" appSecret:nil redirectURI:@"http://weibo.com"];
+    [EMSocialSDK registerWeChatWithAppId:kWeiChatAppID];
+
+    
+//    [WXApi registerApp:kWeiChatAppID];
+//    [WeiboSDK registerApp:@"2045436852"];
     [WeiboSDK enableDebugMode:YES];
     // Override point for customization after application launch.
     
@@ -62,15 +66,12 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    return [EMSocialSDK handleOpenURL:url sourceApplication:sourceApplication delegate:[EMSocialSDK class]];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:url}];
-    
     NSLog(@"sourceApplication: %@", sourceApplication);
     NSLog(@"annotation: %@", annotation);
     NSLog(@"url: %@", url);
-
-    return YES;//[[EMSocialOpenURLHandler sharedHandler] handleOpenURL:url sourceApplication:sourceApplication];
+    
+    return [[EMSocialSDK sharedSDK] handleOpenURL:url sourceApplication:sourceApplication];
+    
 }
 
 @end

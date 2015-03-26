@@ -10,6 +10,7 @@
 #import "EMStockActivityWeibo.h"
 
 #import "EMSocialSDK.h"
+#import "EMSocialKey.h"
 
 @interface ViewController ()
 
@@ -47,8 +48,7 @@
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
     [[EMSocialSDK sharedSDK] shareWithContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (activityError) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            NSLog (@"error: %@", [activityError localizedDescription]);
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -59,6 +59,7 @@
 
 - (IBAction)weiboLogin {
     EMLoginWeibo *weibo = [[EMLoginWeibo alloc] init];
+    
     [[EMSocialSDK sharedSDK] loginWithSession:weibo completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -68,8 +69,7 @@
     
 
 
-- (IBAction)wechatLogin {
-    
+- (IBAction)qqLogin {
 }
 
 

@@ -67,7 +67,8 @@
         toVCRect.origin.y = fromVCRect.size.height;
         
         toView.frame = CGRectMake(0, initialFrameFrom.size.height, toView.frame.size.width, toView.frame.size.height);
-        
+        containerView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+
         //3.Perform the animation...............................
         [UIView animateWithDuration:duration
                               delay:0.0
@@ -77,6 +78,7 @@
          
                          animations:^{
                              toView.frame = CGRectMake(0, initialFrameFrom.size.height - toView.frame.size.height, toView.frame.size.width, toView.frame.size.height);
+                             containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
 
                          } completion:^(BOOL finished) {
                              //When the animation is completed call completeTransition
