@@ -17,9 +17,6 @@ NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeCha
 NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
 
 
-NSString *const EMActivityOpenURLNotification = @"EMActivityOpenURLNotification";
-NSString *const EMActivityOpenURLKey = @"EMActivityOpenURLKey";
-
 @interface EMActivity ()
 
 @property (nonatomic, strong, readwrite) EMActivityViewController *activityViewController;
@@ -61,14 +58,15 @@ NSString *const EMActivityOpenURLKey = @"EMActivityOpenURLKey";
     
 }
 
-- (BOOL)canHandleOpenURL:(NSURL *)url {
-    return YES;
-}
-
-- (void)handleOpenURL:(NSURL *)url {
+- (void)handleOpenURLNotification:(NSNotification *)notification {
+    
 }
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
+    if(self.completionHandler) {
+        self.completionHandler(YES, response, error);
+    }
+    
     EMActivityViewController *activityViewController_ = [EMSocialSDK sharedSDK].activityViewController;
     [activityViewController_ _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
 }

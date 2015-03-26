@@ -7,8 +7,9 @@
 //
 
 #import "EMLoginWeChat.h"
-#import "EMSocialSDK+WeChat.h"
+#import <UIKit/UIKit.h>
 #import "WXApi.h"
+#import "EMSocialSDK.h"
 
 NSString *const EMLoginWeChatAuthCodeKey = @"EMLoginWeChatAuthCodeKey";
 
@@ -21,7 +22,7 @@ NSString *const EMLoginWeChatAuthCodeKey = @"EMLoginWeChatAuthCodeKey";
 @implementation EMLoginWeChat
 
 - (NSString *)appId {
-    return [EMSocialSDK sharedSDK].wechatAppId;
+    return EMCONFIG(tencentWeixinAppId);
 }
 
 - (NSString *)scope {
@@ -33,7 +34,7 @@ NSString *const EMLoginWeChatAuthCodeKey = @"EMLoginWeChatAuthCodeKey";
 }
 
 - (void)handleOpenURLNotification:(NSNotification *)notification {
-    NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
+    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
     [WXApi handleOpenURL:url delegate:self];
 }
 

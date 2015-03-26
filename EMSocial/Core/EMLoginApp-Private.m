@@ -7,12 +7,12 @@
 //
 
 #import "EMLoginApp-Private.h"
-#import "EMActivity.h"
+#import "EMSocialSDK.h"
 
 @implementation EMLoginApp (Private)
 
 - (void)_addObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMSocialOpenURLNotification object:nil];
 }
 
 - (void)_removeObservers {

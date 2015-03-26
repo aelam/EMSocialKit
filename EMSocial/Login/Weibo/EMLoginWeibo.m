@@ -10,7 +10,6 @@
 #import "WeiboSDK.h"
 #import "EMActivity.h"
 #import "EMSocialSDK.h"
-#import "EMSocialSDK+Weibo.h"
 
 NSString *const EMLoginWeiboAccessTokenKey   = @"EMLoginWeiboAccessTokenKey";
 NSString *const EMLoginWeiboUserIdKey        = @"EMLoginWeiboUserIdKey";
@@ -25,19 +24,19 @@ NSString *const EMLoginWeiboStatusMessageKey = @"EMLoginWeiboStatusMessageKey";
 @implementation EMLoginWeibo
 
 - (NSString *)redirectURI {
-    return [EMSocialSDK sharedSDK].weiboRedirectURI;
+    return EMCONFIG(sinaWeiboCallbackUrl);//[EMSocialSDK sharedSDK].weiboRedirectURI;
 }
 
 - (NSString *)appId {
-    return [EMSocialSDK sharedSDK].weiboAppKey;
+    return EMCONFIG(sinaWeiboConsumerKey);//[EMSocialSDK sharedSDK].weiboAppKey;
 }
 
 - (NSString *)appSecret {
-    return [EMSocialSDK sharedSDK].weiboAppSecret;
+    return EMCONFIG(sinaWeiboConsumerSecret);//[EMSocialSDK sharedSDK].weiboAppSecret;
 }
 
 - (NSString *)scope {
-    return [EMSocialSDK sharedSDK].weiboScope;
+    return @"all";//[EMSocialSDK sharedSDK].weiboScope;
 }
 
 - (BOOL)isAppInstalled {
@@ -51,7 +50,7 @@ NSString *const EMLoginWeiboStatusMessageKey = @"EMLoginWeiboStatusMessageKey";
 }
 
 - (void)handleOpenURLNotification:(NSNotification *)notification {
-    NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
+    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 

@@ -14,7 +14,7 @@
 #import "WeiboSDK.h"
 
 #import "EMSocialSDK.h"
-
+#import "EMSocialEMoneyConfigurator.h"
 
 #define kWeiChatAppID               @"wx85e5bbec559cd907"//wxd50de003b78b9c87 // old wx6f0c62844c4ebbb5
 #define kWeiChatAppKey              @"637c8424532704e01532cbb3634f3031"  // old f8c106a9a0bc385a02abd8db4a29790f
@@ -29,9 +29,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [EMSocialSDK sharedSDKWithConfigurator:[EMSocialEMoneyConfigurator new]];
     
-    [EMSocialSDK registerWeiboWithAppKey:@"2045436852" appSecret:nil redirectURI:@"http://weibo.com"];
-    [EMSocialSDK registerWeChatWithAppId:kWeiChatAppID];
+    [[EMSocialSDK sharedSDK] registerSocialApps];
+    
+//    [EMSocialSDK registerWeiboWithAppKey:@"2045436852" appSecret:nil redirectURI:@"http://weibo.com"];
+//    [EMSocialSDK registerWeChatWithAppId:kWeiChatAppID];
 
     
 //    [WXApi registerApp:kWeiChatAppID];

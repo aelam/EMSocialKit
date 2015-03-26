@@ -80,7 +80,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 - (void)performActivity {
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMSocialOpenURLNotification object:nil];
     
     WBMessageObject *message = [WBMessageObject message];
     if (self.shareString)
@@ -121,7 +121,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 
 - (void)handleOpenURLNotification:(NSNotification *)notification {
-    NSURL *url = [[notification userInfo] objectForKey:EMActivityOpenURLKey];
+    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 

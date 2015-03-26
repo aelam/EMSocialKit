@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN NSString *const EMActivityOpenURLNotification;
-UIKIT_EXTERN NSString *const EMActivityOpenURLKey;
 
+typedef void (^EMActivityCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 @interface EMActivity : NSObject
 
-+ (UIActivityCategory)activityCategory NS_AVAILABLE_IOS(7_0); // default is UIActivityCategoryAction.
+
+@property (nonatomic, copy) EMActivityCompletionHandler completionHandler;
+
++ (UIActivityCategory)activityCategory;
 
 - (NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
 - (NSString *)activityTitle;      // default returns nil. subclass must override and must return non-nil value
@@ -30,11 +32,7 @@ UIKIT_EXTERN NSString *const EMActivityOpenURLKey;
 // state method
 - (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
 
-// default return YES, if activity needn't handle some url return NO
-// implement in subclass
 - (void)handleOpenURLNotification:(NSNotification *)notification;
-//- (BOOL)canHandleOpenURL:(NSURL *)url;
-//- (void)handleOpenURL:(NSURL *)url;
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error; //breaks the retain cycle in it
 
 @end

@@ -66,10 +66,9 @@
         NSLog(@"login result %@", returnedInfo);
     }];
 }
-    
-
 
 - (IBAction)qqLogin {
+
     EMLoginWeChat *weibo = [[EMLoginWeChat alloc] init];
     
     [[EMSocialSDK sharedSDK] loginWithSession:weibo completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
@@ -79,6 +78,19 @@
     }];
     
 }
+
+- (IBAction)weiboShare {
+    EMActivityWeibo *weibo = [[EMActivityWeibo alloc] init];
+    NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
+
+    [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"login result %@", returnedInfo);
+    }];
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {

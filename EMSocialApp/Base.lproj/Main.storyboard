@@ -43,6 +43,15 @@
                                     <action selector="qqLogin" destination="vXZ-lx-hvc" eventType="touchUpInside" id="t95-ht-nX5"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T95-z9-ynR">
+                                <rect key="frame" x="119" y="225" width="87" height="30"/>
+                                <state key="normal" title="Weibo Share">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="weiboShare" destination="vXZ-lx-hvc" eventType="touchUpInside" id="irg-SF-jgx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

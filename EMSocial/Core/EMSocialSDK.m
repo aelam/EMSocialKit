@@ -13,53 +13,108 @@
 #import "EMActivity.h"
 #import "EMLoginApp.h"
 #import "EMActivityWeibo.h"
-#import "EMSocialSDK-Apps.h"
 #import "EMLoginWeChat.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
 
+NSString *const EMSocialOpenURLNotification = @"EMSocialOpenURLNotification";
+NSString *const EMSocialOpenURLKey = @"EMSocialOpenURLKey";
+
+
+static EMSocialSDK *sharedInstance = nil;
+
 @interface EMSocialSDK ()
 
 @property (nonatomic, strong, readwrite) EMLoginApp *loginSession;
-@property (nonatomic, copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic,   copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic, strong, readwrite) EMSocialDefaultConfigurator *configurator;
 
 @end
 
 @implementation EMSocialSDK
 
+///////////////////////////////////////////////////////////////////////////////////
+
 + (instancetype)sharedSDK {
-    static EMSocialSDK *sdk = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sdk = [[EMSocialSDK alloc] init];
-    });
-    return sdk;
+    @synchronized(self)
+    {
+        if (sharedInstance == nil) {
+            [NSException raise:@"IllegalStateException" format:@"ShareKit must be configured before use. Use your subclass of DefaultSHKConfigurator, for more info see https://github.com/ShareKit/ShareKit/wiki/Configuration. Example: ShareKitDemoConfigurator in the demo app"];
+        }
+    }
+    return sharedInstance;
 }
+
++ (instancetype)sharedSDKWithConfigurator:(EMSocialDefaultConfigurator *)configor {
+    @synchronized(self)
+    {
+        if (sharedInstance != nil) {
+            [NSException raise:@"IllegalStateException" format:@"SHKConfiguration has already been configured with a delegate."];
+        }
+        sharedInstance = [[self alloc] initWithConfigurator:configor];
+    }
+    return sharedInstance;
+}
+
+- (id)initWithConfigurator:(EMSocialDefaultConfigurator*)config
+{
+    if ((self = [super init])) {
+        _configurator = config;
+    }
+    return self;
+}
+
+- (id)configurationValue:(NSString*)selector withObject:(id)object
+{
+    //SHKLog(@"Looking for a configuration value for %@.", selector);
+    
+    SEL sel = NSSelectorFromString(selector);
+    if ([self.configurator respondsToSelector:sel]) {
+        id value;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        if (object) {
+            value = [self.configurator performSelector:sel withObject:object];
+        } else {
+            value = [self.configurator performSelector:sel];
+        }
+#pragma clang diagnostic pop
+    
+        if (value) {
+            //SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
+            return value;
+        }
+    }
+    
+    //SHKLog(@"Configuration value is nil or not found for %@.", selector);
+    return nil;
+}
+
+///////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Register
-+ (void)registerWeiboWithAppKey:(NSString *)appKey appSecret:(NSString *)secret redirectURI:(NSString *)redirectURI {
-    [EMSocialSDK sharedSDK].weiboAppKey = appKey;
-    [EMSocialSDK sharedSDK].weiboAppSecret = secret;
-    [EMSocialSDK sharedSDK].weiboRedirectURI = redirectURI;
-    [WeiboSDK registerApp:appKey];
+- (void)registerSocialApps {
+    if(NSClassFromString(@"WXApi")) {
+        [WXApi registerApp:EMCONFIG(tencentWeixinAppId)];
+    }
+    
+    if(NSClassFromString(@"WeiboSDK")) {
+        [WeiboSDK registerApp:EMCONFIG(sinaWeiboConsumerKey)];
+    }
+    
 }
 
-+ (void)registerWeChatWithAppId:(NSString *)appId {
-    [EMSocialSDK sharedSDK].wechatAppId = appId;
-    [WXApi registerApp:appId];
-}
 
-+ (void)registerQQWithAppKey:(NSString *)appKey {
-//    [QQApi ]
-}
-
+///////////////////////////////////////////////////////////////////////////////////
 
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application {
-    [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:URL}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:EMSocialOpenURLNotification object:nil userInfo:@{EMSocialOpenURLKey:URL}];
     return YES;
 }
 
-- (void)shareWithContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+///////////////////////////////////////////////////////////////////////////////////
+
+- (void)shareContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
     NSArray *activies = @[[[EMActivityWeibo alloc]init],
                           [[EMActivityWeChatTimeline alloc]init],
                           [[EMActivityWeChatSession alloc]init]
@@ -75,9 +130,23 @@ NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
     [controller presentViewController:activityViewController animated:YES completion:^{
         NSLog(@"DONE");
     }];
-
 }
 
+- (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+    if([activity canPerformWithActivityItems:content]) {
+        [activity prepareWithActivityItems:content];
+        [activity performActivity];
+        NSString *type = [activity activityType];
+        activity.completionHandler = ^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+            if(shareCompletionHandler) {
+                shareCompletionHandler(type, YES, returnedInfo, activityError);
+            }
+        };
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////
 // Login
 - (void)loginWithSession:(EMLoginApp *)session completionHandler:(EMSocialLoginCompletionHandler) completion{
     self.loginSession = session;
