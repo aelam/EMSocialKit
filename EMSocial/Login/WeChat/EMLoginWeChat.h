@@ -1,5 +1,5 @@
 //
-//  EMLoginQQ.h
+//  EMLoginWeChat.h
 //  EMSocialApp
 //
 //  Created by Ryan Wang on 3/26/15.
@@ -8,8 +8,9 @@
 
 #import "EMLoginApp.h"
 
-@interface EMLoginQQ : EMLoginApp
+FOUNDATION_EXPORT NSString *const EMLoginWeChatAuthCodeKey;
 
-- (instancetype)initWithAppId:(NSString *)appId;
+
+@interface EMLoginWeChat : EMLoginApp
 
 @end

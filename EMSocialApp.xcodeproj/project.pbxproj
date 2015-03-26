@@ -52,6 +52,7 @@
 		94DF64A21AC3DB8900254B58 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */; };
 		94DF64A61AC3E28B00254B58 /* EMSocialSDK+Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64A51AC3E28B00254B58 /* EMSocialSDK+Weibo.m */; };
 		94DF64A91AC3E36400254B58 /* EMSocialSDK+WeChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64A81AC3E36400254B58 /* EMSocialSDK+WeChat.m */; };
+		94DF64AD1AC3EA8900254B58 /* EMLoginWeChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64AC1AC3EA8900254B58 /* EMLoginWeChat.m */; };
 		94E5F2121ABA7C1000348FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */; };
 		94E5F2671ABA8F7F00348FC3 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */; };
 		94E5F2681ABA8F7F00348FC3 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */; };
@@ -207,6 +208,8 @@
 		94DF64A51AC3E28B00254B58 /* EMSocialSDK+Weibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMSocialSDK+Weibo.m"; sourceTree = "<group>"; };
 		94DF64A71AC3E36400254B58 /* EMSocialSDK+WeChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EMSocialSDK+WeChat.h"; sourceTree = "<group>"; };
 		94DF64A81AC3E36400254B58 /* EMSocialSDK+WeChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EMSocialSDK+WeChat.m"; sourceTree = "<group>"; };
+		94DF64AB1AC3EA8900254B58 /* EMLoginWeChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMLoginWeChat.h; sourceTree = "<group>"; };
+		94DF64AC1AC3EA8900254B58 /* EMLoginWeChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMLoginWeChat.m; sourceTree = "<group>"; };
 		94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		94E5F21B1ABA8F7F00348FC3 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
 		94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
@@ -428,17 +431,10 @@
 		94DF64371AC3DB8900254B58 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				94DF64381AC3DB8900254B58 /* QQ */,
+				94DF64AA1AC3EA7400254B58 /* WeChat */,
 				94DF643B1AC3DB8900254B58 /* Weibo */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		94DF64381AC3DB8900254B58 /* QQ */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = QQ;
 			sourceTree = "<group>";
 		};
 		94DF643B1AC3DB8900254B58 /* Weibo */ = {
@@ -591,6 +587,15 @@
 				94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */,
 			);
 			path = "UIImage-ResizeMagick";
+			sourceTree = "<group>";
+		};
+		94DF64AA1AC3EA7400254B58 /* WeChat */ = {
+			isa = PBXGroup;
+			children = (
+				94DF64AB1AC3EA8900254B58 /* EMLoginWeChat.h */,
+				94DF64AC1AC3EA8900254B58 /* EMLoginWeChat.m */,
+			);
+			path = WeChat;
 			sourceTree = "<group>";
 		};
 		94E5F21A1ABA8F7F00348FC3 /* Core */ = {
@@ -905,6 +910,7 @@
 				94DF648C1AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m in Sources */,
 				94DF64921AC3DB8900254B58 /* EMActivityWeibo.m in Sources */,
 				94DF64891AC3DB8900254B58 /* EMLoginWeibo.m in Sources */,
+				94DF64AD1AC3EA8900254B58 /* EMLoginWeChat.m in Sources */,
 				94DF648D1AC3DB8900254B58 /* EMTransitionAnimator.m in Sources */,
 				94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */,
 				94DF64831AC3DB8900254B58 /* EMLoginApp-Private.m in Sources */,

@@ -35,8 +35,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEj-z3-ZAu">
-                                <rect key="frame" x="128" y="151" width="66" height="30"/>
-                                <state key="normal" title="QQ Login">
+                                <rect key="frame" x="112" y="151" width="97" height="30"/>
+                                <state key="normal" title="WeChat Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

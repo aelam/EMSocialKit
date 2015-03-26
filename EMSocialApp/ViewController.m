@@ -70,6 +70,14 @@
 
 
 - (IBAction)qqLogin {
+    EMLoginWeChat *weibo = [[EMLoginWeChat alloc] init];
+    
+    [[EMSocialSDK sharedSDK] loginWithSession:weibo completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"login result %@", returnedInfo);
+    }];
+    
 }
 
 

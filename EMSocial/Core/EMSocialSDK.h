@@ -15,6 +15,7 @@
 
 #import "EMLoginApp.h"
 #import "EMLoginWeibo.h"
+#import "EMLoginWeChat.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 

@@ -14,7 +14,7 @@
 #import "EMLoginApp.h"
 #import "EMActivityWeibo.h"
 #import "EMSocialSDK-Apps.h"
-
+#import "EMLoginWeChat.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
 
