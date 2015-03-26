@@ -9,6 +9,7 @@
 #import "EMActivityWeibo.h"
 #import "WeiboSDK.h"
 #import "UIImage+ResizeMagick.h"
+#import "EMSocialSDK.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
@@ -79,8 +80,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (void)performActivity {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMSocialOpenURLNotification object:nil];
+    [super performActivity];
     
     WBMessageObject *message = [WBMessageObject message];
     if (self.shareString)

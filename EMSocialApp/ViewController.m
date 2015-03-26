@@ -46,7 +46,7 @@
 
 - (void)share2 {
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
-    [[EMSocialSDK sharedSDK] shareWithContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+    [[EMSocialSDK sharedSDK] shareContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (activityError) {
             NSLog (@"error: %@", [activityError localizedDescription]);
         } else {

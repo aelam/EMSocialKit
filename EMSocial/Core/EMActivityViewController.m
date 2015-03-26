@@ -24,6 +24,7 @@ static CGFloat kDefaultHeight = 160.f;
 @property (nonatomic, strong, readwrite) UICollectionView *collectionView;
 @property (nonatomic, strong, readwrite) UIButton *closeButton;
 @property (nonatomic, assign) NSString *selectedActivityType;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
 
@@ -60,7 +61,13 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [self addCloseGestureOnWindow];
+    // this moment the self.view.window != nil
+    [self addCloseGestureOnWindow];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self removeGesture];
 }
 
 - (void)setApplicationActivities:(NSArray *)applicationActivities {
@@ -71,9 +78,13 @@ static CGFloat kDefaultHeight = 160.f;
 }
 
 - (void)addCloseGestureOnWindow {
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBehind:)];
-//    tap.delegate = self;
-//    [self.view.window addGestureRecognizer:tap];
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapBehind:)];
+    self.tapGestureRecognizer.delegate = self;
+    [self.view.window addGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)removeGesture {
+    [self.view.window removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -124,28 +135,28 @@ static CGFloat kDefaultHeight = 160.f;
 }
 
 #pragma mark UIGestureRecognizerDelegate -
-//- (void)handleTapBehind:(UITapGestureRecognizer *)sender
-//{
-//    if (sender.state == UIGestureRecognizerStateEnded)
-//    {
-//        CGPoint location = [sender locationInView:nil];
-//        
-//        // if tap outside pincode inputscreen
-//        BOOL inView = [self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil];
-//        if (!inView)
-//        {
-//            [self.view.window removeGestureRecognizer:sender];
-//            [self dismiss:nil];
-//        }
-//    }
-//}
+- (void)handleTapBehind:(UITapGestureRecognizer *)sender
+{
+    // dimiss and clear tapGestureRecognizer
+    [self.view.window removeGestureRecognizer:sender];
+    [self dismiss:nil];
+    self.tapGestureRecognizer = nil;
+}
 
 - (void)dismiss:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    return YES;
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)sender {
+    CGPoint location = [sender locationInView:nil];
+    // if tap outside pincode inputscreen
+    BOOL inView = [self.view pointInside:[self.view convertPoint:location fromView:self.view.window] withEvent:nil];
+    // if tap outside pincode inputscreen
+    if (!inView)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
@@ -168,7 +179,6 @@ static CGFloat kDefaultHeight = 160.f;
         EMActivity *activity = self.applicationActivities[indexPath.row];
         cell.activityTitleLabel.text = activity.activityTitle;
         cell.activityImageView.image = activity.activityImage;
-        NSLog(@"activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
     }
     return cell;
 }
@@ -178,7 +188,6 @@ static CGFloat kDefaultHeight = 160.f;
     if (self.applicationActivities.count > indexPath.row) {
         [self dismiss:nil];
         EMActivity *activity = self.applicationActivities[indexPath.row];
-        NSLog(@"Selected activity.activityTitle : %@, activity.activityImage : %@", activity.activityTitle, activity.activityImage);
         self.selectedActivityType = activity.activityType;
         
         
@@ -220,6 +229,9 @@ static CGFloat kDefaultHeight = 160.f;
     return slideUpTransitionAnimator;
 }
 
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
 
 - (void)dealloc {
     
