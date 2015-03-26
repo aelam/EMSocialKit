@@ -32,8 +32,9 @@
 }
 
 - (void)handledActivityResponse:(id)response activityError:(NSError *)error {
-    if ([EMSocialSDK sharedSDK].loginCompletionHandler) {
-        [EMSocialSDK sharedSDK].loginCompletionHandler(YES, response, error);
+    EMSocialLoginCompletionHandler loginCompletionHandler = [EMSocialSDK sharedSDK].loginCompletionHandler;
+    if (loginCompletionHandler) {
+        loginCompletionHandler(YES, response, error);
     }
 }
 

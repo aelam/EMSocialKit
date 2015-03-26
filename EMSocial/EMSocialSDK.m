@@ -12,6 +12,7 @@
 #import "EMActivityViewController.h"
 #import "EMActivity.h"
 #import "EMLoginSession.h"
+#import "EMActivityWeibo.h"
 
 @interface EMSocialSDK ()
 
@@ -29,7 +30,7 @@
 
 // Login
 @property (nonatomic, strong, readwrite) EMLoginSession *loginSession;
-@property (nonatomic, copy) EMSocialLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic, copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
 
 @end
 
@@ -64,6 +65,26 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:EMActivityOpenURLNotification object:nil userInfo:@{EMActivityOpenURLKey:URL}];
     return YES;
 }
+
+- (void)shareWithContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+    NSArray *activies = @[[[EMActivityWeibo alloc]init],
+                          [[EMActivityWeChatTimeline alloc]init],
+                          [[EMActivityWeChatSession alloc]init]
+                         ];
+    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
+    
+    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        if (shareCompletionHandler) {
+            shareCompletionHandler(activityType,  completed, returnedInfo, activityError);
+        }
+    };
+    
+    [controller presentViewController:activityViewController animated:YES completion:^{
+        NSLog(@"DONE");
+    }];
+
+}
+
 
 // Login
 - (void)loginWithSession:(EMLoginSession *)session completionHandler:(EMSocialLoginCompletionHandler) completion{

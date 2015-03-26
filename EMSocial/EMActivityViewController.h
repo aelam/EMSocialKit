@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^EMActivityViewControllerCompletionWithItemsHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 @interface EMActivityViewController : UIViewController
 
 - (instancetype)initWithActivityItems:(NSArray *)activityItems applicationActivities:(NSArray *)applicationActivities; 
 
-@property(nonatomic,copy) EMActivityViewControllerCompletionWithItemsHandler completionWithItemsHandler;
+@property(nonatomic,copy) EMActivityShareCompletionHandler completionWithItemsHandler;
 
 //@property(nonatomic,copy) NSArray *excludedActivityTypes; // default is nil. activity types listed will not be displayed
 

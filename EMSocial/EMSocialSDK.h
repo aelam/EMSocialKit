@@ -19,6 +19,8 @@
 
 
 typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+
 
 @class EMLoginSession;
 @class EMActivity;
@@ -36,7 +38,12 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
 
 // Share
 @property (nonatomic, strong) EMActivityViewController *activityViewController;
+@property(nonatomic,copy, readonly) EMActivityShareCompletionHandler shareCompletionHandler;
 
+- (void)shareWithContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+
+
+@property (nonatomic, copy, readonly) EMSocialLoginCompletionHandler loginCompletionHandler;
 
 - (void)loginWithSession:(EMLoginSession *)session completionHandler:(EMSocialLoginCompletionHandler) completion;
 

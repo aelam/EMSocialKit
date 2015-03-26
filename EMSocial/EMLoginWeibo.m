@@ -24,6 +24,14 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
 
 @implementation EMLoginWeibo
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.redirectURI = @"http://weibo.com";
+        self.scope = @"all";
+    }
+    return self;
+}
+
 - (NSString *)loginType {
     return EMLoginTypeWeibo;
 }
@@ -34,12 +42,20 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
 }
 
 - (void)performLogin {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
-
+    [self addObservers];
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-    request.redirectURI = @"http://weibo.com";
-    request.scope = @"all";
+    request.redirectURI = self.redirectURI;// @"http://weibo.com";
+    request.scope = self.scope;//@"all";
     [WeiboSDK sendRequest:request];
+}
+
+- (void)addObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMActivityOpenURLNotification object:nil];
+}
+
+- (void)removeObservers {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+   
 }
 
 #pragma mark - WBSDKDelegate
@@ -63,18 +79,12 @@ NSString *const EMLoginTypeWeibo =  @"EMLoginTypeWeibo";
         [self handledActivityResponse:userInfo activityError:[NSError errorWithDomain:@"1" code:0 userInfo:@{NSLocalizedDescriptionKey:@"非认证请求"}]];
     }
     
+    [self removeObservers];
 }
 
-//- (void)handledActivityResponse:(id)response activityError:(NSError *)error {
-//    [super handle]
-//    if (self.completionWithItemsHandler) {
-//        self.completionWithItemsHandler(YES, response, error);
-//    }
-    
-//}
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObservers];
 }
 
 @end

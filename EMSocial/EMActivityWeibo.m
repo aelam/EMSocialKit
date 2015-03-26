@@ -125,23 +125,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 
-//- (BOOL)canHandleOpenURL:(NSURL *)url {
-//    // If we use `+handleOpenURL:delegate:` to check URL
-//    // It will casue problem when we use URL in `-handleOpenURL:` again.
-//    //
-//    BOOL can = [[url scheme] hasPrefix:@"wb"]; //[WeiboSDK handleOpenURL:url delegate:nil];
-//    if (can && ![[url absoluteString] containsString:@"pay"]) {
-//        return YES;
-//    }
-//    return NO;
-//    
-////    return [WeiboSDK handleOpenURL:url delegate:self];
-//}
-//
-//- (void)handleOpenURL:(NSURL *)url {
-//    [WeiboSDK handleOpenURL:url delegate:self];
-//}
-//
 
 #pragma mark - WBSDKDelegate
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request

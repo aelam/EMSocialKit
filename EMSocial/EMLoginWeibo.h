@@ -18,4 +18,7 @@ FOUNDATION_EXPORT NSString *const EMLoginTypeWeibo;
 
 @interface EMLoginWeibo : EMLoginSession
 
+@property (nonatomic, strong) NSString *redirectURI;
+@property (nonatomic, strong) NSString *scope;
+
 @end

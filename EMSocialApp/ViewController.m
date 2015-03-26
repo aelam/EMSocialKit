@@ -23,14 +23,16 @@
 }
 
 - (IBAction)share {
+    [self share2];
+}
+
+- (void)share1 {
     EMStockActivityWeibo *weibo = [[EMStockActivityWeibo alloc]init];
     NSLog(@"%@",weibo.activityImage);
     
     NSArray *activies = @[weibo,[[EMActivityWeChatTimeline alloc]init],[[EMActivityWeChatSession alloc]init]];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[@"test",[NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
-
-//    EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:@"http://baidu.com"]] applicationActivities:activies];
-
+    
     activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
@@ -39,24 +41,17 @@
     [self presentViewController:activityViewController animated:YES completion:^{
         NSLog(@"DONE");
     }];
-    
+}
+
+- (void)share2 {
+    NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
+    [[EMSocialSDK sharedSDK] shareWithContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 - (IBAction)weiboLogin {
-//    
-//#define kAppKey         @"2045436852"
-//#define kRedirectURI    @"http://www.sina.com"
-//
-//    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-//    request.redirectURI = kRedirectURI;
-//    request.scope = @"all";
-//    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
-//                         @"Other_Info_1": [NSNumber numberWithInt:123],
-//                         @"Other_Info_2": @[@"obj1", @"obj2"],
-//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-//
-//    [WeiboSDK sendRequest:request];
-    
     EMLoginWeibo *weibo = [[EMLoginWeibo alloc] init];
     [[EMSocialSDK sharedSDK] loginWithSession:weibo completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
