@@ -46,8 +46,14 @@
 - (void)share2 {
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
     [[EMSocialSDK sharedSDK] shareWithContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        if (activityError) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+
+        }
     }];
 }
 
