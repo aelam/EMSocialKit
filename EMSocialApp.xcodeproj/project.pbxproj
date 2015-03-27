@@ -177,6 +177,7 @@
 		94DF64B31AC3FED600254B58 /* EMSocialDefaultConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialDefaultConfigurator.m; sourceTree = "<group>"; };
 		94DF64B51AC4013E00254B58 /* EMSocialEMoneyConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialEMoneyConfigurator.h; sourceTree = "<group>"; };
 		94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialEMoneyConfigurator.m; sourceTree = "<group>"; };
+		94E1DCD81AC559ED007B35A1 /* EMSocialKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMSocialKit.h; sourceTree = "<group>"; };
 		94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		94E5F21B1ABA8F7F00348FC3 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
 		94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
@@ -368,6 +369,7 @@
 		94DF64231AC3DB8900254B58 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				94E1DCD81AC559ED007B35A1 /* EMSocialKit.h */,
 				94DF64311AC3DB8900254B58 /* EMSocialKey.h */,
 				94DF64341AC3DB8900254B58 /* EMSocialSDK.h */,
 				94DF64351AC3DB8900254B58 /* EMSocialSDK.m */,
@@ -1062,7 +1064,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\"",
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\" /Users/ryan/Documents/EMSocialApp-fix/EMSocialKit",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1103,7 +1105,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\"",
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\" /Users/ryan/Documents/EMSocialApp-fix/EMSocialKit",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

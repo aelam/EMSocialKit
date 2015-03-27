@@ -10,6 +10,9 @@
 #import "EMActivityViewController.h"
 #import "EMActivity.h"
 #import "EMActivityWeibo.h"
+#import "EMActivityWeChat.h"
+#import "EMActivityWeChatTimeline.h"
+#import "EMActivityWeChatSession.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
 

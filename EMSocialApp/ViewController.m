@@ -11,6 +11,10 @@
 
 #import "EMSocialSDK.h"
 #import "EMSocialKey.h"
+#import "EMActivityWeChat.h"
+#import "EMActivityWeibo.h"
+#import "EMActivityWeChatSession.h"
+#import "EMActivityWeChatTimeline.h"
 
 @interface ViewController ()
 
