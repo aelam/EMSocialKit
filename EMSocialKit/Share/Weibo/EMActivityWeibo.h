@@ -32,7 +32,3 @@ UIKIT_EXTERN NSString *const EMActivityWeiboStatusCodeKey;
 @property (nonatomic, strong) NSString *accessToken;
 
 @end
-
-@interface EMSocialSDK ()
-
-@end
