@@ -24,9 +24,15 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 @end
 
 
-@implementation EMActivity
+@implementation EMActivity {
+    BOOL _isLogin;
+}
 
 @synthesize activityViewController;
+
++ (void)registerApp {
+    
+}
 
 + (UIActivityCategory)activityCategory {
     return UIActivityCategoryAction;
@@ -59,10 +65,14 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 }
 
 - (void)handleOpenURLNotification:(NSNotification *)notification {
-    
+    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
+    [self handleOpenURL:url];
 }
 
-- (void)handledActivityResponse:(id)response activityError:(NSError *)error {
+- (void)handleOpenURL:(NSURL *)url {
+}
+
+- (void)handledShareResponse:(id)response error:(NSError *)error {
     if(self.completionHandler) {
         self.completionHandler(YES, response, error);
     }
@@ -71,5 +81,32 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     [activityViewController_ _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
 }
 
+- (void)handledLoginResponse:(id)response error:(NSError *)error {
+    EMSocialLoginCompletionHandler loginCompletionHandler = [EMSocialSDK sharedSDK].loginCompletionHandler;
+    if (loginCompletionHandler) {
+        loginCompletionHandler(YES, response, error);
+    }
+}
+
+
+- (BOOL)canPerformLogin {
+    return NO;
+}
+
+- (void)performLogin {
+    [self observerForOpenURLNotification];
+}
+
+- (void)observerForOpenURLNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMSocialOpenURLNotification object:nil];
+}
+
+- (void)removeObserverForOpenURLNotification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:EMSocialOpenURLNotification object:nil];
+}
+
+- (void)dealloc {
+    [self removeObserverForOpenURLNotification];
+}
 
 @end

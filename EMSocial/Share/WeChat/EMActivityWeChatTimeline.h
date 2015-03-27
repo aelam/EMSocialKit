@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 nickcheng.com. All rights reserved.
 //
 
-#import "EMActivityWeChatBase.h"
+#import "EMActivityWeChat.h"
 
 FOUNDATION_EXTERN NSString *const UIActivityTypePostToWeChatTimeline;
 
-@interface EMActivityWeChatTimeline : EMActivityWeChatBase
+@interface EMActivityWeChatTimeline : EMActivityWeChat
 
 @end

@@ -23,11 +23,33 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 @property (nonatomic, strong) NSURL *shareURL; // will be converted to String
 
 @property (nonatomic, strong) WBBaseResponse *response;
+@property (nonatomic, assign) BOOL isLogin;
 
 
 @end
 
 @implementation EMActivityWeibo
+
++ (void)registerApp {
+    [WeiboSDK registerApp:EMCONFIG(sinaWeiboConsumerKey)];
+}
+
+- (NSString *)redirectURI {
+    return EMCONFIG(sinaWeiboCallbackUrl);//[EMSocialSDK sharedSDK].weiboRedirectURI;
+}
+
+- (NSString *)appId {
+    return EMCONFIG(sinaWeiboConsumerKey);//[EMSocialSDK sharedSDK].weiboAppKey;
+}
+
+- (NSString *)appSecret {
+    return EMCONFIG(sinaWeiboConsumerSecret);//[EMSocialSDK sharedSDK].weiboAppSecret;
+}
+
+- (NSString *)scope {
+    return @"all";//[EMSocialSDK sharedSDK].weiboScope;
+}
+
 
 + (UIActivityCategory)activityCategory {
   return UIActivityCategoryShare;
@@ -80,6 +102,11 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (void)performActivity {
+    
+    [self observerForOpenURLNotification];
+    
+    self.isLogin = NO;
+    
     [super performActivity];
     
     WBMessageObject *message = [WBMessageObject message];
@@ -110,6 +137,18 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     [self activityDidFinish:YES];
 }
 
+
+- (void)performLogin {
+    self.isLogin = YES;
+    [self observerForOpenURLNotification];
+    
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = self.redirectURI;// @"http://weibo.com";
+    request.scope = self.scope;//@"all";
+    [WeiboSDK sendRequest:request];
+}
+
+
 #pragma mark -
 #pragma mark Private Methods
 - (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
@@ -120,8 +159,11 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 
-- (void)handleOpenURLNotification:(NSNotification *)notification {
-    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
+//- (void)handleOpenURLNotification:(NSNotification *)notification {
+//    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
+//}
+
+- (void)handleOpenURL:(NSURL *)url {
     [WeiboSDK handleOpenURL:url delegate:self];
 }
 
@@ -135,7 +177,9 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
     
+
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:@(response.statusCode) forKey:EMActivityWeiboStatusCodeKey];
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
@@ -150,8 +194,13 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
             userID = [sendMessageToWeiboResponse.requestUserInfo valueForKeyPath:@"uid"];
         }
         
-        [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
-        [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
+        if (accessToken.length > 0) {
+            [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
+        }
+        
+        if (userID.length > 0) {
+            [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
+        }
     }
     else if ([response isKindOfClass:WBAuthorizeResponse.class])
     {
@@ -166,11 +215,20 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
             userID = [response.requestUserInfo valueForKeyPath:@"uid"];
         }
 
-        [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
-        [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
+        if (accessToken.length > 0) {
+            [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
+        }
+        
+        if (userID.length > 0) {
+            [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
+        }
     }
 
-    [self handledActivityResponse:userInfo activityError:nil];
+    if (self.isLogin) {
+        [self handledLoginResponse:userInfo error:nil];
+    } else {
+        [self handledShareResponse:userInfo error:nil];
+    }
 }
 
 

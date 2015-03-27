@@ -30,8 +30,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [EMSocialSDK sharedSDKWithConfigurator:[EMSocialEMoneyConfigurator new]];
-    
-    [[EMSocialSDK sharedSDK] registerSocialApps];
+    [[EMSocialSDK sharedSDK] registerBuiltInSocialApps];
     
 //    [EMSocialSDK registerWeiboWithAppKey:@"2045436852" appSecret:nil redirectURI:@"http://weibo.com"];
 //    [EMSocialSDK registerWeChatWithAppId:kWeiChatAppID];

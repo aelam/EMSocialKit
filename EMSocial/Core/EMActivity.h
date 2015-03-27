@@ -11,12 +11,16 @@
 
 
 typedef void (^EMActivityCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 @interface EMActivity : NSObject
 
 
 @property (nonatomic, copy) EMActivityCompletionHandler completionHandler;
+//@property (nonatomic, copy) EMActivityLoginCompletionHandler loginCompletionHandler;
 
+
++ (void)registerApp;
 + (UIActivityCategory)activityCategory;
 
 - (NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
@@ -32,7 +36,25 @@ typedef void (^EMActivityCompletionHandler)(BOOL completed, NSDictionary *return
 // state method
 - (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
 
-- (void)handleOpenURLNotification:(NSNotification *)notification;
-- (void)handledActivityResponse:(id)response activityError:(NSError *)error; //breaks the retain cycle in it
+- (void)handledShareResponse:(id)response error:(NSError *)error;
+- (void)handledLoginResponse:(id)response error:(NSError *)error;
 
 @end
+
+@interface EMActivity (Login)
+
+- (BOOL)canPerformLogin;
+- (void)performLogin;
+
+@end
+
+@interface EMActivity (Notification)
+
+- (void)handleOpenURL:(NSURL *)url;
+- (void)handleOpenURLNotification:(NSNotification *)notification; // private
+- (void)observerForOpenURLNotification;
+- (void)removeObserverForOpenURLNotification;
+
+@end
+
+

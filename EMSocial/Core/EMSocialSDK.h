@@ -15,9 +15,6 @@
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
 
-#import "EMLoginApp.h"
-#import "EMLoginWeibo.h"
-#import "EMLoginWeChat.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;
@@ -44,7 +41,7 @@ typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *ret
 
 ///////////////////////////////////////////////////////////////////////////
 
-- (void)registerSocialApps;
+- (void)registerBuiltInSocialApps;
 
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
 
@@ -74,8 +71,7 @@ typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *ret
 // Login
 @property (nonatomic, copy, readonly) EMSocialLoginCompletionHandler loginCompletionHandler;
 
-- (void)loginWithSession:(EMLoginApp *)session completionHandler:(EMSocialLoginCompletionHandler) completion;
-
+- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion;
 
 ///////////////////////////////////////////////////////////////////////////
 

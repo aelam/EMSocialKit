@@ -17,39 +17,48 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqQ-RG-xBJ">
-                                <rect key="frame" x="121" y="48" width="80" height="30"/>
-                                <state key="normal" title="Share">
+                                <rect key="frame" x="120" y="44" width="80" height="30"/>
+                                <state key="normal" title="分享">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="share" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Yqk-RV-iSU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WtN-4M-0NA">
-                                <rect key="frame" x="117" y="94" width="85" height="30"/>
-                                <state key="normal" title="Weibo Login">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="weiboLogin" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mQs-dv-8qv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEj-z3-ZAu">
-                                <rect key="frame" x="112" y="151" width="97" height="30"/>
-                                <state key="normal" title="WeChat Login">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="qqLogin" destination="vXZ-lx-hvc" eventType="touchUpInside" id="t95-ht-nX5"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T95-z9-ynR">
-                                <rect key="frame" x="119" y="225" width="87" height="30"/>
-                                <state key="normal" title="Weibo Share">
+                                <rect key="frame" x="130" y="106" width="60" height="30"/>
+                                <state key="normal" title="微博分享">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="weiboShare" destination="vXZ-lx-hvc" eventType="touchUpInside" id="irg-SF-jgx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJx-OP-wVj">
+                                <rect key="frame" x="130" y="165" width="60" height="30"/>
+                                <state key="normal" title="微信分享">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="wechatShare" destination="vXZ-lx-hvc" eventType="touchUpInside" id="p38-Xb-6EO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZB-3V-Wsp">
+                                <rect key="frame" x="125" y="239" width="70" height="30"/>
+                                <state key="normal" title="微信登陆">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="weChatLogin2:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YIx-Gr-hVo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="moS-Ty-VPG">
+                                <rect key="frame" x="130" y="330" width="60" height="30"/>
+                                <state key="normal" title="微博登陆">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="weiboLogin2:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="lak-yt-KKQ"/>
                                 </connections>
                             </button>
                         </subviews>

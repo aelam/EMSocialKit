@@ -2,10 +2,10 @@
 //  EMActivityWeChatSession.h
 //
 
-#import "EMActivityWeChatBase.h"
+#import "EMActivityWeChat.h"
 
 FOUNDATION_EXTERN NSString *const UIActivityTypePostToWeChatSession;
 
-@interface EMActivityWeChatSession : EMActivityWeChatBase
+@interface EMActivityWeChatSession : EMActivityWeChat
 
 @end

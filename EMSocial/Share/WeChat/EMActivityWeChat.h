@@ -1,5 +1,5 @@
 //
-//  EMActivityWeChatBase.h
+//  EMActivityWeChat.h
 //  ActivityTest
 //
 //  Created by nickcheng on 15/1/8.
@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
 #import "WXApi.h"
+//#import "EMSocialSDK.h"
+
+@class EMSocialSDK;
+
+//@interface EMSocialSDK (WeChat)
+//
+//- (void)registerWeChat;
+//
+//@end
 
 typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
     EMActivityWeChatStatusCodeSuccess    = 0,    /**< 成功    */
@@ -21,8 +30,10 @@ typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
 
 UIKIT_EXTERN NSString *const EMActivityWeChatStatusCodeKey;
 UIKIT_EXTERN NSString *const EMActivityWeChatSummaryKey;
+UIKIT_EXTERN NSString *const EMActivityWeChatAuthCodeKey;
 
-@interface EMActivityWeChatBase : EMBridgeActivity
+
+@interface EMActivityWeChat : EMBridgeActivity
 
 @property (nonatomic, strong) UIImage *shareImage;
 @property (nonatomic, strong) NSString *shareStringTitle;
@@ -33,3 +44,4 @@ UIKIT_EXTERN NSString *const EMActivityWeChatSummaryKey;
 @property (nonatomic, assign) enum WXScene scene;
 
 @end
+

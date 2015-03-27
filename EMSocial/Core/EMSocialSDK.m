@@ -11,9 +11,9 @@
 #import "WXApi.h"
 #import "EMActivityViewController.h"
 #import "EMActivity.h"
-#import "EMLoginApp.h"
+//#import "EMLoginApp.h"
+//#import "EMLoginWeChat.h"
 #import "EMActivityWeibo.h"
-#import "EMLoginWeChat.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
 
@@ -25,7 +25,7 @@ static EMSocialSDK *sharedInstance = nil;
 
 @interface EMSocialSDK ()
 
-@property (nonatomic, strong, readwrite) EMLoginApp *loginSession;
+@property (nonatomic, strong, readwrite) EMActivity *activeActivity;
 @property (nonatomic,   copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
 @property (nonatomic, strong, readwrite) EMSocialDefaultConfigurator *configurator;
 
@@ -93,17 +93,10 @@ static EMSocialSDK *sharedInstance = nil;
 ///////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Register
-- (void)registerSocialApps {
-    if(NSClassFromString(@"WXApi")) {
-        [WXApi registerApp:EMCONFIG(tencentWeixinAppId)];
-    }
-    
-    if(NSClassFromString(@"WeiboSDK")) {
-        [WeiboSDK registerApp:EMCONFIG(sinaWeiboConsumerKey)];
-    }
-    
+- (void)registerBuiltInSocialApps {
+    [EMActivityWeibo registerApp];
+    [EMActivityWeChat registerApp];
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -133,25 +126,26 @@ static EMSocialSDK *sharedInstance = nil;
 }
 
 - (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+    self.activeActivity = activity;
+    NSString *type = [activity activityType];
     if([activity canPerformWithActivityItems:content]) {
         [activity prepareWithActivityItems:content];
         [activity performActivity];
-        NSString *type = [activity activityType];
         activity.completionHandler = ^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
             if(shareCompletionHandler) {
                 shareCompletionHandler(type, YES, returnedInfo, activityError);
             }
         };
+    } else {
+        shareCompletionHandler(type, NO, nil, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
     }
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////
-// Login
-- (void)loginWithSession:(EMLoginApp *)session completionHandler:(EMSocialLoginCompletionHandler) completion{
-    self.loginSession = session;
+- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion {
+    self.activeActivity = activity;
     self.loginCompletionHandler = completion;
-    [self.loginSession performLogin];
+    [self.activeActivity performLogin];
 }
+
 
 @end
