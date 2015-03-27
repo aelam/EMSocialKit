@@ -1,9 +1,5 @@
 //
 //  EMActivityWeibo.m
-//  ActivityTest
-//
-//  Created by nickcheng on 15/1/5.
-//  Copyright (c) 2015年 nickcheng.com. All rights reserved.
 //
 
 #import "EMActivityWeibo.h"
@@ -35,19 +31,19 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (NSString *)redirectURI {
-    return EMCONFIG(sinaWeiboCallbackUrl);//[EMSocialSDK sharedSDK].weiboRedirectURI;
+    return EMCONFIG(sinaWeiboCallbackUrl);
 }
 
 - (NSString *)appId {
-    return EMCONFIG(sinaWeiboConsumerKey);//[EMSocialSDK sharedSDK].weiboAppKey;
+    return EMCONFIG(sinaWeiboConsumerKey);
 }
 
 - (NSString *)appSecret {
-    return EMCONFIG(sinaWeiboConsumerSecret);//[EMSocialSDK sharedSDK].weiboAppSecret;
+    return EMCONFIG(sinaWeiboConsumerSecret);
 }
 
 - (NSString *)scope {
-    return @"all";//[EMSocialSDK sharedSDK].weiboScope;
+    return @"all";
 }
 
 
@@ -102,9 +98,7 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 - (void)performActivity {
-    
     [self observerForOpenURLNotification];
-    
     self.isLogin = NO;
     
     [super performActivity];
@@ -158,11 +152,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
   return result;
 }
 
-
-//- (void)handleOpenURLNotification:(NSNotification *)notification {
-//    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
-//}
-
 - (void)handleOpenURL:(NSURL *)url {
     [WeiboSDK handleOpenURL:url delegate:self];
 }
@@ -176,8 +165,6 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response
 {
-    
-
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:@(response.statusCode) forKey:EMActivityWeiboStatusCodeKey];
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])

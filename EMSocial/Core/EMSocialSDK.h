@@ -15,12 +15,9 @@
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
 
-
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLKey;
-
-
 
 typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);

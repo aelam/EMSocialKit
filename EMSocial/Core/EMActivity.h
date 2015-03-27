@@ -36,6 +36,7 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 // state method
 - (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
 
+// 
 - (void)handledShareResponse:(id)response error:(NSError *)error;
 - (void)handledLoginResponse:(id)response error:(NSError *)error;
 
@@ -50,10 +51,14 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 
 @interface EMActivity (Notification)
 
-- (void)handleOpenURL:(NSURL *)url;
-- (void)handleOpenURLNotification:(NSNotification *)notification; // private
+// weibo and wechat need URLNotification from `AppDelegate`
 - (void)observerForOpenURLNotification;
 - (void)removeObserverForOpenURLNotification;
+- (void)handleOpenURLNotification:(NSNotification *)notification; // private
+
+// `-handleOpenURLNotification:` will call this
+// you need implement this in your subclass to handle the URL by the specified Social API
+- (void)handleOpenURL:(NSURL *)url;
 
 @end
 

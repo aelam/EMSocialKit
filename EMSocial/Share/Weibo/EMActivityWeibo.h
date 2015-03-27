@@ -1,13 +1,10 @@
 //
 //  EMActivityWeibo.h
-//  ActivityTest
-//
-//  Created by nickcheng on 15/1/5.
-//  Copyright (c) 2015年 nickcheng.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
+#import "EMSocialSDK.h"
 
 typedef NS_ENUM(NSInteger, EMActivityWeiboStatusCode)
 {
