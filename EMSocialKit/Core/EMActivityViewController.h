@@ -16,7 +16,5 @@ typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL co
 
 @property(nonatomic,copy) EMActivityShareCompletionHandler completionWithItemsHandler;
 
-//@property(nonatomic,copy) NSArray *excludedActivityTypes; // default is nil. activity types listed will not be displayed
-
 
 @end

@@ -51,13 +51,19 @@
 }
 
 - (IBAction)wechatShare {
-    EMActivityWeChat *weibo = [[EMActivityWeChat alloc] init];
+    EMActivityWeChatSession *weibo = [[EMActivityWeChatSession alloc] init];
     NSArray *contents = @[@"微信分享",[NSURL URLWithString:@"http://baidu.com"]];
     
     [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
-        NSLog(@"分享 result %@", returnedInfo);
+        if (activityError) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Result" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            NSLog(@"分享 result %@", returnedInfo);
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+            NSLog(@"分享 result %@", returnedInfo);
+        }
     }];
     
 }

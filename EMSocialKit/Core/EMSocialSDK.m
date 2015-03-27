@@ -7,12 +7,8 @@
 //
 
 #import "EMSocialSDK.h"
-#import "WeiboSDK.h"
-#import "WXApi.h"
 #import "EMActivityViewController.h"
 #import "EMActivity.h"
-//#import "EMLoginApp.h"
-//#import "EMLoginWeChat.h"
 #import "EMActivityWeibo.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
@@ -56,7 +52,7 @@ static EMSocialSDK *sharedInstance = nil;
     return sharedInstance;
 }
 
-- (id)initWithConfigurator:(EMSocialDefaultConfigurator*)config
+- (instancetype)initWithConfigurator:(EMSocialDefaultConfigurator*)config
 {
     if ((self = [super init])) {
         _configurator = config;
@@ -143,8 +139,12 @@ static EMSocialSDK *sharedInstance = nil;
 
 - (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion {
     self.activeActivity = activity;
-    self.loginCompletionHandler = completion;
-    [self.activeActivity performLogin];
+    if([activity canPerformLogin]) {
+        self.loginCompletionHandler = completion;
+        [self.activeActivity performLogin];
+    } else {
+        completion(NO, nil, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
+    }
 }
 
 

@@ -1,23 +1,10 @@
 //
 //  EMActivityWeChat.h
-//  ActivityTest
-//
-//  Created by nickcheng on 15/1/8.
-//  Copyright (c) 2015年 nickcheng.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
 #import "WXApi.h"
-//#import "EMSocialSDK.h"
-
-@class EMSocialSDK;
-
-//@interface EMSocialSDK (WeChat)
-//
-//- (void)registerWeChat;
-//
-//@end
 
 typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
     EMActivityWeChatStatusCodeSuccess    = 0,    /**< 成功    */

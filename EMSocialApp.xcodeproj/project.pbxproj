@@ -18,7 +18,6 @@
 		949C63141ABBBCDA006B4E0A /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630B1ABBBCDA006B4E0A /* SBJSON.m */; };
 		949C63151ABBBCDA006B4E0A /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */; };
 		949C63161ABBBCDA006B4E0A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */; };
-		94DF64201AC3A3D300254B58 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DF641F1AC3A3D300254B58 /* CoreTelephony.framework */; };
 		94DF64801AC3DB8900254B58 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64251AC3DB8900254B58 /* EMActivity.m */; };
 		94DF64811AC3DB8900254B58 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64271AC3DB8900254B58 /* EMActivityViewController.m */; };
 		94DF64821AC3DB8900254B58 /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64291AC3DB8900254B58 /* EMBridgeActivity.m */; };
@@ -43,7 +42,7 @@
 		94DF64A21AC3DB8900254B58 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */; };
 		94DF64B41AC3FED600254B58 /* EMSocialDefaultConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B31AC3FED600254B58 /* EMSocialDefaultConfigurator.m */; };
 		94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */; };
-		94E5F2121ABA7C1000348FC3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */; };
+		94DF64BA1AC5332900254B58 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */; };
 		94E5F2671ABA8F7F00348FC3 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */; };
 		94E5F2681ABA8F7F00348FC3 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */; };
 		94E5F2691ABA8F7F00348FC3 /* EMActivityWeChatBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2201ABA8F7F00348FC3 /* EMActivityWeChatBase.m */; };
@@ -240,11 +239,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DF64201AC3A3D300254B58 /* CoreTelephony.framework in Frameworks */,
+				94DF64BA1AC5332900254B58 /* libsqlite3.dylib in Frameworks */,
 				94DF64961AC3DB8900254B58 /* libWeiboSDK.a in Frameworks */,
 				949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */,
 				949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */,
-				94E5F2121ABA7C1000348FC3 /* libsqlite3.dylib in Frameworks */,
 				94DF64951AC3DB8900254B58 /* libWeChatSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,7 +326,7 @@
 		949C62581ABAC0E1006B4E0A /* EMStockSocial */ = {
 			isa = PBXGroup;
 			children = (
-				94DF64221AC3DB8900254B58 /* EMSocial */,
+				94DF64221AC3DB8900254B58 /* EMSocialKit */,
 				949C62591ABAC0FF006B4E0A /* EMStockActivityWeibo.h */,
 				949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */,
 			);
@@ -355,7 +353,7 @@
 			path = SBJSON;
 			sourceTree = "<group>";
 		};
-		94DF64221AC3DB8900254B58 /* EMSocial */ = {
+		94DF64221AC3DB8900254B58 /* EMSocialKit */ = {
 			isa = PBXGroup;
 			children = (
 				94DF64231AC3DB8900254B58 /* Core */,
@@ -364,7 +362,7 @@
 				94DF644B1AC3DB8900254B58 /* Share */,
 				94DF64561AC3DB8900254B58 /* Vendors */,
 			);
-			path = EMSocial;
+			path = EMSocialKit;
 			sourceTree = SOURCE_ROOT;
 		};
 		94DF64231AC3DB8900254B58 /* Core */ = {
@@ -1067,11 +1065,12 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\"",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocial/Vendors/DXYWeChatSDK/SDKExport",
+					"$(PROJECT_DIR)/EMSocialKit/Vendors/libWeiboSDK",
+					"$(PROJECT_DIR)/EMSocialKit/Vendors/DXYWeChatSDK/SDKExport",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1107,11 +1106,12 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\"",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocial/Vendors/DXYWeChatSDK/SDKExport",
+					"$(PROJECT_DIR)/EMSocialKit/Vendors/libWeiboSDK",
+					"$(PROJECT_DIR)/EMSocialKit/Vendors/DXYWeChatSDK/SDKExport",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

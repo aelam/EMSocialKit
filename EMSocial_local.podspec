@@ -16,10 +16,9 @@ Pod::Spec.new do |s|
   s.resource_bundles = { 'EMSocial' => 'EMSocial/EMSocial.bundle'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 
-  #non_arc_files = ['EMSocial/Vendors/SinaWeibo/**/*.{h,m}','EMSocial/Vendors/SBJSON/**/*.{h,m}']
-  non_arc_files = ['EMSocial/Vendors/SBJSON/**/*.{h,m}']
+
   s.exclude_files = non_arc_files
-  s.subspec 'no-arc' do |sna|
+  s.subspec 'Core' do |core|
     sna.requires_arc = false
     sna.source_files = non_arc_files
   end

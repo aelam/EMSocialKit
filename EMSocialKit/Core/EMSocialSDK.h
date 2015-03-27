@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 #import "EMSocialDefaultConfigurator.h"
-
 #import "EMActivityViewController.h"
-#import "EMActivityWeibo.h"
+//#import "EMActivityWeibo.h"
+#import "EMActivityWeChat.h"
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
 
@@ -20,10 +20,8 @@ FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLKey;
 
 typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
-typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 
-@class EMLoginApp;
 @class EMActivity;
 @class EMActivityViewController;
 @class EMSocialDefaultConfigurator;
@@ -32,6 +30,13 @@ typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *ret
 
 
 + (instancetype)sharedSDK;
+
+/**
+ * @discussion `EMSocialSDK` needs configure  first
+ *   [EMSocialSDK sharedSDKWithConfigurator:[EMSocialEMoneyConfigurator new]];
+ *   [[EMSocialSDK sharedSDK] registerBuiltInSocialApps];
+ * @prama configor: subclass from `EMSocialDefaultConfigurator` and fill the ids and keys on your needs
+ */
 + (instancetype)sharedSDKWithConfigurator:(EMSocialDefaultConfigurator *)configor;
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object;
@@ -40,12 +45,16 @@ typedef void (^EMSocialShareCompletionHandler)(BOOL completed, NSDictionary *ret
 
 - (void)registerBuiltInSocialApps;
 
+/**
+ *
+ * @param URL : Handle URL responses from AppDelegate:HandleURL
+ *
+ */
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application;
 
 // Share
 @property (nonatomic, strong) EMActivityViewController *activityViewController;
 @property(nonatomic,copy, readonly) EMActivityShareCompletionHandler shareCompletionHandler;
-
 
 /**
  *

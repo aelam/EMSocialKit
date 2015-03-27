@@ -4,7 +4,6 @@
 
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
-#import "EMSocialSDK.h"
 
 typedef NS_ENUM(NSInteger, EMActivityWeiboStatusCode)
 {
@@ -31,5 +30,9 @@ UIKIT_EXTERN NSString *const EMActivityWeiboStatusCodeKey;
 @property (nonatomic, strong) NSString *scope;
 @property (nonatomic, strong) NSString *redirectURI;
 @property (nonatomic, strong) NSString *accessToken;
+
+@end
+
+@interface EMSocialSDK ()
 
 @end
