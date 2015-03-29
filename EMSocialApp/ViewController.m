@@ -15,6 +15,7 @@
 #import "EMActivityWeibo.h"
 #import "EMActivityWeChatSession.h"
 #import "EMActivityWeChatTimeline.h"
+#import "DemoUIActivityViewController.h"
 
 @interface ViewController ()
 
@@ -47,7 +48,7 @@
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
 
     [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微博分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         NSLog(@"分享 result %@", returnedInfo);
     }];
@@ -60,11 +61,11 @@
     
     [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (activityError) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Result" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微信分享" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             NSLog(@"分享 result %@", returnedInfo);
         } else {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微信分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             NSLog(@"分享 result %@", returnedInfo);
         }
@@ -98,9 +99,23 @@
     
 }
 
+- (IBAction)systemShare:(id)sender {
+    DemoUIActivityViewController *v = [[DemoUIActivityViewController alloc] initWithActivityItems:@[@"title"] applicationActivities:nil];
+    
+    [self presentViewController:v animated:YES completion:^{
+        v.view.layer.borderColor = [UIColor yellowColor].CGColor;
+        v.view.layer.borderWidth = 1;
+        NSLog(@"%@",v.view);
+    }];
+}
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

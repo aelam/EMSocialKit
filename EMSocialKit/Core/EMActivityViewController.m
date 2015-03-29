@@ -21,6 +21,7 @@ static CGFloat kDefaultHeight = 160.f;
 
 @property (nonatomic, strong) NSArray *activityItems;
 @property (nonatomic, strong) NSArray *applicationActivities;
+@property (nonatomic, strong, readwrite) UIView *contentView;
 @property (nonatomic, strong, readwrite) UICollectionView *collectionView;
 @property (nonatomic, strong, readwrite) UIButton *closeButton;
 @property (nonatomic, assign) NSString *selectedActivityType;
@@ -51,7 +52,31 @@ static CGFloat kDefaultHeight = 160.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+#if 0
+    self.view.layer.borderColor = [UIColor redColor].CGColor;
+    self.view.layer.borderWidth = 1;
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, kDefaultHeight);
+#endif
+    
+    CGRect collectionViewRect = self.view.bounds;
+    collectionViewRect.size.height = kDefaultHeight;
+    
+    collectionViewRect.size.height = collectionViewRect.size.height - 50;
+    self.collectionView.frame = collectionViewRect;
+    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+    
+    self.collectionView.layer.borderColor = [UIColor greenColor].CGColor;
+    self.collectionView.layer.borderWidth = 1;
+    
+    CGRect closeRect = self.view.bounds;//
+    closeRect.origin.y = collectionViewRect.size.height;
+    closeRect.size.height = 50;
+    self.closeButton.frame = closeRect;
+    self.closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
+    
+    self.closeButton.layer.borderColor = [UIColor cyanColor].CGColor;
+    self.closeButton.layer.borderWidth = 1;
+
     [self setUpActivitiesUI];
 }
 
@@ -89,15 +114,6 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
-    CGRect collectionViewRect = self.view.bounds;
-    collectionViewRect.size.height = collectionViewRect.size.height - 50;
-    self.collectionView.frame = collectionViewRect;
-    
-    CGRect closeRect = self.view.bounds;//
-    closeRect.origin.y = collectionViewRect.size.height;
-    closeRect.size.height = 50;
-    self.closeButton.frame = closeRect;
 
 }
 
@@ -167,7 +183,7 @@ static CGFloat kDefaultHeight = 160.f;
     return YES;
 }
 
-#pragma mark - UIColle -
+#pragma mark - UICollectionViewDataSource -
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.applicationActivities.count;
 }
@@ -222,6 +238,7 @@ static CGFloat kDefaultHeight = 160.f;
     return slideUpTransitionAnimator;
 }
 
+#pragma mark - Rotate
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
     EMSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSlideUpTransitionAnimator animator];
@@ -229,8 +246,37 @@ static CGFloat kDefaultHeight = 160.f;
     return slideUpTransitionAnimator;
 }
 
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationPortrait;//|;
+//    UIInterfaceOrientationPortraitUpsideDown|
+//    UIInterfaceOrientationLandscapeLeft|
+//    UIInterfaceOrientationLandscapeRight;
+}
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
+}
+
+- (CGSize)sizeForChildContentContainer:(id <UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
+    return parentSize;
+}
+
+/*
+ This method is called when the view controller's view's size is changed by its parent (i.e. for the root view controller when its window rotates or is resized).
+ 
+ If you override this method, you should either call super to propagate the change to children or manually forward the change to children.
+ */
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
+//    CGRect newRect =  CGRectMake(0, 0, [self preferredWidth], size.height);
+//    self.view.frame = newRect;
+}
+
+- (CGFloat)preferredWidth {
+    return [UIScreen mainScreen].bounds.size.width - 30;
 }
 
 - (void)dealloc {

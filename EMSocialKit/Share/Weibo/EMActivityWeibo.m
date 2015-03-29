@@ -132,6 +132,11 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 }
 
 
+- (BOOL)canPerformLogin {
+    return YES;
+}
+
+
 - (void)performLogin {
     self.isLogin = YES;
     [self observerForOpenURLNotification];

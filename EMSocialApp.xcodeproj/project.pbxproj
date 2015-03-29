@@ -18,6 +18,7 @@
 		949C63141ABBBCDA006B4E0A /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630B1ABBBCDA006B4E0A /* SBJSON.m */; };
 		949C63151ABBBCDA006B4E0A /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */; };
 		949C63161ABBBCDA006B4E0A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */; };
+		94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */; };
 		94DF64801AC3DB8900254B58 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64251AC3DB8900254B58 /* EMActivity.m */; };
 		94DF64811AC3DB8900254B58 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64271AC3DB8900254B58 /* EMActivityViewController.m */; };
 		94DF64821AC3DB8900254B58 /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64291AC3DB8900254B58 /* EMBridgeActivity.m */; };
@@ -122,6 +123,8 @@
 		949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		949C63101ABBBCDA006B4E0A /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		949C63111ABBBCDA006B4E0A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		94A193731AC71A07003AF01E /* DemoUIActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoUIActivityViewController.h; sourceTree = "<group>"; };
+		94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoUIActivityViewController.m; sourceTree = "<group>"; };
 		94DF641F1AC3A3D300254B58 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		94DF64241AC3DB8900254B58 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
 		94DF64251AC3DB8900254B58 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
@@ -585,6 +588,8 @@
 				94FA511D1AB8282700A81E96 /* AppDelegate.m */,
 				94FA511F1AB8282700A81E96 /* ViewController.h */,
 				94FA51201AB8282700A81E96 /* ViewController.m */,
+				94A193731AC71A07003AF01E /* DemoUIActivityViewController.h */,
+				94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */,
 				94DF64B51AC4013E00254B58 /* EMSocialEMoneyConfigurator.h */,
 				94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */,
 				94FA51221AB8282700A81E96 /* Main.storyboard */,
@@ -808,6 +813,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94DF648B1AC3DB8900254B58 /* EMSocialWebViewController.m in Sources */,
+				94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */,
 				94DF64851AC3DB8900254B58 /* EMShareEntity.m in Sources */,
 				94DF64821AC3DB8900254B58 /* EMBridgeActivity.m in Sources */,
 				94FA51211AB8282700A81E96 /* ViewController.m in Sources */,
