@@ -8,14 +8,11 @@
 
 #import "EMSlideUpTransitionAnimator.h"
 
+static CGFloat kDefaultPresentingHeight = 160;
+
 @implementation EMSlideUpTransitionAnimator
 
 #pragma mark - UIViewControllerAnimatedTransitioning -
-
-//Define the transition duration
-//-(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
-//    return 0.2;
-//}
 
 
 //Define the transition
@@ -51,6 +48,7 @@
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
             fromView.frame = offscreenRect;
+                             containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0];
         } completion: ^(BOOL finished) {
             [fromView removeFromSuperview];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
@@ -65,8 +63,9 @@
         CGRect fromVCRect = fromView.frame;
         CGRect toVCRect = fromView.frame;
         toVCRect.origin.y = fromVCRect.size.height;
-        
-        toView.frame = CGRectMake(0, initialFrameFrom.size.height, toView.frame.size.width, toView.frame.size.height);
+        toVCRect.size.height = kDefaultPresentingHeight;
+        toView.frame = toVCRect;
+//        toView.frame = CGRectMake(0, initialFrameFrom.size.height, toView.frame.size.width, toView.frame.size.height);
         containerView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
         //3.Perform the animation...............................
@@ -77,7 +76,8 @@
                             options:UIViewAnimationOptionCurveEaseIn
          
                          animations:^{
-                             toView.frame = CGRectMake(0, initialFrameFrom.size.height - toView.frame.size.height, toView.frame.size.width, toView.frame.size.height);
+                             toView.frame = CGRectMake(0, fromVCRect.size.height - kDefaultPresentingHeight, toView.frame.size.width, toView.frame.size.height);
+                             NSLog(@"toView.frame: %@", NSStringFromCGRect(toView.frame));
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
 
                          } completion:^(BOOL finished) {

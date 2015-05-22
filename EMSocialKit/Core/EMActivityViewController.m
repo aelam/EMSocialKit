@@ -49,10 +49,11 @@ static CGFloat kDefaultHeight = 160.f;
     return CGSizeMake(self.view.frame.size.width, kDefaultHeight);
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-#if 0
+#if 1
     self.view.layer.borderColor = [UIColor redColor].CGColor;
     self.view.layer.borderWidth = 1;
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, kDefaultHeight);
@@ -95,6 +96,14 @@ static CGFloat kDefaultHeight = 160.f;
     [self removeGesture];
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
 - (void)setApplicationActivities:(NSArray *)applicationActivities {
     if (_applicationActivities != applicationActivities) {
         _applicationActivities = applicationActivities;
@@ -112,10 +121,6 @@ static CGFloat kDefaultHeight = 160.f;
     [self.view.window removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-
-}
 
 - (void)setUpActivitiesUI {
     CGRect collectionViewRect = self.view.bounds;
@@ -123,8 +128,8 @@ static CGFloat kDefaultHeight = 160.f;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat screenWidth = [UIScreen mainScreen].applicationFrame.size.width;
-    flowLayout.itemSize = CGSizeMake((screenWidth - 20) /3.0, 100);
-    flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.itemSize = CGSizeMake((screenWidth - 20) /3.0, 110);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 10, 0, 10);
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -252,32 +257,13 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationPortrait;//|;
-//    UIInterfaceOrientationPortraitUpsideDown|
-//    UIInterfaceOrientationLandscapeLeft|
-//    UIInterfaceOrientationLandscapeRight;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
 
-- (CGSize)sizeForChildContentContainer:(id <UIContentContainer>)container withParentContainerSize:(CGSize)parentSize {
-    return parentSize;
-}
 
-/*
- This method is called when the view controller's view's size is changed by its parent (i.e. for the root view controller when its window rotates or is resized).
- 
- If you override this method, you should either call super to propagate the change to children or manually forward the change to children.
- */
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
-//    CGRect newRect =  CGRectMake(0, 0, [self preferredWidth], size.height);
-//    self.view.frame = newRect;
-}
-
-- (CGFloat)preferredWidth {
-    return [UIScreen mainScreen].bounds.size.width - 30;
-}
 
 - (void)dealloc {
     

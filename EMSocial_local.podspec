@@ -17,11 +17,11 @@ Pod::Spec.new do |s|
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 
 
-  s.exclude_files = non_arc_files
-  s.subspec 'Core' do |core|
-    sna.requires_arc = false
-    sna.source_files = non_arc_files
-  end
+#  s.exclude_files = non_arc_files
+#  s.subspec 'Core' do |core|
+#    sna.requires_arc = false
+#    sna.source_files = non_arc_files
+#  end
 
   s.dependency 'DXYWeChatSDK', '1.5.1'
   s.dependency 'WeiboSDK', '3.0.1'

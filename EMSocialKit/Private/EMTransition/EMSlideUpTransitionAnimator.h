@@ -13,5 +13,6 @@
 @interface EMSlideUpTransitionAnimator : EMTransitionAnimator
 
 @property (nonatomic, assign) BOOL presenting;
+@property (nonatomic, assign) CGSize initialSize;
 
 @end

@@ -9,12 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class EMShareImage;
+
 @interface EMShareEntity : NSObject
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) NSURL *shareURL;
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) EMShareImage *image;
+@property (nonatomic, strong) NSURL    *shareURL;
 
-+ (instancetype)entityWithTitle:(NSString *)title image:(UIImage *)image shareURL:(NSURL *)url;
++ (instancetype)entityWithTitle:(NSString *)title
+                        content:(NSString *)content
+                     shareImage:(EMShareImage *)image
+                       shareURL:(NSURL *)url;
 
 @end

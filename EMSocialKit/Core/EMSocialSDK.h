@@ -17,7 +17,8 @@ FOUNDATION_EXPORT NSString *const EMSocialOpenURLKey;
 
 typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
-
+@class EMShareImage;
+@class EMShareEntity;
 @class EMActivity;
 @class EMActivityViewController;
 @class EMSocialDefaultConfigurator;
@@ -66,7 +67,11 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
  * @param activity: 指定社交应用直接分享
  *
  */
-- (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+//- (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+- (void)shareEntity:(EMShareEntity *)entity activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+
+- (void)shareEntity:(EMShareEntity *)entity rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+
 
 
 ///////////////////////////////////////////////////////////////////////////

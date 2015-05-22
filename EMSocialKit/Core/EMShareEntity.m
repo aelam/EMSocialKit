@@ -7,11 +7,21 @@
 //
 
 #import "EMShareEntity.h"
+#import "EMShareImage.h"
 
 @implementation EMShareEntity
 
-+ (instancetype)entityWithTitle:(NSString *)title image:(UIImage *)image shareURL:(NSURL *)url {
-    
-    return nil;
++ (instancetype)entityWithTitle:(NSString *)title
+                        content:(NSString *)content
+                     shareImage:(EMShareImage *)image
+                       shareURL:(NSURL *)url {
+    EMShareEntity *entity = [[EMShareEntity alloc] init];
+    entity.title = title;
+    entity.content = content;
+    entity.shareURL = url;
+    entity.image = image;
+
+    return entity;
 }
+
 @end
