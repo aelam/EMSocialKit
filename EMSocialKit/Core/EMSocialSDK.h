@@ -55,23 +55,21 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
 
 /**
  *
- * @param content : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * @param items : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * 微信的thumbData设置使用@{EMActivityWeChatThumbImageKey:[UIImage imageNamed:@"ThumbData"]}
  * @param controller: 用于present出社交选择器
  *
  */
-- (void)shareContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
+- (void)shareActivityItems:(NSArray *)items rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
 
 /**
  *
- * @param content : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * @param items : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * 微信的thumbData设置使用@{EMActivityWeChatThumbImageKey:[UIImage imageNamed:@"ThumbData"]}
  * @param activity: 指定社交应用直接分享
  *
  */
-//- (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
-- (void)shareEntity:(EMShareEntity *)entity activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
-
-- (void)shareEntity:(EMShareEntity *)entity rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
-
+- (void)shareActivityItems:(NSArray *)items activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
 
 
 ///////////////////////////////////////////////////////////////////////////

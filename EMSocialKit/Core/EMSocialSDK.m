@@ -106,7 +106,7 @@ static EMSocialSDK *sharedInstance = nil;
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-- (void)shareContent:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+- (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
     NSArray *activies = @[[[EMActivityWeibo alloc]init],
                           [[EMActivityWeChatTimeline alloc]init],
                           [[EMActivityWeChatSession alloc]init]
@@ -124,7 +124,7 @@ static EMSocialSDK *sharedInstance = nil;
     }];
 }
 
-- (void)shareContent:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+- (void)shareActivityItems:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
     self.activeActivity = activity;
     NSString *type = [activity activityType];
     if([activity canPerformWithActivityItems:content]) {
@@ -139,6 +139,7 @@ static EMSocialSDK *sharedInstance = nil;
         shareCompletionHandler(type, NO, nil, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
     }
 }
+
 
 - (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion {
     self.activeActivity = activity;

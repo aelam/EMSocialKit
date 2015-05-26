@@ -10,6 +10,9 @@ NSString *const EMActivityWeChatStatusCodeKey = @"EMActivityWeChatStatusCodeKey"
 NSString *const EMActivityWeChatSummaryKey    = @"EMActivityWeChatSummaryKey";
 NSString *const EMActivityWeChatAuthCodeKey   = @"EMActivityWeChatAuthCodeKey";
 
+NSString *const EMActivityWeChatThumbImageKey = @"thumbimage";
+NSString *const EMActivityWeChatDescriptionKey = @"descstring";
+
 @interface EMActivityWeChat ()<WXApiDelegate>
 
 @property (nonatomic, strong) NSString* state;
@@ -60,11 +63,13 @@ NSString *const EMActivityWeChatAuthCodeKey   = @"EMActivityWeChatAuthCodeKey";
             self.shareStringTitle = activityItem;
         } else if ([activityItem isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = activityItem;
-            if ([dict.allKeys containsObject:@"thumbimage"] && [dict[@"thumbimage"] isKindOfClass:[UIImage class]]) {
-                self.shareThumbImage = dict[@"thumbimage"];
+            if ([dict.allKeys containsObject:EMActivityWeChatThumbImageKey] &&
+                [dict[EMActivityWeChatThumbImageKey] isKindOfClass:[UIImage class]]) {
+                self.shareThumbImage = dict[EMActivityWeChatThumbImageKey];
             }
-            if ([dict.allKeys containsObject:@"descstring"] && [dict[@"descstring"] isKindOfClass:[NSString class]]) {
-                self.shareStringDesc = dict[@"descstring"];
+            if ([dict.allKeys containsObject:EMActivityWeChatDescriptionKey] &&
+                [dict[EMActivityWeChatDescriptionKey] isKindOfClass:[NSString class]]) {
+                self.shareStringDesc = dict[EMActivityWeChatDescriptionKey];
             }
         }
     }
@@ -175,11 +180,3 @@ NSString *const EMActivityWeChatAuthCodeKey   = @"EMActivityWeChatAuthCodeKey";
 }
 
 @end
-
-//@implementation EMSocialSDK (WeChat)
-//
-//- (void)registerWeChat {
-//    [EMActivityWeChat registerApp];
-//}
-//
-//@end

@@ -31,7 +31,7 @@
 // 全部分享
 - (IBAction)share {
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
-    [[EMSocialSDK sharedSDK] shareContent:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+    [[EMSocialSDK sharedSDK] shareActivityItems:contents rootViewController:self completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (activityError) {
             NSLog (@"error: %@", [activityError localizedDescription]);
         } else {
@@ -47,7 +47,7 @@
     EMActivityWeibo *weibo = [[EMActivityWeibo alloc] init];
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
 
-    [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+    [[EMSocialSDK sharedSDK] shareActivityItems:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微博分享" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         NSLog(@"分享 result %@", returnedInfo);
@@ -59,7 +59,7 @@
     EMActivityWeChatSession *weibo = [[EMActivityWeChatSession alloc] init];
     NSArray *contents = @[@"微信分享",[NSURL URLWithString:@"http://baidu.com"]];
     
-    [[EMSocialSDK sharedSDK] shareContent:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+    [[EMSocialSDK sharedSDK] shareActivityItems:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (activityError) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"微信分享" message:[activityError localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
