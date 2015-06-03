@@ -7,7 +7,7 @@
 //
 
 #import "EMActivityViewController.h"
-#import "EMSlideUpTransitionAnimator.h"
+#import "EMSSlideUpTransitionAnimator.h"
 #import "_EMActivityViewCell.h"
 #import "EMActivity.h"
 #import "EMSocialSDK.h"
@@ -54,7 +54,7 @@ static CGFloat kDefaultHeight = 160.f;
     [super viewDidLoad];
 
 #if 1
-    self.view.layer.borderColor = [UIColor redColor].CGColor;
+    self.view.layer.borderColor = [UIColor grayColor].CGColor;
     self.view.layer.borderWidth = 1;
     self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, kDefaultHeight);
 #endif
@@ -75,8 +75,8 @@ static CGFloat kDefaultHeight = 160.f;
     self.closeButton.frame = closeRect;
     self.closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     
-    self.closeButton.layer.borderColor = [UIColor cyanColor].CGColor;
-    self.closeButton.layer.borderWidth = 1;
+//    self.closeButton.layer.borderColor = [UIColor cyanColor].CGColor;
+//    self.closeButton.layer.borderWidth = 1;
 
     [self setUpActivitiesUI];
 }
@@ -149,6 +149,7 @@ static CGFloat kDefaultHeight = 160.f;
     closeRect.size.height = 50;
     self.closeButton.frame = closeRect;
     self.closeButton.backgroundColor = [UIColor whiteColor];
+    [self.closeButton setTitleColor:[UIColor em_colorWithHexString:@"F84E14"] forState:UIControlStateNormal];
     [self.view addSubview:self.closeButton];
     
     [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
@@ -238,7 +239,7 @@ static CGFloat kDefaultHeight = 160.f;
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                    presentingController:(UIViewController *)presenting
                                                                        sourceController:(UIViewController *)source{
-    EMSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSlideUpTransitionAnimator animator];
+    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSSlideUpTransitionAnimator animator];
     slideUpTransitionAnimator.presenting = YES;
     return slideUpTransitionAnimator;
 }
@@ -246,7 +247,7 @@ static CGFloat kDefaultHeight = 160.f;
 #pragma mark - Rotate
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    EMSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSlideUpTransitionAnimator animator];
+    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSSlideUpTransitionAnimator animator];
     slideUpTransitionAnimator.presenting = NO;
     return slideUpTransitionAnimator;
 }

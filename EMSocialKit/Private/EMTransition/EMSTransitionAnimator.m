@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Ryan Wang. All rights reserved.
 //
 
-#import "EMTransitionAnimator.h"
+#import "EMSTransitionAnimator.h"
 
-@implementation EMTransitionAnimator
+@implementation EMSTransitionAnimator
 
 + (instancetype)animator {
     return [[self alloc] init];

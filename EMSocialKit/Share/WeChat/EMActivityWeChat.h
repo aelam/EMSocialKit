@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
 };
 
 UIKIT_EXTERN NSString *const EMActivityWeChatStatusCodeKey;
+UIKIT_EXTERN NSString *const EMActivityWeChatStatusMessageKey;
 UIKIT_EXTERN NSString *const EMActivityWeChatSummaryKey;
 UIKIT_EXTERN NSString *const EMActivityWeChatAuthCodeKey;
 

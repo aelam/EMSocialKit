@@ -12,9 +12,9 @@
 
 @class EMActivityViewController;
 
-NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
-NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
-NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
+//NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
+//NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
+//NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
 
 
 @interface EMActivity ()
@@ -78,7 +78,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     }
     
     EMActivityViewController *activityViewController_ = [EMSocialSDK sharedSDK].activityViewController;
-    [activityViewController_ _handleAcitivityType:self.activityTitle completed:YES returnInfo:response activityError:error];
+    [activityViewController_ _handleAcitivityType:self.activityType completed:YES returnInfo:response activityError:error];
 }
 
 - (void)handledLoginResponse:(id)response error:(NSError *)error {

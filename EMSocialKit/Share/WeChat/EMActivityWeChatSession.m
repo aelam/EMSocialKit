@@ -4,6 +4,7 @@
 
 #import "EMActivityWeChatSession.h"
 
+NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
 
 @implementation EMActivityWeChatSession
 

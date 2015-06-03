@@ -10,6 +10,10 @@
 
 #import "EMSocialDefaultConfigurator.h"
 #import "EMActivityViewController.h"
+#import "EMActivityWeChat.h"
+#import "EMActivityWeibo.h"
+#import "EMActivityWeChatSession.h"
+#import "EMActivityWeChatTimeline.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;

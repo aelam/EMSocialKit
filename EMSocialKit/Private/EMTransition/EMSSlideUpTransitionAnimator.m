@@ -6,11 +6,18 @@
 //  Copyright (c) 2013 Bitwaker. All rights reserved.
 //
 
-#import "EMSlideUpTransitionAnimator.h"
+#import "EMSSlideUpTransitionAnimator.h"
 
 static CGFloat kDefaultPresentingHeight = 160;
 
-@implementation EMSlideUpTransitionAnimator
+@implementation EMSSlideUpTransitionAnimator
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.duration = 0.3;
+    }
+    return self;
+}
 
 #pragma mark - UIViewControllerAnimatedTransitioning -
 
@@ -43,7 +50,7 @@ static CGFloat kDefaultPresentingHeight = 160;
         // Animate the view offscreen
         [UIView animateWithDuration:duration
                               delay:0.0
-             usingSpringWithDamping:.8
+             usingSpringWithDamping:0.8
               initialSpringVelocity:6.0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
@@ -51,6 +58,9 @@ static CGFloat kDefaultPresentingHeight = 160;
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0];
         } completion: ^(BOOL finished) {
             [fromView removeFromSuperview];
+            [fromVC removeFromParentViewController];
+
+//            [toVC didMoveToParentViewController:self];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }

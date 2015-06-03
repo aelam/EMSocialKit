@@ -12,6 +12,9 @@ NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
 NSString *const EMActivityWeiboStatusCodeKey    = @"EMActivityWeiboStatusCodeKey";
 NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessageKey";
 
+NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
+
+
 @interface EMActivityWeibo () <WeiboSDKDelegate>
 
 @property (nonatomic, strong) UIImage *shareImage; // only support one image
@@ -172,6 +175,11 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:@(response.statusCode) forKey:EMActivityWeiboStatusCodeKey];
+    NSString *message = [[self errorMessages] objectForKey:@(response.statusCode)];
+    if (message) {
+        [userInfo setObject:message forKey:EMActivityWeiboStatusMessageKey];
+    }
+    
     if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
     {
         WBSendMessageToWeiboResponse* sendMessageToWeiboResponse = (WBSendMessageToWeiboResponse*)response;
@@ -223,6 +231,21 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
     }
 }
 
+
+- (NSDictionary *)errorMessages{
+    return
+    @{
+      @(EMActivityWeiboStatusCodeSuccess):          @"发送成功",
+      @(EMActivityWeiboStatusCodeUserCancel):       @"用户取消发送",
+      @(EMActivityWeiboStatusCodeSentFail):         @"发送失败",
+      @(EMActivityWeiboStatusCodeAuthDeny):         @"授权失败",
+      @(EMActivityWeiboStatusCodeUserCancelInstall):@"用户取消安装微博客户端",
+      @(EMActivityWeiboStatusCodePayFail):          @"支付失败",
+      @(EMActivityWeiboStatusCodeShareInSDKFailed): @"分享失败",
+      @(EMActivityWeiboStatusCodeUnsupport):        @"不支持的请求",
+      @(EMActivityWeiboStatusCodeUnknown):          @"未知错误",
+      };
+}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

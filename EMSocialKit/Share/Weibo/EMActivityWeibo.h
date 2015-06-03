@@ -24,6 +24,7 @@ UIKIT_EXTERN NSString *const UIActivityTypePostToSinaWeibo;
 UIKIT_EXTERN NSString *const EMActivityWeiboAccessTokenKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboUserIdKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboStatusCodeKey;
+UIKIT_EXTERN NSString *const EMActivityWeiboStatusMessageKey;
 
 @interface EMActivityWeibo : EMBridgeActivity
 

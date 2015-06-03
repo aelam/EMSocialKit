@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-  s.name         = 'EMSocial'
+  s.name         = 'EMSocialKit'
   s.version      = '0.0.1'
-  s.summary      = 'EMSocial'
+  s.summary      = 'EMSocialKit'
   s.homepage     = 'https://github.com/aelam/EMSocial'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { 'aelam' => 'ryanwang@gmail.com' }
@@ -11,9 +11,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.frameworks   = "UIKit","Foundation","SystemConfiguration","ImageIO"
   s.libraries    = "z","c++"
-  s.source_files = 'EMSocial/**/*.{h,m}'
-  s.public_header_files = 'EMSocial/**/*.h'
-  s.resource_bundles = { 'EMSocial' => 'EMSocial.bundle'}
+  s.source_files = 'EMSocialKit/**/*.{h,m}'
+  s.public_header_files = 'EMSocialKit/**/*.h'
+  s.resource_bundles = { 'EMSocialKit' => 'EMSocial.bundle'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 
   s.dependency 'DXYWeChatSDK', '~> 1.5.1'

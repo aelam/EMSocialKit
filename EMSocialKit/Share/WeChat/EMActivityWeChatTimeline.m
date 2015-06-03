@@ -4,6 +4,7 @@
 
 #import "EMActivityWeChatTimeline.h"
 
+NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
 
 
 @implementation EMActivityWeChatTimeline

@@ -6,12 +6,13 @@
 #import "WXApi.h"
 #import "EMSocialSDK.h"
 
-NSString *const EMActivityWeChatStatusCodeKey = @"EMActivityWeChatStatusCodeKey";
-NSString *const EMActivityWeChatSummaryKey    = @"EMActivityWeChatSummaryKey";
-NSString *const EMActivityWeChatAuthCodeKey   = @"EMActivityWeChatAuthCodeKey";
+NSString *const EMActivityWeChatStatusCodeKey       = @"EMActivityWeChatStatusCodeKey";
+NSString *const EMActivityWeChatStatusMessageKey    = @"EMActivityWeChatStatusMessageKey";
+NSString *const EMActivityWeChatSummaryKey          = @"EMActivityWeChatSummaryKey";
+NSString *const EMActivityWeChatAuthCodeKey         = @"EMActivityWeChatAuthCodeKey";
 
-NSString *const EMActivityWeChatThumbImageKey = @"thumbimage";
-NSString *const EMActivityWeChatDescriptionKey = @"descstring";
+NSString *const EMActivityWeChatThumbImageKey       = @"thumbimage";
+NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 
 @interface EMActivityWeChat ()<WXApiDelegate>
 
@@ -140,6 +141,14 @@ NSString *const EMActivityWeChatDescriptionKey = @"descstring";
 {
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:@(resp.errCode) forKey:EMActivityWeChatStatusCodeKey];
+    NSString *message = resp.errStr;
+    if (message == nil) {
+        message = [[self errorMessages] objectForKey:@(resp.errCode)];
+    }
+    if (message) {
+        [userInfo setObject:message forKey:EMActivityWeChatStatusMessageKey];
+    }
+
     if (self.isLogin) {
         NSError *error = nil;
         SendAuthResp *authResp = (SendAuthResp *)resp;
@@ -174,6 +183,20 @@ NSString *const EMActivityWeChatDescriptionKey = @"descstring";
     self.state = req.state;
     [WXApi sendAuthReq:req viewController:nil delegate:self];
 }
+
+- (NSDictionary *)errorMessages{
+    return
+    @{
+      @(EMActivityWeChatStatusCodeSuccess):         @"成功",
+      @(EMActivityWeChatStatusCodeCommon):          @"普通类型错误",
+      @(EMActivityWeChatStatusCodeUserCancel):      @"用户取消发送",
+      @(EMActivityWeChatStatusCodeSentFail):        @"发送失败",
+      @(EMActivityWeChatStatusCodeAuthDeny):        @"授权失败",
+      @(EMActivityWeChatStatusCodeUnsupport):       @"不支持的请求",
+      @(EMActivityWeChatStatusCodeUnsupport):       @"未知错误",
+      };
+}
+
 
 - (void)dealloc {
     [self removeObserverForOpenURLNotification];

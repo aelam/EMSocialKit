@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface EMTransitionAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+@interface EMSTransitionAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 + (instancetype)animator;
 

@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "EMTransitionAnimator.h"
+#import "EMSTransitionAnimator.h"
 
-@interface EMSlideUpTransitionAnimator : EMTransitionAnimator
+@interface EMSSlideUpTransitionAnimator : EMSTransitionAnimator
 
 @property (nonatomic, assign) BOOL presenting;
 @property (nonatomic, assign) CGSize initialSize;
