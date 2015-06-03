@@ -12,7 +12,8 @@ Pod::Spec.new do |s|
   s.frameworks   = "UIKit","Foundation","SystemConfiguration","ImageIO"
   s.libraries    = "z","c++"
   s.source_files = 'EMSocialKit/**/*.{h,m}'
-  s.public_header_files = 'EMSocialKit/**/*.h'
+  s.exclude_files= 'Vendors/'
+  s.public_header_files = 'EMSocialKit/Core/*.h' ,'EMSocialKit/Share/*.h'
   s.resource_bundles = { 'EMSocialKit' => 'EMSocial.bundle'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 

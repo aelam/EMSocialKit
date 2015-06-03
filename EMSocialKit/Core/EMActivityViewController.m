@@ -149,7 +149,7 @@ static CGFloat kDefaultHeight = 160.f;
     closeRect.size.height = 50;
     self.closeButton.frame = closeRect;
     self.closeButton.backgroundColor = [UIColor whiteColor];
-    [self.closeButton setTitleColor:[UIColor em_colorWithHexString:@"F84E14"] forState:UIControlStateNormal];
+//    [self.closeButton setTitleColor:[UIColor em_colorWithHexString:@"F84E14"] forState:UIControlStateNormal];
     [self.view addSubview:self.closeButton];
     
     [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
