@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "EMStockActivityWeibo.h"
 
 #import "EMSocialSDK.h"
 #import "EMSocialKey.h"
@@ -16,6 +15,10 @@
 #import "EMActivityWeChatSession.h"
 #import "EMActivityWeChatTimeline.h"
 #import "DemoUIActivityViewController.h"
+#import "EMActivityWeChat.h"
+#import "EMActivityWeibo.h"
+#import "EMActivityWeChatSession.h"
+#import "EMActivityWeChatTimeline.h"
 
 @interface ViewController ()
 
@@ -44,7 +47,7 @@
 
 
 - (IBAction)weiboShare {
-    EMActivityWeibo *weibo = [[EMActivityWeibo alloc] init];
+    EMActivity *weibo = [[EMActivityWeibo alloc] init];
     NSArray *contents = @[@"test",[NSURL URLWithString:@"http://baidu.com"]];
 
     [[EMSocialSDK sharedSDK] shareActivityItems:contents activity:weibo completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {

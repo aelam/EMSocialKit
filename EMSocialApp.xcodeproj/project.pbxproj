@@ -7,208 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		550A6575ADD5D4B82E430524 /* libPods-EMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */; };
-		9419BF221AB9454200DF81A4 /* libEMSocial.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419BF171AB9454100DF81A4 /* libEMSocial.a */; };
-		945CA6E91B0F5CE70093A76A /* EMShareEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 945CA6E81B0F5CE70093A76A /* EMShareEntity.m */; };
-		945CA6EC1B0F5EF00093A76A /* EMShareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 945CA6EB1B0F5EF00093A76A /* EMShareImage.m */; };
-		949287C91ABBE4EC00B7D478 /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */; };
-		949C625B1ABAC0FF006B4E0A /* EMStockActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */; };
-		949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FB1ABAD877006B4E0A /* ImageIO.framework */; };
-		949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */; };
-		949C63121ABBBCDA006B4E0A /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C63071ABBBCDA006B4E0A /* NSObject+SBJSON.m */; };
-		949C63131ABBBCDA006B4E0A /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C63091ABBBCDA006B4E0A /* NSString+SBJSON.m */; };
-		949C63141ABBBCDA006B4E0A /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630B1ABBBCDA006B4E0A /* SBJSON.m */; };
-		949C63151ABBBCDA006B4E0A /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */; };
-		949C63161ABBBCDA006B4E0A /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */; };
 		94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */; };
-		94DF64801AC3DB8900254B58 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64251AC3DB8900254B58 /* EMActivity.m */; };
-		94DF64811AC3DB8900254B58 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64271AC3DB8900254B58 /* EMActivityViewController.m */; };
-		94DF64821AC3DB8900254B58 /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64291AC3DB8900254B58 /* EMBridgeActivity.m */; };
-		94DF64871AC3DB8900254B58 /* EMSocialSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64351AC3DB8900254B58 /* EMSocialSDK.m */; };
-		94DF648A1AC3DB8900254B58 /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64401AC3DB8900254B58 /* _EMActivityViewCell.m */; };
-		94DF648B1AC3DB8900254B58 /* EMSocialWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64431AC3DB8900254B58 /* EMSocialWebViewController.m */; };
-		94DF648C1AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64461AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m */; };
-		94DF648D1AC3DB8900254B58 /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64481AC3DB8900254B58 /* EMTransitionAnimator.m */; };
-		94DF648E1AC3DB8900254B58 /* EMSocial.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94DF644A1AC3DB8900254B58 /* EMSocial.bundle */; };
-		94DF648F1AC3DB8900254B58 /* EMActivityWeChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF644E1AC3DB8900254B58 /* EMActivityWeChat.m */; };
-		94DF64901AC3DB8900254B58 /* EMActivityWeChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64501AC3DB8900254B58 /* EMActivityWeChatSession.m */; };
-		94DF64911AC3DB8900254B58 /* EMActivityWeChatTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64521AC3DB8900254B58 /* EMActivityWeChatTimeline.m */; };
-		94DF64921AC3DB8900254B58 /* EMActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64551AC3DB8900254B58 /* EMActivityWeibo.m */; };
-		94DF64931AC3DB8900254B58 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 94DF64581AC3DB8900254B58 /* LICENSE */; };
-		94DF64941AC3DB8900254B58 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64591AC3DB8900254B58 /* README.md */; };
-		94DF64951AC3DB8900254B58 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DF645B1AC3DB8900254B58 /* libWeChatSDK.a */; };
-		94DF64961AC3DB8900254B58 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94DF645F1AC3DB8900254B58 /* libWeiboSDK.a */; };
-		94DF64971AC3DB8900254B58 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94DF64671AC3DB8900254B58 /* WeiboSDK.bundle */; };
-		94DF64A01AC3DB8900254B58 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 94DF647C1AC3DB8900254B58 /* LICENSE */; };
-		94DF64A11AC3DB8900254B58 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 94DF647D1AC3DB8900254B58 /* README.md */; };
-		94DF64A21AC3DB8900254B58 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */; };
-		94DF64B41AC3FED600254B58 /* EMSocialDefaultConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B31AC3FED600254B58 /* EMSocialDefaultConfigurator.m */; };
 		94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */; };
-		94DF64BA1AC5332900254B58 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */; };
-		94E5F2671ABA8F7F00348FC3 /* EMActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */; };
-		94E5F2681ABA8F7F00348FC3 /* EMActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */; };
-		94E5F2691ABA8F7F00348FC3 /* EMActivityWeChatBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2201ABA8F7F00348FC3 /* EMActivityWeChatBase.m */; };
-		94E5F26A1ABA8F7F00348FC3 /* EMActivityWeChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2221ABA8F7F00348FC3 /* EMActivityWeChatSession.m */; };
-		94E5F26B1ABA8F7F00348FC3 /* EMActivityWeChatTimeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2241ABA8F7F00348FC3 /* EMActivityWeChatTimeline.m */; };
-		94E5F26C1ABA8F7F00348FC3 /* EMActivityWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2261ABA8F7F00348FC3 /* EMActivityWeibo.m */; };
-		94E5F26D1ABA8F7F00348FC3 /* EMBridgeActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2281ABA8F7F00348FC3 /* EMBridgeActivity.m */; };
-		94E5F2711ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2361ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m */; };
-		94E5F2721ABA8F7F00348FC3 /* EMTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2381ABA8F7F00348FC3 /* EMTransitionAnimator.m */; };
-		94E5F2821ABA8F7F00348FC3 /* _EMActivityViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E5F2621ABA8F7F00348FC3 /* _EMActivityViewCell.m */; };
 		94FA511B1AB8282700A81E96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511A1AB8282700A81E96 /* main.m */; };
 		94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511D1AB8282700A81E96 /* AppDelegate.m */; };
 		94FA51211AB8282700A81E96 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA51201AB8282700A81E96 /* ViewController.m */; };
 		94FA51241AB8282700A81E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51221AB8282700A81E96 /* Main.storyboard */; };
 		94FA51261AB8282700A81E96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51251AB8282700A81E96 /* Images.xcassets */; };
 		94FA51291AB8282700A81E96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51271AB8282700A81E96 /* LaunchScreen.xib */; };
-		94FA51351AB8282700A81E96 /* EMSocialAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA51341AB8282700A81E96 /* EMSocialAppTests.m */; };
 		EC2339CF5647E3DCEB2D05AD /* libPods-EMSocialApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9419BF231AB9454200DF81A4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94FA510D1AB8282700A81E96 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9419BF161AB9454100DF81A4;
-			remoteInfo = EMSocial;
-		};
-		94FA512F1AB8282700A81E96 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94FA510D1AB8282700A81E96 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 94FA51141AB8282700A81E96;
-			remoteInfo = EMSocialApp;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9419BF151AB9454100DF81A4 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocialApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		214866F553D3375CF26094FB /* Pods-EMSocial.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocial.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocial/Pods-EMSocial.debug.xcconfig"; sourceTree = "<group>"; };
-		4DEB241885EAA6BE00BEB597 /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
-		4FDB3DB1374518DE96C997ED /* Pods-EMSocial.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocial.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocial/Pods-EMSocial.release.xcconfig"; sourceTree = "<group>"; };
-		9419BF171AB9454100DF81A4 /* libEMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEMSocial.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSocialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9419BF271AB9454200DF81A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		945CA6E71B0F5CE70093A76A /* EMShareEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMShareEntity.h; sourceTree = "<group>"; };
-		945CA6E81B0F5CE70093A76A /* EMShareEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMShareEntity.m; sourceTree = "<group>"; };
-		945CA6EA1B0F5EF00093A76A /* EMShareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMShareImage.h; sourceTree = "<group>"; };
-		945CA6EB1B0F5EF00093A76A /* EMShareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMShareImage.m; sourceTree = "<group>"; };
 		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		949287C61ABBE30F00B7D478 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
-		949287C71ABBE4EC00B7D478 /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
-		949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
-		949C62591ABAC0FF006B4E0A /* EMStockActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMStockActivityWeibo.h; sourceTree = "<group>"; };
-		949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMStockActivityWeibo.m; sourceTree = "<group>"; };
 		949C62F91ABAD834006B4E0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		949C62FB1ABAD877006B4E0A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		949C62FD1ABAD883006B4E0A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		949C63051ABBBCDA006B4E0A /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		949C63061ABBBCDA006B4E0A /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
-		949C63071ABBBCDA006B4E0A /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
-		949C63081ABBBCDA006B4E0A /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
-		949C63091ABBBCDA006B4E0A /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
-		949C630A1ABBBCDA006B4E0A /* SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJSON.h; sourceTree = "<group>"; };
-		949C630B1ABBBCDA006B4E0A /* SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJSON.m; sourceTree = "<group>"; };
-		949C630C1ABBBCDA006B4E0A /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
-		949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
-		949C630E1ABBBCDA006B4E0A /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
-		949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
-		949C63101ABBBCDA006B4E0A /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
-		949C63111ABBBCDA006B4E0A /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		94A193731AC71A07003AF01E /* DemoUIActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoUIActivityViewController.h; sourceTree = "<group>"; };
 		94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoUIActivityViewController.m; sourceTree = "<group>"; };
 		94DF641F1AC3A3D300254B58 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
-		94DF64241AC3DB8900254B58 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
-		94DF64251AC3DB8900254B58 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
-		94DF64261AC3DB8900254B58 /* EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityViewController.h; sourceTree = "<group>"; };
-		94DF64271AC3DB8900254B58 /* EMActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityViewController.m; sourceTree = "<group>"; };
-		94DF64281AC3DB8900254B58 /* EMBridgeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMBridgeActivity.h; sourceTree = "<group>"; };
-		94DF64291AC3DB8900254B58 /* EMBridgeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMBridgeActivity.m; sourceTree = "<group>"; };
-		94DF64301AC3DB8900254B58 /* EMSocialDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialDefines.h; sourceTree = "<group>"; };
-		94DF64311AC3DB8900254B58 /* EMSocialKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKey.h; sourceTree = "<group>"; };
-		94DF64341AC3DB8900254B58 /* EMSocialSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialSDK.h; sourceTree = "<group>"; };
-		94DF64351AC3DB8900254B58 /* EMSocialSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialSDK.m; sourceTree = "<group>"; };
-		94DF643F1AC3DB8900254B58 /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
-		94DF64401AC3DB8900254B58 /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
-		94DF64411AC3DB8900254B58 /* _EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewController.h; sourceTree = "<group>"; };
-		94DF64421AC3DB8900254B58 /* EMSocialWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialWebViewController.h; sourceTree = "<group>"; };
-		94DF64431AC3DB8900254B58 /* EMSocialWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialWebViewController.m; sourceTree = "<group>"; };
-		94DF64451AC3DB8900254B58 /* EMSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
-		94DF64461AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
-		94DF64471AC3DB8900254B58 /* EMTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTransitionAnimator.h; sourceTree = "<group>"; };
-		94DF64481AC3DB8900254B58 /* EMTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTransitionAnimator.m; sourceTree = "<group>"; };
-		94DF644A1AC3DB8900254B58 /* EMSocial.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EMSocial.bundle; sourceTree = "<group>"; };
-		94DF644D1AC3DB8900254B58 /* EMActivityWeChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChat.h; sourceTree = "<group>"; };
-		94DF644E1AC3DB8900254B58 /* EMActivityWeChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChat.m; sourceTree = "<group>"; };
-		94DF644F1AC3DB8900254B58 /* EMActivityWeChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatSession.h; sourceTree = "<group>"; };
-		94DF64501AC3DB8900254B58 /* EMActivityWeChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatSession.m; sourceTree = "<group>"; };
-		94DF64511AC3DB8900254B58 /* EMActivityWeChatTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatTimeline.h; sourceTree = "<group>"; };
-		94DF64521AC3DB8900254B58 /* EMActivityWeChatTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatTimeline.m; sourceTree = "<group>"; };
-		94DF64541AC3DB8900254B58 /* EMActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeibo.h; sourceTree = "<group>"; };
-		94DF64551AC3DB8900254B58 /* EMActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeibo.m; sourceTree = "<group>"; };
-		94DF64581AC3DB8900254B58 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		94DF64591AC3DB8900254B58 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		94DF645B1AC3DB8900254B58 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		94DF645C1AC3DB8900254B58 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		94DF645D1AC3DB8900254B58 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		94DF645F1AC3DB8900254B58 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
-		94DF64601AC3DB8900254B58 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
-		94DF64611AC3DB8900254B58 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
-		94DF64621AC3DB8900254B58 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
-		94DF64631AC3DB8900254B58 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
-		94DF64641AC3DB8900254B58 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
-		94DF64651AC3DB8900254B58 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
-		94DF64661AC3DB8900254B58 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
-		94DF64671AC3DB8900254B58 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
-		94DF64681AC3DB8900254B58 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
-		94DF64691AC3DB8900254B58 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
-		94DF647C1AC3DB8900254B58 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		94DF647D1AC3DB8900254B58 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		94DF647E1AC3DB8900254B58 /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeMagick.h"; sourceTree = "<group>"; };
-		94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeMagick.m"; sourceTree = "<group>"; };
-		94DF64B21AC3FED600254B58 /* EMSocialDefaultConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialDefaultConfigurator.h; sourceTree = "<group>"; };
-		94DF64B31AC3FED600254B58 /* EMSocialDefaultConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialDefaultConfigurator.m; sourceTree = "<group>"; };
 		94DF64B51AC4013E00254B58 /* EMSocialEMoneyConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialEMoneyConfigurator.h; sourceTree = "<group>"; };
 		94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialEMoneyConfigurator.m; sourceTree = "<group>"; };
-		94E1DCD81AC559ED007B35A1 /* EMSocialKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMSocialKit.h; sourceTree = "<group>"; };
 		94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		94E5F21B1ABA8F7F00348FC3 /* EMActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivity.h; sourceTree = "<group>"; };
-		94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivity.m; sourceTree = "<group>"; };
-		94E5F21D1ABA8F7F00348FC3 /* EMActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityViewController.h; sourceTree = "<group>"; };
-		94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityViewController.m; sourceTree = "<group>"; };
-		94E5F21F1ABA8F7F00348FC3 /* EMActivityWeChatBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatBase.h; sourceTree = "<group>"; };
-		94E5F2201ABA8F7F00348FC3 /* EMActivityWeChatBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatBase.m; sourceTree = "<group>"; };
-		94E5F2211ABA8F7F00348FC3 /* EMActivityWeChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatSession.h; sourceTree = "<group>"; };
-		94E5F2221ABA8F7F00348FC3 /* EMActivityWeChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatSession.m; sourceTree = "<group>"; };
-		94E5F2231ABA8F7F00348FC3 /* EMActivityWeChatTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeChatTimeline.h; sourceTree = "<group>"; };
-		94E5F2241ABA8F7F00348FC3 /* EMActivityWeChatTimeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeChatTimeline.m; sourceTree = "<group>"; };
-		94E5F2251ABA8F7F00348FC3 /* EMActivityWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMActivityWeibo.h; sourceTree = "<group>"; };
-		94E5F2261ABA8F7F00348FC3 /* EMActivityWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMActivityWeibo.m; sourceTree = "<group>"; };
-		94E5F2271ABA8F7F00348FC3 /* EMBridgeActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMBridgeActivity.h; sourceTree = "<group>"; };
-		94E5F2281ABA8F7F00348FC3 /* EMBridgeActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMBridgeActivity.m; sourceTree = "<group>"; };
-		94E5F22B1ABA8F7F00348FC3 /* EMSocialDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialDefines.h; sourceTree = "<group>"; };
-		94E5F22C1ABA8F7F00348FC3 /* EMSocialKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKey.h; sourceTree = "<group>"; };
-		94E5F2331ABA8F7F00348FC3 /* EMSocialKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialKit.h; sourceTree = "<group>"; };
-		94E5F2351ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSlideUpTransitionAnimator.h; sourceTree = "<group>"; };
-		94E5F2361ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSlideUpTransitionAnimator.m; sourceTree = "<group>"; };
-		94E5F2371ABA8F7F00348FC3 /* EMTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMTransitionAnimator.h; sourceTree = "<group>"; };
-		94E5F2381ABA8F7F00348FC3 /* EMTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMTransitionAnimator.m; sourceTree = "<group>"; };
-		94E5F2611ABA8F7F00348FC3 /* _EMActivityViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _EMActivityViewCell.h; sourceTree = "<group>"; };
-		94E5F2621ABA8F7F00348FC3 /* _EMActivityViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _EMActivityViewCell.m; sourceTree = "<group>"; };
 		94FA51151AB8282700A81E96 /* EMSocialApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMSocialApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94FA51191AB8282700A81E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94FA511A1AB8282700A81E96 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -219,47 +41,17 @@
 		94FA51231AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94FA51251AB8282700A81E96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94FA51281AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		94FA512E1AB8282700A81E96 /* EMSocialAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSocialAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		94FA51331AB8282700A81E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		94FA51341AB8282700A81E96 /* EMSocialAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EMSocialAppTests.m; sourceTree = "<group>"; };
+		9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 		B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocial.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D769CBFAE74F062E8EDAAACD /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9419BF141AB9454100DF81A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				550A6575ADD5D4B82E430524 /* libPods-EMSocial.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9419BF1E1AB9454200DF81A4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9419BF221AB9454200DF81A4 /* libEMSocial.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		94FA51121AB8282700A81E96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DF64BA1AC5332900254B58 /* libsqlite3.dylib in Frameworks */,
-				94DF64961AC3DB8900254B58 /* libWeiboSDK.a in Frameworks */,
-				949C63001ABAD8C3006B4E0A /* SystemConfiguration.framework in Frameworks */,
-				949C62FC1ABAD877006B4E0A /* ImageIO.framework in Frameworks */,
-				94DF64951AC3DB8900254B58 /* libWeChatSDK.a in Frameworks */,
 				EC2339CF5647E3DCEB2D05AD /* libPods-EMSocialApp.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94FA512B1AB8282700A81E96 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,297 +74,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		60BBCBCF42207D5D009F4086 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				214866F553D3375CF26094FB /* Pods-EMSocial.debug.xcconfig */,
-				4FDB3DB1374518DE96C997ED /* Pods-EMSocial.release.xcconfig */,
-				D769CBFAE74F062E8EDAAACD /* Pods-EMSocialApp.debug.xcconfig */,
-				4DEB241885EAA6BE00BEB597 /* Pods-EMSocialApp.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		940E1A6B1ABAB35D00D8CE1D /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				949C63041ABBBCDA006B4E0A /* SBJSON */,
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
-		9419BF181AB9454100DF81A4 /* EMSocial */ = {
-			isa = PBXGroup;
-			children = (
-				940E1A6B1ABAB35D00D8CE1D /* Vendors */,
-				94E5F2331ABA8F7F00348FC3 /* EMSocialKit.h */,
-				949287C71ABBE4EC00B7D478 /* EMSocialSDK.h */,
-				949287C81ABBE4EC00B7D478 /* EMSocialSDK.m */,
-				94E5F21A1ABA8F7F00348FC3 /* Core */,
-				94E5F2341ABA8F7F00348FC3 /* EMTransition */,
-				94E5F2601ABA8F7F00348FC3 /* UIKit */,
-				949287C61ABBE30F00B7D478 /* EMSocial.bundle */,
-			);
-			path = EMSocial;
-			sourceTree = "<group>";
-		};
-		9419BF251AB9454200DF81A4 /* EMSocialTests */ = {
-			isa = PBXGroup;
-			children = (
-				9419BF261AB9454200DF81A4 /* Supporting Files */,
-			);
-			path = EMSocialTests;
-			sourceTree = "<group>";
-		};
-		9419BF261AB9454200DF81A4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9419BF271AB9454200DF81A4 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		949C62581ABAC0E1006B4E0A /* EMStockSocial */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64221AC3DB8900254B58 /* EMSocialKit */,
-				949C62591ABAC0FF006B4E0A /* EMStockActivityWeibo.h */,
-				949C625A1ABAC0FF006B4E0A /* EMStockActivityWeibo.m */,
-			);
-			path = EMStockSocial;
-			sourceTree = "<group>";
-		};
-		949C63041ABBBCDA006B4E0A /* SBJSON */ = {
-			isa = PBXGroup;
-			children = (
-				949C63051ABBBCDA006B4E0A /* JSON.h */,
-				949C63061ABBBCDA006B4E0A /* NSObject+SBJSON.h */,
-				949C63071ABBBCDA006B4E0A /* NSObject+SBJSON.m */,
-				949C63081ABBBCDA006B4E0A /* NSString+SBJSON.h */,
-				949C63091ABBBCDA006B4E0A /* NSString+SBJSON.m */,
-				949C630A1ABBBCDA006B4E0A /* SBJSON.h */,
-				949C630B1ABBBCDA006B4E0A /* SBJSON.m */,
-				949C630C1ABBBCDA006B4E0A /* SBJsonBase.h */,
-				949C630D1ABBBCDA006B4E0A /* SBJsonBase.m */,
-				949C630E1ABBBCDA006B4E0A /* SBJsonParser.h */,
-				949C630F1ABBBCDA006B4E0A /* SBJsonParser.m */,
-				949C63101ABBBCDA006B4E0A /* SBJsonWriter.h */,
-				949C63111ABBBCDA006B4E0A /* SBJsonWriter.m */,
-			);
-			path = SBJSON;
-			sourceTree = "<group>";
-		};
-		94DF64221AC3DB8900254B58 /* EMSocialKit */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64231AC3DB8900254B58 /* Core */,
-				94DF643E1AC3DB8900254B58 /* Private */,
-				94DF64491AC3DB8900254B58 /* Resources */,
-				94DF644B1AC3DB8900254B58 /* Share */,
-				94DF64561AC3DB8900254B58 /* Vendors */,
-			);
-			path = EMSocialKit;
-			sourceTree = SOURCE_ROOT;
-		};
-		94DF64231AC3DB8900254B58 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				945CA6EA1B0F5EF00093A76A /* EMShareImage.h */,
-				945CA6EB1B0F5EF00093A76A /* EMShareImage.m */,
-				945CA6E71B0F5CE70093A76A /* EMShareEntity.h */,
-				945CA6E81B0F5CE70093A76A /* EMShareEntity.m */,
-				94E1DCD81AC559ED007B35A1 /* EMSocialKit.h */,
-				94DF64311AC3DB8900254B58 /* EMSocialKey.h */,
-				94DF64341AC3DB8900254B58 /* EMSocialSDK.h */,
-				94DF64351AC3DB8900254B58 /* EMSocialSDK.m */,
-				94DF64241AC3DB8900254B58 /* EMActivity.h */,
-				94DF64251AC3DB8900254B58 /* EMActivity.m */,
-				94DF64281AC3DB8900254B58 /* EMBridgeActivity.h */,
-				94DF64291AC3DB8900254B58 /* EMBridgeActivity.m */,
-				94DF64261AC3DB8900254B58 /* EMActivityViewController.h */,
-				94DF64271AC3DB8900254B58 /* EMActivityViewController.m */,
-				94DF64301AC3DB8900254B58 /* EMSocialDefines.h */,
-				94DF64B21AC3FED600254B58 /* EMSocialDefaultConfigurator.h */,
-				94DF64B31AC3FED600254B58 /* EMSocialDefaultConfigurator.m */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		94DF643E1AC3DB8900254B58 /* Private */ = {
-			isa = PBXGroup;
-			children = (
-				94DF643F1AC3DB8900254B58 /* _EMActivityViewCell.h */,
-				94DF64401AC3DB8900254B58 /* _EMActivityViewCell.m */,
-				94DF64411AC3DB8900254B58 /* _EMActivityViewController.h */,
-				94DF64421AC3DB8900254B58 /* EMSocialWebViewController.h */,
-				94DF64431AC3DB8900254B58 /* EMSocialWebViewController.m */,
-				94DF64441AC3DB8900254B58 /* EMTransition */,
-			);
-			path = Private;
-			sourceTree = "<group>";
-		};
-		94DF64441AC3DB8900254B58 /* EMTransition */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64451AC3DB8900254B58 /* EMSlideUpTransitionAnimator.h */,
-				94DF64461AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m */,
-				94DF64471AC3DB8900254B58 /* EMTransitionAnimator.h */,
-				94DF64481AC3DB8900254B58 /* EMTransitionAnimator.m */,
-			);
-			path = EMTransition;
-			sourceTree = "<group>";
-		};
-		94DF64491AC3DB8900254B58 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				94DF644A1AC3DB8900254B58 /* EMSocial.bundle */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		94DF644B1AC3DB8900254B58 /* Share */ = {
-			isa = PBXGroup;
-			children = (
-				94DF644C1AC3DB8900254B58 /* WeChat */,
-				94DF64531AC3DB8900254B58 /* Weibo */,
-			);
-			path = Share;
-			sourceTree = "<group>";
-		};
-		94DF644C1AC3DB8900254B58 /* WeChat */ = {
-			isa = PBXGroup;
-			children = (
-				94DF644D1AC3DB8900254B58 /* EMActivityWeChat.h */,
-				94DF644E1AC3DB8900254B58 /* EMActivityWeChat.m */,
-				94DF644F1AC3DB8900254B58 /* EMActivityWeChatSession.h */,
-				94DF64501AC3DB8900254B58 /* EMActivityWeChatSession.m */,
-				94DF64511AC3DB8900254B58 /* EMActivityWeChatTimeline.h */,
-				94DF64521AC3DB8900254B58 /* EMActivityWeChatTimeline.m */,
-			);
-			path = WeChat;
-			sourceTree = "<group>";
-		};
-		94DF64531AC3DB8900254B58 /* Weibo */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64541AC3DB8900254B58 /* EMActivityWeibo.h */,
-				94DF64551AC3DB8900254B58 /* EMActivityWeibo.m */,
-			);
-			path = Weibo;
-			sourceTree = "<group>";
-		};
-		94DF64561AC3DB8900254B58 /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64571AC3DB8900254B58 /* DXYWeChatSDK */,
-				94DF645E1AC3DB8900254B58 /* libWeiboSDK */,
-				94DF647B1AC3DB8900254B58 /* UIImage-ResizeMagick */,
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
-		94DF64571AC3DB8900254B58 /* DXYWeChatSDK */ = {
-			isa = PBXGroup;
-			children = (
-				94DF64581AC3DB8900254B58 /* LICENSE */,
-				94DF64591AC3DB8900254B58 /* README.md */,
-				94DF645A1AC3DB8900254B58 /* SDKExport */,
-			);
-			path = DXYWeChatSDK;
-			sourceTree = "<group>";
-		};
-		94DF645A1AC3DB8900254B58 /* SDKExport */ = {
-			isa = PBXGroup;
-			children = (
-				94DF645B1AC3DB8900254B58 /* libWeChatSDK.a */,
-				94DF645C1AC3DB8900254B58 /* WXApi.h */,
-				94DF645D1AC3DB8900254B58 /* WXApiObject.h */,
-			);
-			path = SDKExport;
-			sourceTree = "<group>";
-		};
-		94DF645E1AC3DB8900254B58 /* libWeiboSDK */ = {
-			isa = PBXGroup;
-			children = (
-				94DF645F1AC3DB8900254B58 /* libWeiboSDK.a */,
-				94DF64601AC3DB8900254B58 /* WBHttpRequest+WeiboShare.h */,
-				94DF64611AC3DB8900254B58 /* WBHttpRequest+WeiboToken.h */,
-				94DF64621AC3DB8900254B58 /* WBHttpRequest+WeiboUser.h */,
-				94DF64631AC3DB8900254B58 /* WBHttpRequest.h */,
-				94DF64641AC3DB8900254B58 /* WBSDKBasicButton.h */,
-				94DF64651AC3DB8900254B58 /* WBSDKCommentButton.h */,
-				94DF64661AC3DB8900254B58 /* WBSDKRelationshipButton.h */,
-				94DF64671AC3DB8900254B58 /* WeiboSDK.bundle */,
-				94DF64681AC3DB8900254B58 /* WeiboSDK.h */,
-				94DF64691AC3DB8900254B58 /* WeiboUser.h */,
-			);
-			path = libWeiboSDK;
-			sourceTree = "<group>";
-		};
-		94DF647B1AC3DB8900254B58 /* UIImage-ResizeMagick */ = {
-			isa = PBXGroup;
-			children = (
-				94DF647C1AC3DB8900254B58 /* LICENSE */,
-				94DF647D1AC3DB8900254B58 /* README.md */,
-				94DF647E1AC3DB8900254B58 /* UIImage+ResizeMagick.h */,
-				94DF647F1AC3DB8900254B58 /* UIImage+ResizeMagick.m */,
-			);
-			path = "UIImage-ResizeMagick";
-			sourceTree = "<group>";
-		};
-		94E5F21A1ABA8F7F00348FC3 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				94E5F21B1ABA8F7F00348FC3 /* EMActivity.h */,
-				94E5F21C1ABA8F7F00348FC3 /* EMActivity.m */,
-				94E5F21D1ABA8F7F00348FC3 /* EMActivityViewController.h */,
-				94E5F21E1ABA8F7F00348FC3 /* EMActivityViewController.m */,
-				94E5F21F1ABA8F7F00348FC3 /* EMActivityWeChatBase.h */,
-				94E5F2201ABA8F7F00348FC3 /* EMActivityWeChatBase.m */,
-				94E5F2211ABA8F7F00348FC3 /* EMActivityWeChatSession.h */,
-				94E5F2221ABA8F7F00348FC3 /* EMActivityWeChatSession.m */,
-				94E5F2231ABA8F7F00348FC3 /* EMActivityWeChatTimeline.h */,
-				94E5F2241ABA8F7F00348FC3 /* EMActivityWeChatTimeline.m */,
-				94E5F2251ABA8F7F00348FC3 /* EMActivityWeibo.h */,
-				94E5F2261ABA8F7F00348FC3 /* EMActivityWeibo.m */,
-				94E5F2271ABA8F7F00348FC3 /* EMBridgeActivity.h */,
-				94E5F2281ABA8F7F00348FC3 /* EMBridgeActivity.m */,
-				94E5F22B1ABA8F7F00348FC3 /* EMSocialDefines.h */,
-				94E5F22C1ABA8F7F00348FC3 /* EMSocialKey.h */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		94E5F2341ABA8F7F00348FC3 /* EMTransition */ = {
-			isa = PBXGroup;
-			children = (
-				94E5F2351ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.h */,
-				94E5F2361ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m */,
-				94E5F2371ABA8F7F00348FC3 /* EMTransitionAnimator.h */,
-				94E5F2381ABA8F7F00348FC3 /* EMTransitionAnimator.m */,
-			);
-			path = EMTransition;
-			sourceTree = "<group>";
-		};
-		94E5F2601ABA8F7F00348FC3 /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				94E5F2611ABA8F7F00348FC3 /* _EMActivityViewCell.h */,
-				94E5F2621ABA8F7F00348FC3 /* _EMActivityViewCell.m */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
 		94FA510C1AB8282700A81E96 = {
 			isa = PBXGroup;
 			children = (
 				94FA51171AB8282700A81E96 /* EMSocialApp */,
-				94FA51311AB8282700A81E96 /* EMSocialAppTests */,
-				9419BF181AB9454100DF81A4 /* EMSocial */,
-				9419BF251AB9454200DF81A4 /* EMSocialTests */,
 				94FA51161AB8282700A81E96 /* Products */,
-				60BBCBCF42207D5D009F4086 /* Pods */,
 				275F0F52A7F943FCDF20B20E /* Frameworks */,
+				E0D29C5AFAFC2F0F3BFBB069 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -580,9 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				94FA51151AB8282700A81E96 /* EMSocialApp.app */,
-				94FA512E1AB8282700A81E96 /* EMSocialAppTests.xctest */,
-				9419BF171AB9454100DF81A4 /* libEMSocial.a */,
-				9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -590,7 +95,6 @@
 		94FA51171AB8282700A81E96 /* EMSocialApp */ = {
 			isa = PBXGroup;
 			children = (
-				949C62581ABAC0E1006B4E0A /* EMStockSocial */,
 				94FA511C1AB8282700A81E96 /* AppDelegate.h */,
 				94FA511D1AB8282700A81E96 /* AppDelegate.m */,
 				94FA511F1AB8282700A81E96 /* ViewController.h */,
@@ -616,61 +120,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		94FA51311AB8282700A81E96 /* EMSocialAppTests */ = {
+		E0D29C5AFAFC2F0F3BFBB069 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				94FA51341AB8282700A81E96 /* EMSocialAppTests.m */,
-				94FA51321AB8282700A81E96 /* Supporting Files */,
+				9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */,
+				D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */,
 			);
-			path = EMSocialAppTests;
-			sourceTree = "<group>";
-		};
-		94FA51321AB8282700A81E96 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				94FA51331AB8282700A81E96 /* Info.plist */,
-			);
-			name = "Supporting Files";
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9419BF161AB9454100DF81A4 /* EMSocial */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9419BF2C1AB9454200DF81A4 /* Build configuration list for PBXNativeTarget "EMSocial" */;
-			buildPhases = (
-				9419BF131AB9454100DF81A4 /* Sources */,
-				9419BF141AB9454100DF81A4 /* Frameworks */,
-				9419BF151AB9454100DF81A4 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = EMSocial;
-			productName = EMSocial;
-			productReference = 9419BF171AB9454100DF81A4 /* libEMSocial.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		9419BF201AB9454200DF81A4 /* EMSocialTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9419BF2D1AB9454200DF81A4 /* Build configuration list for PBXNativeTarget "EMSocialTests" */;
-			buildPhases = (
-				9419BF1D1AB9454200DF81A4 /* Sources */,
-				9419BF1E1AB9454200DF81A4 /* Frameworks */,
-				9419BF1F1AB9454200DF81A4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9419BF241AB9454200DF81A4 /* PBXTargetDependency */,
-			);
-			name = EMSocialTests;
-			productName = EMSocialTests;
-			productReference = 9419BF211AB9454200DF81A4 /* EMSocialTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		94FA51141AB8282700A81E96 /* EMSocialApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94FA51381AB8282700A81E96 /* Build configuration list for PBXNativeTarget "EMSocialApp" */;
@@ -690,24 +151,6 @@
 			productReference = 94FA51151AB8282700A81E96 /* EMSocialApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		94FA512D1AB8282700A81E96 /* EMSocialAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 94FA513B1AB8282700A81E96 /* Build configuration list for PBXNativeTarget "EMSocialAppTests" */;
-			buildPhases = (
-				94FA512A1AB8282700A81E96 /* Sources */,
-				94FA512B1AB8282700A81E96 /* Frameworks */,
-				94FA512C1AB8282700A81E96 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				94FA51301AB8282700A81E96 /* PBXTargetDependency */,
-			);
-			name = EMSocialAppTests;
-			productName = EMSocialAppTests;
-			productReference = 94FA512E1AB8282700A81E96 /* EMSocialAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -717,18 +160,8 @@
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Ryan Wang";
 				TargetAttributes = {
-					9419BF161AB9454100DF81A4 = {
-						CreatedOnToolsVersion = 6.2;
-					};
-					9419BF201AB9454200DF81A4 = {
-						CreatedOnToolsVersion = 6.2;
-					};
 					94FA51141AB8282700A81E96 = {
 						CreatedOnToolsVersion = 6.2;
-					};
-					94FA512D1AB8282700A81E96 = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 94FA51141AB8282700A81E96;
 					};
 				};
 			};
@@ -748,39 +181,18 @@
 			projectRoot = "";
 			targets = (
 				94FA51141AB8282700A81E96 /* EMSocialApp */,
-				94FA512D1AB8282700A81E96 /* EMSocialAppTests */,
-				9419BF161AB9454100DF81A4 /* EMSocial */,
-				9419BF201AB9454200DF81A4 /* EMSocialTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		9419BF1F1AB9454200DF81A4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		94FA51131AB8282700A81E96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DF648E1AC3DB8900254B58 /* EMSocial.bundle in Resources */,
 				94FA51241AB8282700A81E96 /* Main.storyboard in Resources */,
-				94DF64A01AC3DB8900254B58 /* LICENSE in Resources */,
 				94FA51291AB8282700A81E96 /* LaunchScreen.xib in Resources */,
 				94FA51261AB8282700A81E96 /* Images.xcassets in Resources */,
-				94DF64931AC3DB8900254B58 /* LICENSE in Resources */,
-				94DF64971AC3DB8900254B58 /* WeiboSDK.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94FA512C1AB8282700A81E96 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,89 +232,19 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		9419BF131AB9454100DF81A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				94E5F26D1ABA8F7F00348FC3 /* EMBridgeActivity.m in Sources */,
-				949C63151ABBBCDA006B4E0A /* SBJsonBase.m in Sources */,
-				949C63141ABBBCDA006B4E0A /* SBJSON.m in Sources */,
-				94E5F2821ABA8F7F00348FC3 /* _EMActivityViewCell.m in Sources */,
-				94E5F2671ABA8F7F00348FC3 /* EMActivity.m in Sources */,
-				949C63121ABBBCDA006B4E0A /* NSObject+SBJSON.m in Sources */,
-				94E5F26C1ABA8F7F00348FC3 /* EMActivityWeibo.m in Sources */,
-				94E5F2711ABA8F7F00348FC3 /* EMSlideUpTransitionAnimator.m in Sources */,
-				94E5F26B1ABA8F7F00348FC3 /* EMActivityWeChatTimeline.m in Sources */,
-				94E5F2691ABA8F7F00348FC3 /* EMActivityWeChatBase.m in Sources */,
-				949287C91ABBE4EC00B7D478 /* EMSocialSDK.m in Sources */,
-				949C63131ABBBCDA006B4E0A /* NSString+SBJSON.m in Sources */,
-				94E5F2681ABA8F7F00348FC3 /* EMActivityViewController.m in Sources */,
-				94E5F26A1ABA8F7F00348FC3 /* EMActivityWeChatSession.m in Sources */,
-				949C63161ABBBCDA006B4E0A /* SBJsonParser.m in Sources */,
-				94E5F2721ABA8F7F00348FC3 /* EMTransitionAnimator.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9419BF1D1AB9454200DF81A4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		94FA51111AB8282700A81E96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94DF648B1AC3DB8900254B58 /* EMSocialWebViewController.m in Sources */,
 				94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */,
-				94DF64821AC3DB8900254B58 /* EMBridgeActivity.m in Sources */,
-				945CA6E91B0F5CE70093A76A /* EMShareEntity.m in Sources */,
 				94FA51211AB8282700A81E96 /* ViewController.m in Sources */,
-				94DF64911AC3DB8900254B58 /* EMActivityWeChatTimeline.m in Sources */,
-				94DF64941AC3DB8900254B58 /* README.md in Sources */,
-				94DF64A21AC3DB8900254B58 /* UIImage+ResizeMagick.m in Sources */,
-				94DF64B41AC3FED600254B58 /* EMSocialDefaultConfigurator.m in Sources */,
-				94DF64A11AC3DB8900254B58 /* README.md in Sources */,
-				94DF648C1AC3DB8900254B58 /* EMSlideUpTransitionAnimator.m in Sources */,
-				94DF64921AC3DB8900254B58 /* EMActivityWeibo.m in Sources */,
-				94DF648D1AC3DB8900254B58 /* EMTransitionAnimator.m in Sources */,
 				94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */,
-				94DF64871AC3DB8900254B58 /* EMSocialSDK.m in Sources */,
-				945CA6EC1B0F5EF00093A76A /* EMShareImage.m in Sources */,
-				949C625B1ABAC0FF006B4E0A /* EMStockActivityWeibo.m in Sources */,
 				94FA511B1AB8282700A81E96 /* main.m in Sources */,
-				94DF64901AC3DB8900254B58 /* EMActivityWeChatSession.m in Sources */,
-				94DF64801AC3DB8900254B58 /* EMActivity.m in Sources */,
-				94DF648F1AC3DB8900254B58 /* EMActivityWeChat.m in Sources */,
-				94DF648A1AC3DB8900254B58 /* _EMActivityViewCell.m in Sources */,
 				94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */,
-				94DF64811AC3DB8900254B58 /* EMActivityViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94FA512A1AB8282700A81E96 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				94FA51351AB8282700A81E96 /* EMSocialAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9419BF241AB9454200DF81A4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9419BF161AB9454100DF81A4 /* EMSocial */;
-			targetProxy = 9419BF231AB9454200DF81A4 /* PBXContainerItemProxy */;
-		};
-		94FA51301AB8282700A81E96 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 94FA51141AB8282700A81E96 /* EMSocialApp */;
-			targetProxy = 94FA512F1AB8282700A81E96 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		94FA51221AB8282700A81E96 /* Main.storyboard */ = {
@@ -924,108 +266,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		9419BF281AB9454200DF81A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/social/TencentOpenAPI",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/TencentOpenAPI",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"USE_EM_ACTIVITY=1",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/social/GoogleMobileAdsSdkiOS-6.12.0",
-					"$(PROJECT_DIR)/EMSocial/social/TCWeiBoSDK/SSO",
-					"$(PROJECT_DIR)/EMSocial/social/WeChat",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/GoogleMobileAdsSdkiOS-6.12.0",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/TCWeiBoSDK/SSO",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/WeChat",
-					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Pods-EMSocial-UIImage-ResizeMagick\"",
-					"-l\"Pods-EMSocial-WeChatSDK\"",
-					"-l\"Pods-EMSocial-WeiboSDK\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		9419BF291AB9454200DF81A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/social/TencentOpenAPI",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/TencentOpenAPI",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"USE_EM_ACTIVITY=1",
-				);
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocial/social/GoogleMobileAdsSdkiOS-6.12.0",
-					"$(PROJECT_DIR)/EMSocial/social/TCWeiBoSDK/SSO",
-					"$(PROJECT_DIR)/EMSocial/social/WeChat",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/GoogleMobileAdsSdkiOS-6.12.0",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/TCWeiBoSDK/SSO",
-					"$(PROJECT_DIR)/EMSocial/social/Vendors/WeChat",
-					"$(PROJECT_DIR)/EMSocial/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocial/Vendors/WeChatSDK/SDKExport",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"Pods-EMSocial-UIImage-ResizeMagick\"",
-					"-l\"Pods-EMSocial-WeChatSDK\"",
-					"-l\"Pods-EMSocial-WeiboSDK\"",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		9419BF2A1AB9454200DF81A4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EMSocialTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9419BF2B1AB9454200DF81A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EMSocialTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		94FA51361AB8282700A81E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1104,7 +344,7 @@
 		};
 		94FA51391AB8282700A81E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D769CBFAE74F062E8EDAAACD /* Pods-EMSocialApp.debug.xcconfig */;
+			baseConfigurationReference = 9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1146,7 +386,7 @@
 		};
 		94FA513A1AB8282700A81E96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4DEB241885EAA6BE00BEB597 /* Pods-EMSocialApp.release.xcconfig */;
+			baseConfigurationReference = D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1186,61 +426,9 @@
 			};
 			name = Release;
 		};
-		94FA513C1AB8282700A81E96 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EMSocialAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMSocialApp.app/EMSocialApp";
-			};
-			name = Debug;
-		};
-		94FA513D1AB8282700A81E96 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = EMSocialAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EMSocialApp.app/EMSocialApp";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9419BF2C1AB9454200DF81A4 /* Build configuration list for PBXNativeTarget "EMSocial" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9419BF281AB9454200DF81A4 /* Debug */,
-				9419BF291AB9454200DF81A4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9419BF2D1AB9454200DF81A4 /* Build configuration list for PBXNativeTarget "EMSocialTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9419BF2A1AB9454200DF81A4 /* Debug */,
-				9419BF2B1AB9454200DF81A4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		94FA51101AB8282700A81E96 /* Build configuration list for PBXProject "EMSocialApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1255,15 +443,6 @@
 			buildConfigurations = (
 				94FA51391AB8282700A81E96 /* Debug */,
 				94FA513A1AB8282700A81E96 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		94FA513B1AB8282700A81E96 /* Build configuration list for PBXNativeTarget "EMSocialAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				94FA513C1AB8282700A81E96 /* Debug */,
-				94FA513D1AB8282700A81E96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -10,10 +10,10 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '7.0'
   s.requires_arc = true
   s.frameworks   = "UIKit","Foundation","SystemConfiguration","ImageIO"
-  s.libraries    = "z","c++"
+  s.libraries    = "z","c++","sqlite3"
   s.source_files = 'EMSocialKit/**/*.{h,m}'
-  s.exclude_files= 'Vendors/'
-  s.public_header_files = 'EMSocialKit/Core/*.h' ,'EMSocialKit/Share/*.h'
+  s.exclude_files= 'EMSocialKit/Vendors/'
+  # s.public_header_files = 'EMSocialKit/Core/*.h' ,'EMSocialKit/Share/*.h'
   s.resource_bundles = { 'EMSocialKit' => 'EMSocial.bundle'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 

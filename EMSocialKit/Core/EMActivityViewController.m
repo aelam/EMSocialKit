@@ -45,6 +45,11 @@ static CGFloat kDefaultHeight = 160.f;
     return self;
 }
 
+- (void)loadView {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, kDefaultHeight)];
+}
+
 - (CGSize)preferredContentSize {
     return CGSizeMake(self.view.frame.size.width, kDefaultHeight);
 }
@@ -52,32 +57,6 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-#if 1
-    self.view.layer.borderColor = [UIColor grayColor].CGColor;
-    self.view.layer.borderWidth = 1;
-    self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, kDefaultHeight);
-#endif
-    
-    CGRect collectionViewRect = self.view.bounds;
-    collectionViewRect.size.height = kDefaultHeight;
-    
-    collectionViewRect.size.height = collectionViewRect.size.height - 50;
-    self.collectionView.frame = collectionViewRect;
-    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-    
-    self.collectionView.layer.borderColor = [UIColor greenColor].CGColor;
-    self.collectionView.layer.borderWidth = 1;
-    
-    CGRect closeRect = self.view.bounds;//
-    closeRect.origin.y = collectionViewRect.size.height;
-    closeRect.size.height = 50;
-    self.closeButton.frame = closeRect;
-    self.closeButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
-    
-//    self.closeButton.layer.borderColor = [UIColor cyanColor].CGColor;
-//    self.closeButton.layer.borderWidth = 1;
-
     [self setUpActivitiesUI];
 }
 
@@ -149,7 +128,6 @@ static CGFloat kDefaultHeight = 160.f;
     closeRect.size.height = 50;
     self.closeButton.frame = closeRect;
     self.closeButton.backgroundColor = [UIColor whiteColor];
-//    [self.closeButton setTitleColor:[UIColor em_colorWithHexString:@"F84E14"] forState:UIControlStateNormal];
     [self.view addSubview:self.closeButton];
     
     [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
