@@ -21,8 +21,6 @@ FOUNDATION_EXPORT NSString *const EMSocialOpenURLKey;
 
 typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
-@class EMShareImage;
-@class EMShareEntity;
 @class EMActivity;
 @class EMActivityViewController;
 @class EMSocialDefaultConfigurator;
