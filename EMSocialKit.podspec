@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EMSocialKit/**/*.{h,m}'
   s.exclude_files= 'EMSocialKit/Vendors/'
   # s.public_header_files = 'EMSocialKit/Core/*.h' ,'EMSocialKit/Share/*.h'
-  s.resource_bundles = { 'EMSocialKit' => 'EMSocial.bundle'}
+  s.resource_bundles = { 'EMSocialKit' => 'EMSocialKit/resources/EMSocialKit.bundle/**/*'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 
   s.dependency 'DXYWeChatSDK', '~> 1.5.1'

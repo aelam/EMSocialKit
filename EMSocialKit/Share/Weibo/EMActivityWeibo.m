@@ -64,9 +64,9 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (UIImage *)activityImage {
   if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)
-    return [UIImage imageNamed:@"EMSocial.bundle/weibo"];
+    return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
   else
-    return [UIImage imageNamed:@"EMSocial.bundle/weibo"];
+    return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
 }
 
 // URL will be converted to string

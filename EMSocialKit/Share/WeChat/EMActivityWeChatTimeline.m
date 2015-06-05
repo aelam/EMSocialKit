@@ -22,7 +22,7 @@ NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeCha
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocial.bundle/moment"];
+    return [UIImage imageNamed:@"EMSocialKit.bundle/moment"];
 }
 
 - (NSString *)activityTitle {

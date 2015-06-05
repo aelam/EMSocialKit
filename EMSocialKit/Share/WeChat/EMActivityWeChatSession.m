@@ -13,7 +13,7 @@ NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChat
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocial.bundle/wechat"];
+    return [UIImage imageNamed:@"EMSocialKit.bundle/wechat"];
 }
 
 - (NSString *)activityTitle {
