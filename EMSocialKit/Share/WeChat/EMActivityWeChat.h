@@ -21,7 +21,7 @@ UIKIT_EXTERN NSString *const EMActivityWeChatSummaryKey;
 UIKIT_EXTERN NSString *const EMActivityWeChatAuthCodeKey;
 
 UIKIT_EXTERN NSString *const EMActivityWeChatThumbImageKey;
-UIKIT_EXTERN NSString *const EMActivityWeChatDescriptionKey;
+//UIKIT_EXTERN NSString *const EMActivityWeChatDescriptionKey;
 
 @interface EMActivityWeChat : EMBridgeActivity
 

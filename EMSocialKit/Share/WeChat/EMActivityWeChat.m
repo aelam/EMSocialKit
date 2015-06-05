@@ -62,16 +62,20 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
             self.shareURL = activityItem;
         } else if ([activityItem isKindOfClass:[NSString class]] && !self.shareStringTitle) {
             self.shareStringTitle = activityItem;
+        } else if ([activityItem isKindOfClass:[NSString class]] && !self.shareStringDesc) {
+            self.shareStringDesc = activityItem;
         } else if ([activityItem isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = activityItem;
             if ([dict.allKeys containsObject:EMActivityWeChatThumbImageKey] &&
                 [dict[EMActivityWeChatThumbImageKey] isKindOfClass:[UIImage class]]) {
                 self.shareThumbImage = dict[EMActivityWeChatThumbImageKey];
             }
+            /*
             if ([dict.allKeys containsObject:EMActivityWeChatDescriptionKey] &&
                 [dict[EMActivityWeChatDescriptionKey] isKindOfClass:[NSString class]]) {
                 self.shareStringDesc = dict[EMActivityWeChatDescriptionKey];
             }
+             */
         }
     }
 }
