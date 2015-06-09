@@ -94,7 +94,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         } else if ([item isKindOfClass:[NSString class]]) {
             self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
         } else if ([item isKindOfClass:[NSURL class]]) {
-            self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" ": @""), [item absoluteString]];
+            self.shareURL = item;
         } else
             NSLog(@"NCActivityWeibo: Unknown item type: %@", item);
     }
