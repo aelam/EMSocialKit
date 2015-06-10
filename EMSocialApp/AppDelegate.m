@@ -41,7 +41,6 @@
     [WeiboSDK enableDebugMode:YES];
     // Override point for customization after application launch.
     
-    NSLog(@"%@", [NSURL URLWithString:@"social://com.terrence.ProductID?http://192.168.0.100:8080/gamedata"]);
     return YES;
 }
 

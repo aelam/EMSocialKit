@@ -51,4 +51,15 @@
     return @"637c8424532704e01532cbb3634f3031";
 }
 
+- (NSString*)tencentAppId {
+    return @"1103441607";
+}
+
+- (NSString*)tencentAppKey {
+    return @"Me24nvcpb1xRTs8j";
+}
+
+- (NSString *)tencentQQAppId {
+    return @"1103441607";
+}
 @end

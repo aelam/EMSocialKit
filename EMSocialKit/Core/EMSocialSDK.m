@@ -13,6 +13,7 @@
 #import "EMActivityWeChat.h"
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
+#import "EMActivityQQ.h"
 
 NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
 
@@ -24,7 +25,7 @@ static EMSocialSDK *sharedInstance = nil;
 
 @interface EMSocialSDK ()
 
-@property (nonatomic, strong, readwrite) EMActivity *activeActivity;
+@property (nonatomic, strong) EMActivity *activeActivity;
 @property (nonatomic,   copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
 @property (nonatomic, strong, readwrite) EMSocialDefaultConfigurator *configurator;
 
@@ -109,7 +110,8 @@ static EMSocialSDK *sharedInstance = nil;
 - (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
     NSArray *activies = @[[[EMActivityWeibo alloc]init],
                           [[EMActivityWeChatTimeline alloc]init],
-                          [[EMActivityWeChatSession alloc]init]
+                          [[EMActivityWeChatSession alloc]init],
+                          [[EMActivityQQ alloc]init]
                          ];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
     
@@ -120,7 +122,7 @@ static EMSocialSDK *sharedInstance = nil;
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
-        NSLog(@"DONE");
+        NSLog(@"presentViewController: DONE");
     }];
 }
 

@@ -42,7 +42,6 @@
 		94FA51251AB8282700A81E96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94FA51281AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
-		B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocial.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,7 +67,6 @@
 				949C62FB1ABAD877006B4E0A /* ImageIO.framework */,
 				949C62F91ABAD834006B4E0A /* CoreGraphics.framework */,
 				94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */,
-				B238D24C4C2DE83C5E5CF5DF /* libPods-EMSocial.a */,
 				02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */,
 			);
 			name = Frameworks;

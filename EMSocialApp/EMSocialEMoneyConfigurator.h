@@ -10,4 +10,6 @@
 
 @interface EMSocialEMoneyConfigurator : EMSocialDefaultConfigurator
 
+- (NSString *)tencentQQAppId;
+
 @end
