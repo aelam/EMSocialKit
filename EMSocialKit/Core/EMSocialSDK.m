@@ -114,7 +114,7 @@ static EMSocialSDK *sharedInstance = nil;
                           [[EMActivityQQ alloc]init]
                          ];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
-    
+    self.activeActivity = nil;
     activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (shareCompletionHandler) {
             shareCompletionHandler(activityType,  completed, returnedInfo, activityError);
