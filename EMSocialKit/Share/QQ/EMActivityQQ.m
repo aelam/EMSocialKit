@@ -101,6 +101,9 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 - (void)performActivity {
     [self observerForOpenURLNotification];
 
+    self.isLogin = NO;
+    [super performActivity];
+
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentQQAppId) andDelegate:self];
     if (self.shareURL) {
         QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(self.shareImage, 0.5)  targetContentType:QQApiURLTargetTypeNews];

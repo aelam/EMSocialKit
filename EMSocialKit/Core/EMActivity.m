@@ -108,6 +108,7 @@
 
 - (void)dealloc {
     [self removeObserverForOpenURLNotification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
