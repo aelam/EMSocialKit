@@ -94,7 +94,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         } else if ([item isKindOfClass:[NSString class]]) {
             self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
         } else if ([item isKindOfClass:[NSURL class]]) {
-            self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" ": @""), [item absoluteString]];
+            self.shareURL = item;
         } else
             NSLog(@"NCActivityWeibo: Unknown item type: %@", item);
     }
@@ -110,18 +110,17 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     if (self.shareString)
         message.text = self.shareString;
 
-    if (self.shareImage) {
-        WBImageObject *imageObject = [WBImageObject object];
-        imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
-        message.imageObject = imageObject;
-    }
     if (self.shareURL) {
         WBWebpageObject *webObject = [WBWebpageObject object];
         webObject.objectID = [NSString stringWithFormat:@"%ld", time(NULL)];
         webObject.title = self.shareString;
-        webObject.thumbnailData = UIImageJPEGRepresentation(self.shareImage, 1);
+        webObject.thumbnailData = UIImageJPEGRepresentation(self.shareImage, 0.3);
         webObject.webpageUrl = [self.shareURL absoluteString];
         message.mediaObject = webObject;
+    } else     if (self.shareImage) {
+        WBImageObject *imageObject = [WBImageObject object];
+        imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
+        message.imageObject = imageObject;
     }
     
     //

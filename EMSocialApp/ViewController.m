@@ -113,6 +113,38 @@
 }
 
 
+- (IBAction)qqLogin2:(id)sender {
+    EMActivityQQ *qq = [[EMActivityQQ alloc] init];
+    
+    [[EMSocialSDK sharedSDK] loginWithActivity:qq completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"login result %@", returnedInfo);
+    }];
+    
+}
+
+- (IBAction)qqShare:(id)sender {
+    EMActivityQQ *qq = [[EMActivityQQ alloc] init];
+    
+//    [[EMSocialSDK sharedSDK] loginWithActivity:qq completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alert show];
+//        NSLog(@"login result %@", returnedInfo);
+//    }];
+    
+    NSArray *contents = @[@"微信分享",[NSURL URLWithString:@"http://baidu.com"]];
+
+    [[EMSocialSDK sharedSDK] shareActivityItems:contents activity:qq completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"QQ Share Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"login result %@", returnedInfo);
+
+    }];
+    
+}
+
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
 }
 

@@ -20,6 +20,5 @@ Pod::Spec.new do |s|
   s.dependency 'DXYWeChatSDK', '~> 1.5.1'
   s.dependency 'WeiboSDK', '~> 3.0.1'
   s.dependency 'UIImage-ResizeMagick', '~> 0.0.1'
-  s.dependency 'JSONKit-NoWarning', '~> 1.2'
-
+  s.dependency 'TencentOpenApiSDK', '~> 2.9.0'
 end

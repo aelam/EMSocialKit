@@ -22,5 +22,8 @@
 - (NSString*)tencentWeixinAppId;
 - (NSString*)tencentWeixinAppKey;
 
+- (NSString*)tencentAppId;
+- (NSString*)tencentAppKey;
+
 
 @end

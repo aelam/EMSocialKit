@@ -1,0 +1,37 @@
+PODS:
+  - DXYWeChatSDK (1.5.1)
+  - EMSocialKit (0.0.1):
+    - DXYWeChatSDK (~> 1.5.1)
+    - TencentOpenApiSDK (~> 2.9.0)
+    - UIImage-ResizeMagick (~> 0.0.1)
+    - WeiboSDK (~> 3.0.1)
+  - TencentOpenApiSDK (2.9.0):
+    - TencentOpenApiSDK/Basic (= 2.9.0)
+  - TencentOpenApiSDK/Basic (2.9.0)
+  - UIImage-ResizeMagick (0.0.1)
+  - WeiboSDK (3.0.1)
+
+DEPENDENCIES:
+  - EMSocialKit (from `.`)
+  - TencentOpenApiSDK (~> 2.9.0)
+  - WeiboSDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+
+EXTERNAL SOURCES:
+  EMSocialKit:
+    :path: .
+  WeiboSDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  WeiboSDK:
+    :commit: d580b817ee8afb1bcf2d71b63a06b65735dcef23
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+SPEC CHECKSUMS:
+  DXYWeChatSDK: 6a23dbf67a4545bfc80e3e18f9b5cf0c98699576
+  EMSocialKit: b7b13add3ca74c04bd9545268acf2a13f5e9a5ce
+  TencentOpenApiSDK: 2c8be7f99581df17570d6d87adefbd5db4ce7721
+  UIImage-ResizeMagick: f08c2d14d1e8a5f0b402185408785540562f2fe7
+  WeiboSDK: 852b2733a7a39e7e34400f6486e453ca389ce189
+
+COCOAPODS: 0.36.0

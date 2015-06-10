@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2313DF6C-84C1-4DDB-B973-169E7009D22F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>EMSocialApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>23172D9A3338E8C80E9E4251B843CA6708193298</key>
+		<string>https://github.com/aelam/emsocial</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>EMSocialApp.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>23172D9A3338E8C80E9E4251B843CA6708193298</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/aelam/emsocial</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>23172D9A3338E8C80E9E4251B843CA6708193298</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>23172D9A3338E8C80E9E4251B843CA6708193298</string>
+			<key>IDESourceControlWCCName</key>
+			<string>emsocial</string>
+		</dict>
+	</array>
+</dict>
+</plist>
