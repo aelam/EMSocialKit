@@ -59,7 +59,4 @@
     return @"Me24nvcpb1xRTs8j";
 }
 
-- (NSString *)tencentQQAppId {
-    return @"1103441607";
-}
 @end
