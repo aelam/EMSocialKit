@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = '0.0.1'
   s.summary      = 'EMSocialKit'
   s.homepage     = 'https://github.com/aelam/EMSocial'
-  s.license      = { :type => 'MIT', :file => 'LICENSE' }
+  s.license      = { :type => 'Apache License', :file => 'LICENSE' }
   s.author       = { 'aelam' => 'ryanwang@gmail.com' }
 
   s.source       = { :git => 'https://github.com/aelam/emsocial.git' }
