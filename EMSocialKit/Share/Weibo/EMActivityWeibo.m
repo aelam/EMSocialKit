@@ -6,9 +6,11 @@
 #import "WeiboSDK.h"
 #import "UIImage+ResizeMagick.h"
 #import "EMSocialSDK.h"
+#import "WeiboUser.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
+NSString *const EMActivityWeiboUserNameKey      = @"EMActivityWeiboUserNameKey";
 NSString *const EMActivityWeiboStatusCodeKey    = @"EMActivityWeiboStatusCodeKey";
 NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessageKey";
 
@@ -23,6 +25,9 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 @property (nonatomic, strong) WBBaseResponse *response;
 @property (nonatomic, assign) BOOL isLogin;
+
+@property (nonatomic, strong) NSMutableDictionary *responseUserInfo;
+@property (nonatomic, strong) NSOperationQueue *queue;
 
 
 @end
@@ -134,7 +139,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         message.imageObject = imageObject;
     }
 
-    //
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.scope =  @"all";
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
@@ -158,6 +162,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = self.redirectURI;// @"http://weibo.com";
     request.scope = self.scope;//@"all";
+    
     [WeiboSDK sendRequest:request];
 }
 
@@ -242,6 +247,39 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     }
 }
 
+- (void)handledLoginResponse:(NSDictionary *)userInfo error:(NSError *)error {
+    NSString *userId = userInfo[EMActivityWeiboUserIdKey];
+    NSString *accessToken = userInfo[EMActivityWeiboAccessTokenKey];
+
+    if (userId == nil || accessToken == nil) {
+        [super handledLoginResponse:userInfo error:error];
+    } else {
+        __block NSMutableDictionary *newUserInfo = [userInfo mutableCopy];
+        [WBHttpRequest requestForUserProfile:userId withAccessToken:accessToken andOtherProperties:nil queue:[NSOperationQueue mainQueue] withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
+            if (error) {
+                showAlert(@"微博请求错误", [error localizedDescription]);
+            }
+            WeiboUser *weiboUser = result;
+            NSString *nickname = [weiboUser screenName];
+            newUserInfo[EMActivityWeiboUserNameKey] = nickname;
+            [super handledLoginResponse:newUserInfo error:error];
+        }];
+    }
+}
+
+
+
+- (void)requestUserInfoWithUserId:(NSString *)userId accessToken:(NSString *)accessToken {
+    [WBHttpRequest requestForUserProfile:userId withAccessToken:accessToken andOtherProperties:nil queue:[NSOperationQueue mainQueue] withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
+        if (error) {
+            showAlert(@"微博请求错误", [error localizedDescription]);
+        }
+        WeiboUser *weiboUser = result;
+        NSString *nickname = [weiboUser screenName];
+
+    }];
+
+}
 
 - (NSDictionary *)errorMessages{
     return

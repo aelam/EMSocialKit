@@ -15,6 +15,7 @@ NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
 
 NSString *const EMActivityQQAccessTokenKey  = @"EMActivityQQAccessTokenKey";
 NSString *const EMActivityQQUserIdKey       = @"EMActivityQQUserIdKey";
+NSString *const EMActivityQQNameKey         = @"EMActivityQQNameKey";           // QQ昵称
 NSString *const EMActivityQQExpirationDateKey=@"EMActivityQQExpirationDateKey"; // expirationDate
 NSString *const EMActivityQQStatusCodeKey   = @"EMActivityQQStatusCodeKey";
 NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
@@ -23,12 +24,14 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 @interface EMActivityQQ() <TencentSessionDelegate, QQApiInterfaceDelegate>
 
 @property (nonatomic, strong) UIImage *shareImage;  // only support one image
+@property (nonatomic, strong) UIImage *thumbImage;  // only support one image
 @property (nonatomic, strong) NSURL *shareURL;
 @property (nonatomic, strong) NSString *shareStringTitle;
 @property (nonatomic, strong) NSString *shareStringDesc;
 @property (nonatomic, assign) BOOL isLogin;
-
 @property (nonatomic, strong) TencentOAuth *tencentOAuth;
+
+@property (nonatomic, strong) NSMutableDictionary *emAuthInfo; //用于保存登陆信息，然后请求用户信息之后返回
 
 @end
 
@@ -94,6 +97,8 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
             self.shareStringTitle = activityItem;
         } else if ([activityItem isKindOfClass:[NSString class]] && !self.shareStringDesc) {
             self.shareStringDesc = activityItem;
+        } else if ([activityItem isKindOfClass:[NSDictionary class]]) {
+            self.thumbImage = activityItem[@"thumbimage"];
         }
     }
 }
@@ -104,9 +109,14 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     self.isLogin = NO;
     [super performActivity];
 
-    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentQQAppId) andDelegate:self];
+    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     if (self.shareURL) {
-        QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(self.shareImage, 0.5)  targetContentType:QQApiURLTargetTypeNews];
+        UIImage *image = self.shareImage;
+        if (image == nil) {
+            image = self.thumbImage;
+        }
+        
+        QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(image, 0.5)  targetContentType:QQApiURLTargetTypeNews];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
@@ -135,7 +145,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 - (void)performLogin {
     self.isLogin = YES;
     [self observerForOpenURLNotification];
-    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentQQAppId) andDelegate:self];
+    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     [self.tencentOAuth authorize:self.permissions inSafari:NO];
 }
 
@@ -151,6 +161,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 
 
 - (void)tencentDidLogin {
+    
     NSString *openId = _tencentOAuth.openId;
     NSString *accessToken = _tencentOAuth.accessToken;
     NSDate  *expirationDate = _tencentOAuth.expirationDate;
@@ -171,11 +182,8 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeSuccess);
     userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeSuccess)];
 
-    if (self.isLogin) {
-        [self handledLoginResponse:userInfo error:nil];
-    } else {
-        [self handledShareResponse:userInfo error:nil];
-    }
+    self.emAuthInfo = userInfo;
+    [self.tencentOAuth getUserInfo];
 }
 
 /**
@@ -183,15 +191,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
  * \param cancelled 代表用户是否主动退出登录
  */
 - (void)tencentDidNotLogin:(BOOL)cancelled {
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeUserCancel);
-    userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeUserCancel)];
-
-    if (self.isLogin) {
-        [self handledLoginResponse:userInfo error:nil];
-    } else {
-        [self handledShareResponse:userInfo error:nil];
-    }
+    [self emQQDidLogIn:nil];
 }
 
 /**
@@ -260,7 +260,13 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
  *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
  */
 - (void)getUserInfoResponse:(APIResponse*) response {
+    NSMutableDictionary *userInfo = self.emAuthInfo;
+    NSString *QQName = [response.jsonResponse objectForKey:@"nickname"];
+    if ([QQName isKindOfClass:[NSString class]]) {
+        userInfo[EMActivityQQNameKey] = QQName;
+    }
     
+    [self emQQDidLogIn:self.emAuthInfo];
 }
 
 - (void)responseDidReceived:(APIResponse*)response forMessage:(NSString *)message {
@@ -276,6 +282,23 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     return YES;
 }
 
+
+// 这个返回包含了请求username的信息
+- (void)emQQDidLogIn:(NSDictionary *)userInfo {
+    
+    if (userInfo == nil) {
+        NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+        newUserInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeUserCancel);
+        newUserInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeUserCancel)];
+        userInfo = newUserInfo;
+    }
+    
+    if (self.isLogin) {
+        [self handledLoginResponse:userInfo error:nil];
+    } else {
+        [self handledShareResponse:userInfo error:nil];
+    }
+}
 
 // MARK:  用来处理分享消息
 - (void)onReq:(QQBaseReq *)req {
