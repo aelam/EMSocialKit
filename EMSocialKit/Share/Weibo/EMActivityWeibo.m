@@ -257,7 +257,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         __block NSMutableDictionary *newUserInfo = [userInfo mutableCopy];
         [WBHttpRequest requestForUserProfile:userId withAccessToken:accessToken andOtherProperties:nil queue:[NSOperationQueue mainQueue] withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
             if (error) {
-                showAlert(@"微博请求错误", [error localizedDescription]);
             }
             WeiboUser *weiboUser = result;
             NSString *nickname = [weiboUser screenName];
@@ -272,7 +271,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 - (void)requestUserInfoWithUserId:(NSString *)userId accessToken:(NSString *)accessToken {
     [WBHttpRequest requestForUserProfile:userId withAccessToken:accessToken andOtherProperties:nil queue:[NSOperationQueue mainQueue] withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
         if (error) {
-            showAlert(@"微博请求错误", [error localizedDescription]);
         }
         WeiboUser *weiboUser = result;
         NSString *nickname = [weiboUser screenName];
