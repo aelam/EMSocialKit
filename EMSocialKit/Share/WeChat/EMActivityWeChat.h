@@ -13,6 +13,7 @@ typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
     EMActivityWeChatStatusCodeSentFail   = -3,   /**< 发送失败    */
     EMActivityWeChatStatusCodeAuthDeny   = -4,   /**< 授权失败    */
     EMActivityWeChatStatusCodeUnsupport  = -5,   /**< 微信不支持    */
+    EMActivityWeChatStatusCodeAppNotInstall= -6, /**< 未安装    */
 };
 
 UIKIT_EXTERN NSString *const EMActivityWeChatStatusCodeKey;
@@ -21,7 +22,6 @@ UIKIT_EXTERN NSString *const EMActivityWeChatSummaryKey;
 UIKIT_EXTERN NSString *const EMActivityWeChatAuthCodeKey;
 
 UIKIT_EXTERN NSString *const EMActivityWeChatThumbImageKey;
-//UIKIT_EXTERN NSString *const EMActivityWeChatDescriptionKey;
 
 @interface EMActivityWeChat : EMBridgeActivity
 

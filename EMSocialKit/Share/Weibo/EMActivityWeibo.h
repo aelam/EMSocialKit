@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, EMActivityWeiboStatusCode)
     EMActivityWeiboStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo
     EMActivityWeiboStatusCodeUnsupport             = -99,//不支持的请求
     EMActivityWeiboStatusCodeUnknown               = -100,
+    EMActivityWeiboStatusCodeAppNotInstall         = -101 //未安装客户端
 };
 
 

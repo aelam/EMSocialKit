@@ -81,8 +81,12 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 }
 
 - (void)performActivity {
-    [self observerForOpenURLNotification];
     self.isLogin = NO;
+    if ([self handleAppNotInstall]) {
+        return;
+    }
+    
+    [self observerForOpenURLNotification];
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.scene = self.scene;
     req.message = WXMediaMessage.message;
@@ -179,6 +183,10 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 - (void)performLogin {
     self.isLogin = YES;
     
+    if ([self handleAppNotInstall]) {
+        return;
+    }
+    
     [self observerForOpenURLNotification];
     
     SendAuthReq *req = [SendAuthReq new];
@@ -197,8 +205,23 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
       @(EMActivityWeChatStatusCodeSentFail):        @"发送失败",
       @(EMActivityWeChatStatusCodeAuthDeny):        @"授权失败",
       @(EMActivityWeChatStatusCodeUnsupport):       @"不支持的请求",
-      @(EMActivityWeChatStatusCodeUnsupport):       @"未知错误",
+      @(EMActivityWeChatStatusCodeAppNotInstall):   @"您未安装微信客户端",
       };
+}
+
+- (BOOL)handleAppNotInstall {
+    NSMutableDictionary *userInfo = @{}.mutableCopy;
+    userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeAppNotInstall);
+    userInfo[EMActivityWeChatStatusMessageKey] = [self errorMessages][@(EMActivityWeChatStatusCodeAppNotInstall)];
+    if (![WXApi isWXAppInstalled]) {
+        if (self.isLogin) {
+            [self handledLoginResponse:userInfo error:nil];
+        } else {
+            [self handledShareResponse:userInfo error:nil];
+        }
+        return YES;
+    }
+    return NO;
 }
 
 

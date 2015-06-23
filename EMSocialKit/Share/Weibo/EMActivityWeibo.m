@@ -101,8 +101,12 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 }
 
 - (void)performActivity {
-    [self observerForOpenURLNotification];
     self.isLogin = NO;
+    if ([self handleAppNotInstall]) {
+        return;
+    }
+
+    [self observerForOpenURLNotification];
     
     [super performActivity];
     
@@ -142,6 +146,10 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)performLogin {
     self.isLogin = YES;
+    if ([self handleAppNotInstall]) {
+        return;
+    }
+    
     [self observerForOpenURLNotification];
     
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
@@ -244,8 +252,26 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
       @(EMActivityWeiboStatusCodeShareInSDKFailed): @"分享失败",
       @(EMActivityWeiboStatusCodeUnsupport):        @"不支持的请求",
       @(EMActivityWeiboStatusCodeUnknown):          @"未知错误",
+      @(EMActivityWeiboStatusCodeAppNotInstall):    @"您未安装微博客户端",
       };
 }
+
+- (BOOL)handleAppNotInstall {
+    NSMutableDictionary *userInfo = @{}.mutableCopy;
+    userInfo[EMActivityWeiboStatusCodeKey] = @(EMActivityWeiboStatusCodeAppNotInstall);
+    userInfo[EMActivityWeiboStatusMessageKey] = [self errorMessages][@(EMActivityWeiboStatusCodeAppNotInstall)];
+    if (![WXApi isWXAppInstalled]) {
+        if (self.isLogin) {
+            [self handledLoginResponse:userInfo error:nil];
+        } else {
+            [self handledShareResponse:userInfo error:nil];
+        }
+        return YES;
+    }
+    return NO;
+}
+
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
