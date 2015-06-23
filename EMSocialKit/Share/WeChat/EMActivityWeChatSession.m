@@ -17,7 +17,7 @@ NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChat
 }
 
 - (NSString *)activityTitle {
-  return @"微信好友"; // todo
+  return @"微信";
 }
 
 @end
