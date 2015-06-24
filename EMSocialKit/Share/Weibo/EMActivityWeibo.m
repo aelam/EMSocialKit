@@ -94,7 +94,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         } else if ([item isKindOfClass:[NSString class]]) {
             self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" " : @""), item];
         } else if ([item isKindOfClass:[NSURL class]]) {
-            self.shareString = [(self.shareString ? : @"") stringByAppendingFormat:@"%@%@", (self.shareString ? @" ": @""), [item absoluteString]];
+            self.shareURL = item;
         } else
             NSLog(@"NCActivityWeibo: Unknown item type: %@", item);
     }
@@ -102,32 +102,38 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)performActivity {
     self.isLogin = NO;
-    if ([self handleAppNotInstall]) {
-        return;
-    }
 
     [self observerForOpenURLNotification];
     
     [super performActivity];
     
     WBMessageObject *message = [WBMessageObject message];
-    if (self.shareString)
-        message.text = self.shareString;
 
+    NSString *shareString = self.shareString;
+#if 1
+    if (self.shareURL) {
+        [shareString stringByAppendingFormat:@" %@", self.shareURL];
+    }
+
+    if (shareString) {
+        message.text = shareString;
+    }
+#else
+    if (self.shareURL) {
+        WBWebpageObject *webObject = [WBWebpageObject object];
+        webObject.objectID = [NSString stringWithFormat:@"%ld", time(NULL)];
+        webObject.title = self.shareString;
+        webObject.thumbnailData = UIImageJPEGRepresentation(self.shareImage, 0.3);
+        webObject.webpageUrl = [self.shareURL absoluteString];
+        message.mediaObject = webObject;
+    }else
+#endif
     if (self.shareImage) {
         WBImageObject *imageObject = [WBImageObject object];
         imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
         message.imageObject = imageObject;
     }
-    if (self.shareURL) {
-        WBWebpageObject *webObject = [WBWebpageObject object];
-        webObject.objectID = [NSString stringWithFormat:@"%ld", time(NULL)];
-        webObject.title = self.shareString;
-        webObject.thumbnailData = UIImageJPEGRepresentation(self.shareImage, 1);
-        webObject.webpageUrl = [self.shareURL absoluteString];
-        message.mediaObject = webObject;
-    }
-    
+
     //
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.scope =  @"all";
@@ -146,9 +152,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)performLogin {
     self.isLogin = YES;
-    if ([self handleAppNotInstall]) {
-        return;
-    }
     
     [self observerForOpenURLNotification];
     
