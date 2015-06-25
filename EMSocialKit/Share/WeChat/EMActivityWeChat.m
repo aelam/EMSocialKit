@@ -129,9 +129,9 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 
 - (BOOL)canHandleOpenURL:(NSURL *)url {
     NSString *urlString = [url absoluteString];
-    
-    BOOL can = [urlString containsString:@"wx"];
-    if (can && ![[url absoluteString] containsString:@"safepay"]) {
+
+    BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
+    if (can && ![[url absoluteString] rangeOfString:@"safepay"].location != NSNotFound) {
         return YES;
     }
     return NO;
