@@ -45,7 +45,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocialKit.bundle/moment"];
+    return [UIImage imageNamed:@"EMSocialKit.bundle/qq"];
 }
 
 - (NSString *)activityTitle {
