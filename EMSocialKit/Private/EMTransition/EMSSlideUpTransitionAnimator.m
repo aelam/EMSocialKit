@@ -43,7 +43,8 @@ static CGFloat kDefaultPresentingHeight = 160;
     if (self.presenting == NO) {
         
         // dismiss
-        
+        toView.userInteractionEnabled = YES;
+
         CGRect offscreenRect = initialFrameFrom;
         offscreenRect.origin.y = containerView.frame.size.height;
         
@@ -60,7 +61,6 @@ static CGFloat kDefaultPresentingHeight = 160;
             [fromView removeFromSuperview];
             [fromVC removeFromParentViewController];
 
-//            [toVC didMoveToParentViewController:self];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }
@@ -68,16 +68,17 @@ static CGFloat kDefaultPresentingHeight = 160;
     else if (self.presenting) {
         
         //2.Insert the toVC view...........................
-        [containerView insertSubview:toVC.view belowSubview:fromVC.view];
+        [containerView insertSubview:toVC.view aboveSubview:fromVC.view];
 
         CGRect fromVCRect = fromView.frame;
         CGRect toVCRect = fromView.frame;
         toVCRect.origin.y = fromVCRect.size.height;
-        toVCRect.size.height = kDefaultPresentingHeight;
+        toVCRect.size.height = toVC.view.frame.size.height;
         toView.frame = toVCRect;
-//        toView.frame = CGRectMake(0, initialFrameFrom.size.height, toView.frame.size.width, toView.frame.size.height);
-        containerView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
 
+        containerView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+        fromView.userInteractionEnabled = NO;
+        
         //3.Perform the animation...............................
         [UIView animateWithDuration:duration
                               delay:0.0
@@ -86,14 +87,10 @@ static CGFloat kDefaultPresentingHeight = 160;
                             options:UIViewAnimationOptionCurveEaseIn
          
                          animations:^{
-                             toView.frame = CGRectMake(0, fromVCRect.size.height - kDefaultPresentingHeight, toView.frame.size.width, toView.frame.size.height);
-                             NSLog(@"toView.frame: %@", NSStringFromCGRect(toView.frame));
+                             toView.frame = CGRectMake(0, fromVCRect.size.height - toView.frame.size.height, toView.frame.size.width, toView.frame.size.height);
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-
                          } completion:^(BOOL finished) {
-                             //When the animation is completed call completeTransition
                              [transitionContext completeTransition:YES];
-                             
                          }];
     }
 
