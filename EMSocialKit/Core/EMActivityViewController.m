@@ -36,7 +36,6 @@ static CGFloat kDefaultHeight = 160.f;
     if (self = [super init]) {
         self.activityItems = activityItems;
         self.applicationActivities = applicationActivities;
-        
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
         
@@ -186,14 +185,14 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.applicationActivities.count > indexPath.row) {
-        [self dismiss:nil];
-        EMActivity *activity = self.applicationActivities[indexPath.row];
-        self.selectedActivityType = activity.activityType;
-        
-        
-        [EMSocialSDK sharedSDK].activityViewController = self;;
-        [activity prepareWithActivityItems:self.activityItems];
-        [activity performActivity];
+        [self dismissViewControllerAnimated:YES completion:^{
+            EMActivity *activity = self.applicationActivities[indexPath.row];
+            self.selectedActivityType = activity.activityType;
+            
+            [EMSocialSDK sharedSDK].activityViewController = self;;
+            [activity prepareWithActivityItems:self.activityItems];
+            [activity performActivity];
+        }];
     }
 }
 
@@ -237,12 +236,6 @@ static CGFloat kDefaultHeight = 160.f;
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationPortrait;//|;
 }
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
-}
-
-
 
 - (void)dealloc {
     
