@@ -8,7 +8,7 @@
 
 #import "EMSSlideUpTransitionAnimator.h"
 
-static CGFloat kDefaultPresentingHeight = 160;
+//static CGFloat kDefaultPresentingHeight = 160;
 
 @implementation EMSSlideUpTransitionAnimator
 
@@ -20,9 +20,6 @@ static CGFloat kDefaultPresentingHeight = 160;
 }
 
 #pragma mark - UIViewControllerAnimatedTransitioning -
-
-
-//Define the transition
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
     
@@ -51,7 +48,7 @@ static CGFloat kDefaultPresentingHeight = 160;
         [UIView animateWithDuration:duration
                               delay:0.0
              usingSpringWithDamping:0.8
-              initialSpringVelocity:6.0
+              initialSpringVelocity:9.0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
             fromView.frame = offscreenRect;
@@ -59,8 +56,6 @@ static CGFloat kDefaultPresentingHeight = 160;
         } completion: ^(BOOL finished) {
             [fromView removeFromSuperview];
             [fromVC removeFromParentViewController];
-
-//            [toVC didMoveToParentViewController:self];
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         }];
     }
@@ -68,30 +63,27 @@ static CGFloat kDefaultPresentingHeight = 160;
     else if (self.presenting) {
         
         //2.Insert the toVC view...........................
-        [containerView insertSubview:toVC.view belowSubview:fromVC.view];
+        [containerView insertSubview:toVC.view aboveSubview:fromVC.view];
 
         CGRect fromVCRect = fromView.frame;
         CGRect toVCRect = fromView.frame;
         toVCRect.origin.y = fromVCRect.size.height;
-        toVCRect.size.height = kDefaultPresentingHeight;
-        toView.frame = toVCRect;
-//        toView.frame = CGRectMake(0, initialFrameFrom.size.height, toView.frame.size.width, toView.frame.size.height);
-        containerView.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+        toVCRect.size.width = fromVCRect.size.width;
+      
+        toView.frame = CGRectMake(0, initialFrameFrom.size.height, fromVCRect.size.width, toView.frame.size.height);
 
         //3.Perform the animation...............................
         [UIView animateWithDuration:duration
                               delay:0.0
-             usingSpringWithDamping:.8
-              initialSpringVelocity:6.0
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:7.0
                             options:UIViewAnimationOptionCurveEaseIn
          
                          animations:^{
-                             toView.frame = CGRectMake(0, fromVCRect.size.height - kDefaultPresentingHeight, toView.frame.size.width, toView.frame.size.height);
-                             NSLog(@"toView.frame: %@", NSStringFromCGRect(toView.frame));
+                             toView.frame = CGRectMake(0, initialFrameFrom.size.height - toView.frame.size.height, toView.frame.size.width, toView.frame.size.height);
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
 
                          } completion:^(BOOL finished) {
-                             //When the animation is completed call completeTransition
                              [transitionContext completeTransition:YES];
                              
                          }];
