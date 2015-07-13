@@ -14,7 +14,9 @@ typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL co
 
 - (instancetype)initWithActivityItems:(NSArray *)activityItems applicationActivities:(NSArray *)applicationActivities; 
 
-@property(nonatomic,copy) EMActivityShareCompletionHandler completionWithItemsHandler;
+@property(nonatomic, copy) EMActivityShareCompletionHandler completionWithItemsHandler;
+@property(nonatomic, strong)UIColor *backgroundColor;
+@property(nonatomic, strong)UIColor *activityTitleColor;
 
 
 @end

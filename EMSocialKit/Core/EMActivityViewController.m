@@ -38,7 +38,8 @@ static CGFloat kDefaultHeight = 160.f;
         self.applicationActivities = applicationActivities;
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
-        
+        self.backgroundColor = [UIColor whiteColor];
+        self.activityTitleColor = [UIColor darkGrayColor];
     }
     
     return self;
@@ -99,8 +100,15 @@ static CGFloat kDefaultHeight = 160.f;
     [self.view.window removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
+    if ([self isViewLoaded]) {
+        self.view.backgroundColor = _backgroundColor;
+    }
+}
 
 - (void)setUpActivitiesUI {
+    self.view.backgroundColor = self.backgroundColor;
     CGRect collectionViewRect = self.view.bounds;
     collectionViewRect.size.height = collectionViewRect.size.height - 50;
     
@@ -112,7 +120,7 @@ static CGFloat kDefaultHeight = 160.f;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     self.collectionView = [[UICollectionView alloc] initWithFrame:collectionViewRect collectionViewLayout:flowLayout];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     
     [self.collectionView registerClass:[_EMActivityViewCell class] forCellWithReuseIdentifier:kActivityCellIdentifier];
@@ -126,7 +134,7 @@ static CGFloat kDefaultHeight = 160.f;
     closeRect.origin.y = collectionViewRect.size.height;
     closeRect.size.height = 50;
     self.closeButton.frame = closeRect;
-    self.closeButton.backgroundColor = [UIColor whiteColor];
+    self.closeButton.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.closeButton];
     
     [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
@@ -178,6 +186,7 @@ static CGFloat kDefaultHeight = 160.f;
         EMActivity *activity = self.applicationActivities[indexPath.row];
         cell.activityTitleLabel.text = activity.activityTitle;
         cell.activityImageView.image = activity.activityImage;
+        cell.activityTitleLabel.textColor = self.activityTitleColor;
     }
     return cell;
 }

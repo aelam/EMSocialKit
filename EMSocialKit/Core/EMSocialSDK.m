@@ -60,8 +60,14 @@ static EMSocialSDK *sharedInstance = nil;
 {
     if ((self = [super init])) {
         _configurator = config;
+        [self _initialize];
     }
     return self;
+}
+
+- (void)_initialize {
+    self.backgroundColor = [UIColor whiteColor];
+    self.activityTitleColor = [UIColor darkGrayColor];
 }
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object
@@ -114,6 +120,8 @@ static EMSocialSDK *sharedInstance = nil;
                           [[EMActivityQQ alloc]init]
                          ];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
+    activityViewController.backgroundColor = self.backgroundColor;
+    activityViewController.activityTitleColor = self.activityTitleColor;
     self.activeActivity = nil;
     activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (shareCompletionHandler) {

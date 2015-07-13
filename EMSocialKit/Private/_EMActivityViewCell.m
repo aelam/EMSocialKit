@@ -14,7 +14,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor clearColor];
         
         self.activityImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, ICON_WIDTH, ICON_WIDTH)];
         CGRect rect = self.activityImageView.frame;
@@ -24,7 +24,8 @@
         self.activityImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:self.activityImageView];
         
-        self.activityTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 20, frame.size.width, 20)];
+        self.activityTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height - 30, frame.size.width, 20)];
+        self.activityTitleLabel.font = [UIFont systemFontOfSize:14];
         self.activityTitleLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:self.activityTitleLabel];
         

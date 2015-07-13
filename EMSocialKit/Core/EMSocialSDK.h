@@ -28,6 +28,9 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
 
 @interface EMSocialSDK : NSObject
 
+@property(nonatomic, strong)UIColor *backgroundColor;
+@property(nonatomic, strong)UIColor *activityTitleColor;
+
 
 + (instancetype)sharedSDK;
 
