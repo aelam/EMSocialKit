@@ -330,7 +330,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 - (NSDictionary *)errorMessages{
     return
     @{
-      @(EMActivityQQStatusCodeSuccess):          @"请求成功",
+      @(EMActivityQQStatusCodeSuccess):          @"分享成功",
       @(EMActivityQQStatusCodeUserCancel):       @"用户取消发送",
       @(EMActivityQQStatusCodeSentFail):         @"发送失败",
       @(EMActivityQQStatusCodeAuthDeny):         @"授权失败",

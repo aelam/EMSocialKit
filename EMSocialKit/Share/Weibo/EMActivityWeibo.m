@@ -282,9 +282,9 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 - (NSDictionary *)errorMessages{
     return
     @{
-      @(EMActivityWeiboStatusCodeSuccess):          @"发送成功",
-      @(EMActivityWeiboStatusCodeUserCancel):       @"用户取消发送",
-      @(EMActivityWeiboStatusCodeSentFail):         @"发送失败",
+      @(EMActivityWeiboStatusCodeSuccess):          @"分享成功",
+      @(EMActivityWeiboStatusCodeUserCancel):       @"用户取消分享",
+      @(EMActivityWeiboStatusCodeSentFail):         @"分享失败",
       @(EMActivityWeiboStatusCodeAuthDeny):         @"授权失败",
       @(EMActivityWeiboStatusCodeUserCancelInstall):@"用户取消安装微博客户端",
       @(EMActivityWeiboStatusCodePayFail):          @"支付失败",

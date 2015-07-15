@@ -12,9 +12,11 @@
 #import "EMActivity.h"
 #import "EMSocialSDK.h"
 
+#define EMSOCIAL_RGBA(r,g,b,a) [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
+#define EMSOCIAL_RGB(r,g,b) EMSOCIAL_RGBA(r,g,b,1)
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
-static CGFloat kDefaultHeight = 160.f;
+static CGFloat kDefaultHeight = 166.f;
 
 
 @interface EMActivityViewController () <UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
@@ -26,6 +28,12 @@ static CGFloat kDefaultHeight = 160.f;
 @property (nonatomic, strong, readwrite) UIButton *closeButton;
 @property (nonatomic, assign) NSString *selectedActivityType;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+
+// About Theme 
+@property(nonatomic, strong)UIColor *cancelBackgroundColor;
+@property(nonatomic, strong)UIColor *cancelBorderColor;
+@property(nonatomic, strong)UIColor *backgroundColor;
+@property(nonatomic, strong)UIColor *activityTitleColor;
 
 @end
 
@@ -40,6 +48,7 @@ static CGFloat kDefaultHeight = 160.f;
         self.transitioningDelegate = self;
         self.backgroundColor = [UIColor whiteColor];
         self.activityTitleColor = [UIColor darkGrayColor];
+        self.activityStyle = EMActivityStyleBlack;
     }
     
     return self;
@@ -58,6 +67,14 @@ static CGFloat kDefaultHeight = 160.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpActivitiesUI];
+    
+    if (self.activityStyle == EMActivityStyleWhite) {
+        [self loadWhiteTheme];
+    } else {
+        [self loadBlackTheme];
+    }
+    [self updateUIForTheme];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,6 +98,28 @@ static CGFloat kDefaultHeight = 160.f;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+}
+
+- (void)loadWhiteTheme {
+    self.backgroundColor = EMSOCIAL_RGB(0xf2,0xf2,0xF2);
+    self.activityTitleColor = EMSOCIAL_RGB(0x3d,0x3d,0x3d);
+    self.cancelBackgroundColor = [UIColor whiteColor];
+    self.cancelBorderColor = [UIColor whiteColor];
+}
+
+- (void)loadBlackTheme {
+    self.backgroundColor = EMSOCIAL_RGB(0x28,0x29,0x2c);
+    self.activityTitleColor = [UIColor whiteColor];
+    self.cancelBackgroundColor = EMSOCIAL_RGB(0x3e,0x40,0x4f);
+    self.cancelBorderColor = EMSOCIAL_RGB(0x5b,0x5b,0x5b);
+}
+
+- (void)updateUIForTheme {
+    self.view.backgroundColor = self.backgroundColor;
+    self.closeButton.backgroundColor = self.cancelBackgroundColor;
+    self.closeButton.layer.borderWidth = 1;
+    self.closeButton.layer.cornerRadius = 3;
+    self.closeButton.layer.borderColor = self.cancelBorderColor.CGColor;
 }
 
 - (void)setApplicationActivities:(NSArray *)applicationActivities {
@@ -132,8 +171,10 @@ static CGFloat kDefaultHeight = 160.f;
     self.closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     CGRect closeRect = self.view.bounds;//
     closeRect.origin.y = collectionViewRect.size.height;
-    closeRect.size.height = 50;
+    closeRect.size.height = 60;
+    closeRect = UIEdgeInsetsInsetRect(closeRect, UIEdgeInsetsMake(0, 15, 20, 15));
     self.closeButton.frame = closeRect;
+    [self.closeButton setTitleColor:EMSOCIAL_RGB(0x51, 0x96, 0xef) forState:UIControlStateNormal];
     self.closeButton.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.closeButton];
     

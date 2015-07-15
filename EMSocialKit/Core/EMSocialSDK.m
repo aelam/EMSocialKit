@@ -66,8 +66,7 @@ static EMSocialSDK *sharedInstance = nil;
 }
 
 - (void)_initialize {
-    self.backgroundColor = [UIColor whiteColor];
-    self.activityTitleColor = [UIColor darkGrayColor];
+    self.activityStyle = EMActivityStyleWhite;
 }
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object
@@ -114,14 +113,13 @@ static EMSocialSDK *sharedInstance = nil;
 ///////////////////////////////////////////////////////////////////////////////////
 
 - (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
-    NSArray *activies = @[[[EMActivityWeibo alloc]init],
+    NSArray *activies = @[[[EMActivityWeChatSession alloc]init],
                           [[EMActivityWeChatTimeline alloc]init],
-                          [[EMActivityWeChatSession alloc]init],
+                          [[EMActivityWeibo alloc]init],
                           [[EMActivityQQ alloc]init]
                          ];
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
-    activityViewController.backgroundColor = self.backgroundColor;
-    activityViewController.activityTitleColor = self.activityTitleColor;
+    activityViewController.activityStyle = self.activityStyle;
     self.activeActivity = nil;
     activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
         if (shareCompletionHandler) {

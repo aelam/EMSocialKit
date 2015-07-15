@@ -199,7 +199,7 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 - (NSDictionary *)errorMessages{
     return
     @{
-      @(EMActivityWeChatStatusCodeSuccess):         @"成功",
+      @(EMActivityWeChatStatusCodeSuccess):         @"分享成功",
       @(EMActivityWeChatStatusCodeCommon):          @"普通类型错误",
       @(EMActivityWeChatStatusCodeUserCancel):      @"用户取消发送",
       @(EMActivityWeChatStatusCodeSentFail):        @"发送失败",
