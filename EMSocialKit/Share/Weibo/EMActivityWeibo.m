@@ -36,6 +36,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 + (void)registerApp {
     [WeiboSDK registerApp:EMCONFIG(sinaWeiboConsumerKey)];
+    [WeiboSDK enableDebugMode:YES];
 }
 
 - (NSString *)redirectURI {
@@ -117,7 +118,14 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     NSString *shareString = self.shareString;
 #if 1
     if (self.shareURL) {
-        shareString = [shareString stringByAppendingFormat:@" %@", self.shareURL];
+        // 长度太长需要截取
+        NSString *shareURLString = [self.shareURL absoluteString];
+        if (shareString.length >0 && shareString.length + shareURLString.length >= 136) {
+            shareString = [shareString substringToIndex:136 - shareURLString.length];
+            shareString = [shareString stringByAppendingFormat:@"... %@", self.shareURL];
+        } else {
+            shareString = [shareString stringByAppendingFormat:@" %@", self.shareURL];
+        }
     }
 
     if (shareString) {
