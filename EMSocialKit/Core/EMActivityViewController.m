@@ -266,7 +266,7 @@ static CGFloat kDefaultHeight = 166.f;
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
                                                                    presentingController:(UIViewController *)presenting
                                                                        sourceController:(UIViewController *)source{
-    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSSlideUpTransitionAnimator animator];
+    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSocialSDK sharedSDK].transitionAnimator;
     slideUpTransitionAnimator.presenting = YES;
     return slideUpTransitionAnimator;
 }
@@ -274,7 +274,7 @@ static CGFloat kDefaultHeight = 166.f;
 #pragma mark - Rotate
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSSlideUpTransitionAnimator animator];
+    EMSSlideUpTransitionAnimator *slideUpTransitionAnimator = [EMSocialSDK sharedSDK].transitionAnimator;
     slideUpTransitionAnimator.presenting = NO;
     return slideUpTransitionAnimator;
 }

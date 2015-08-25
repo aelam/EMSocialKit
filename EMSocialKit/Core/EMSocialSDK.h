@@ -15,6 +15,8 @@
 #import "EMActivityWeChatSession.h"
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityQQ.h"
+#import "EMSTransitionAnimator.h"
+#import "EMSSlideUpTransitionAnimator2.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;
@@ -29,6 +31,7 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
 @interface EMSocialSDK : NSObject
 
 @property(nonatomic, assign)EMActivityStyle activityStyle;
+@property(nonatomic, strong)EMSTransitionAnimator *transitionAnimator;
 
 + (instancetype)sharedSDK;
 

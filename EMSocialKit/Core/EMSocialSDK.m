@@ -14,11 +14,12 @@
 #import "EMActivityWeChatTimeline.h"
 #import "EMActivityWeChatSession.h"
 #import "EMActivityQQ.h"
+#import "EMSSlideUpTransitionAnimator.h"
 
-NSString *const EMSocialSDKErrorDomain = @"com.emoney.emsocialsdk";
+NSString *const EMSocialSDKErrorDomain      = @"com.emoney.emsocialsdk";
 
 NSString *const EMSocialOpenURLNotification = @"EMSocialOpenURLNotification";
-NSString *const EMSocialOpenURLKey = @"EMSocialOpenURLKey";
+NSString *const EMSocialOpenURLKey          = @"EMSocialOpenURLKey";
 
 
 static EMSocialSDK *sharedInstance = nil;
@@ -66,7 +67,8 @@ static EMSocialSDK *sharedInstance = nil;
 }
 
 - (void)_initialize {
-    self.activityStyle = EMActivityStyleWhite;
+    self.activityStyle      = EMActivityStyleWhite;
+    self.transitionAnimator = [EMSSlideUpTransitionAnimator new];
 }
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object
