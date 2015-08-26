@@ -117,6 +117,8 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
             image = self.thumbImage;
         }
         
+        UIImage *previewImage = [image resizedImageWithMaximumSize:CGSizeMake(300, 300)];
+        
         QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(image, 0.5)  targetContentType:QQApiURLTargetTypeNews];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
@@ -128,7 +130,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
         NSData *previewImageData = UIImageJPEGRepresentation(previewImage, 1);
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
         
-        QQApiImageObject *newsObj = [QQApiImageObject objectWithData:previewImageData previewImageData:previewImageData title:self.shareStringTitle description:self.shareStringDesc];
+        QQApiImageObject *newsObj = [QQApiImageObject objectWithData:imageData previewImageData:previewImageData title:self.shareStringTitle description:self.shareStringDesc];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
