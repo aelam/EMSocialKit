@@ -10,6 +10,7 @@
 #import <TencentOAuth.h>
 #import "EMSocialSDK.h"
 #import <QQApiInterface.h>
+#import <UIImage-ResizeMagick/UIImage+ResizeMagick.h>
 
 NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
 
@@ -105,10 +106,10 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 
 - (void)performActivity {
     [self observerForOpenURLNotification];
-
+    
     self.isLogin = NO;
     [super performActivity];
-
+    
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     if (self.shareURL) {
         UIImage *image = self.shareImage;
@@ -121,7 +122,13 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
     } else if (self.shareImage) {
-        QQApiImageObject *newsObj = [QQApiImageObject objectWithData:nil previewImageData:UIImageJPEGRepresentation(self.shareImage, 0.5) title:self.shareStringTitle description:self.shareStringDesc];
+        UIImage *previewImage = [self.shareImage resizedImageWithMaximumSize:CGSizeMake(200, 200)];
+        UIImage *image = [self.shareImage resizedImageByWidth:640];
+        
+        NSData *previewImageData = UIImageJPEGRepresentation(previewImage, 1);
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        
+        QQApiImageObject *newsObj = [QQApiImageObject objectWithData:previewImageData previewImageData:previewImageData title:self.shareStringTitle description:self.shareStringDesc];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
@@ -133,7 +140,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
     }
-
+    
     [self activityDidFinish:YES];
 }
 
@@ -181,7 +188,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     
     userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeSuccess);
     userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeSuccess)];
-
+    
     self.emAuthInfo = userInfo;
     [self.tencentOAuth getUserInfo];
 }
@@ -334,7 +341,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
       @(EMActivityQQStatusCodeUserCancel):       @"用户取消发送",
       @(EMActivityQQStatusCodeSentFail):         @"发送失败",
       @(EMActivityQQStatusCodeAuthDeny):         @"授权失败",
-//      @(EMActivityQQStatusCodeUserCancelInstall):@"用户取消安装QQ客户端",
+      //      @(EMActivityQQStatusCodeUserCancelInstall):@"用户取消安装QQ客户端",
       @(EMActivityQQStatusCodePayFail):          @"支付失败",
       @(EMActivityQQStatusCodeShareInSDKFailed): @"分享失败",
       @(EMActivityQQStatusCodeUnsupport):        @"不支持的请求",
