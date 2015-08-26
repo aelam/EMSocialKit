@@ -57,38 +57,38 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 
 + (UIActivityCategory)activityCategory {
-  return UIActivityCategoryShare;
+    return UIActivityCategoryShare;
 }
 
 - (NSString *)activityType {
-  return UIActivityTypePostToSinaWeibo;
+    return UIActivityTypePostToSinaWeibo;
 }
 
 - (NSString *)activityTitle {
-  return @"新浪微博";
+    return @"新浪微博";
 }
 
 - (UIImage *)activityImage {
-  if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)
-    return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
-  else
-    return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending)
+        return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
+    else
+        return [UIImage imageNamed:@"EMSocialKit.bundle/weibo"];
 }
 
 // URL will be converted to string
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-  for (id item in activityItems) {
-    if ([item isKindOfClass:[UIImage class]]) {
-      return YES;
-    } else if ([item isKindOfClass:[NSData class]]) {
-      return YES;
-    } else if ([item isKindOfClass:[NSURL class]]) {
-      return YES;
-    } else if ([item isKindOfClass:[NSString class]]) {
-      return YES;
+    for (id item in activityItems) {
+        if ([item isKindOfClass:[UIImage class]]) {
+            return YES;
+        } else if ([item isKindOfClass:[NSData class]]) {
+            return YES;
+        } else if ([item isKindOfClass:[NSURL class]]) {
+            return YES;
+        } else if ([item isKindOfClass:[NSString class]]) {
+            return YES;
+        }
     }
-  }
-  return NO;
+    return NO;
 }
 
 - (void)prepareWithActivityItems:(NSArray *)activityItems {
@@ -108,13 +108,13 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 
 - (void)performActivity {
     self.isLogin = NO;
-
+    
     [self observerForOpenURLNotification];
     
     [super performActivity];
     
     WBMessageObject *message = [WBMessageObject message];
-
+    
     NSString *shareString = self.shareString;
 #if 1
     if (self.shareURL) {
@@ -127,7 +127,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
             shareString = [shareString stringByAppendingFormat:@" %@", self.shareURL];
         }
     }
-
+    
     if (shareString) {
         message.text = shareString;
     }
@@ -141,12 +141,12 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         message.mediaObject = webObject;
     }else
 #endif
-    if (self.shareImage) {
-        WBImageObject *imageObject = [WBImageObject object];
-        imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
-        message.imageObject = imageObject;
-    }
-
+        if (self.shareImage) {
+            WBImageObject *imageObject = [WBImageObject object];
+            imageObject.imageData = UIImageJPEGRepresentation(self.shareImage, 1);
+            message.imageObject = imageObject;
+        }
+    
     WBAuthorizeRequest *authRequest = [WBAuthorizeRequest request];
     authRequest.scope =  @"all";
     WBSendMessageToWeiboRequest *request = [WBSendMessageToWeiboRequest requestWithMessage:message authInfo:authRequest access_token:nil];
@@ -178,10 +178,10 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 #pragma mark -
 #pragma mark Private Methods
 - (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
-  // Resize if needed
-  UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage resizedImageByMagick:@"1600x1600"] : oriImage;
-
-  return result;
+    // Resize if needed
+    UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage resizedImageByMagick:@"1600x1600"] : oriImage;
+    
+    return result;
 }
 
 - (void)handleOpenURL:(NSURL *)url {
@@ -213,7 +213,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         if (accessToken.length == 0) {
             accessToken = [sendMessageToWeiboResponse.requestUserInfo valueForKeyPath:@"access_token"];
         }
-
+        
         if (userID.length == 0) {
             userID = [sendMessageToWeiboResponse.requestUserInfo valueForKeyPath:@"uid"];
         }
@@ -238,7 +238,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         if (userID.length == 0) {
             userID = [response.requestUserInfo valueForKeyPath:@"uid"];
         }
-
+        
         if (accessToken.length > 0) {
             [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         }
@@ -247,7 +247,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
             [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
         }
     }
-
+    
     if (self.isLogin) {
         [self handledLoginResponse:userInfo error:nil];
     } else {
@@ -258,7 +258,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 - (void)handledLoginResponse:(NSDictionary *)userInfo error:(NSError *)error {
     NSString *userId = userInfo[EMActivityWeiboUserIdKey];
     NSString *accessToken = userInfo[EMActivityWeiboAccessTokenKey];
-
+    
     if (userId == nil || accessToken == nil) {
         [super handledLoginResponse:userInfo error:error];
     } else {
@@ -272,19 +272,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
             [super handledLoginResponse:newUserInfo error:error];
         }];
     }
-}
-
-
-
-- (void)requestUserInfoWithUserId:(NSString *)userId accessToken:(NSString *)accessToken {
-    [WBHttpRequest requestForUserProfile:userId withAccessToken:accessToken andOtherProperties:nil queue:[NSOperationQueue mainQueue] withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
-        if (error) {
-        }
-        WeiboUser *weiboUser = result;
-        NSString *nickname = [weiboUser screenName];
-
-    }];
-
 }
 
 - (NSDictionary *)errorMessages{
@@ -307,7 +294,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     NSMutableDictionary *userInfo = @{}.mutableCopy;
     userInfo[EMActivityWeiboStatusCodeKey] = @(EMActivityWeiboStatusCodeAppNotInstall);
     userInfo[EMActivityWeiboStatusMessageKey] = [self errorMessages][@(EMActivityWeiboStatusCodeAppNotInstall)];
-    if (![WXApi isWXAppInstalled]) {
+    if (![WeiboSDK isWeiboAppInstalled]) {
         if (self.isLogin) {
             [self handledLoginResponse:userInfo error:nil];
         } else {
