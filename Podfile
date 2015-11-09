@@ -3,7 +3,7 @@
 
 target 'EMSocialApp' do
 
-pod 'WeiboSDK', :git=>'https://github.com/sinaweibosdk/weibo_ios_sdk.git' #3.0.1
+pod 'WeiboSDK'
 pod 'TencentOpenApiSDK', '~> 2.9.0'
 pod "EMSocialKit", :path=>'.'
 

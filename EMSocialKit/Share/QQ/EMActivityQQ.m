@@ -7,9 +7,9 @@
 //
 
 #import "EMActivityQQ.h"
-#import "EMSocialSDK.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import <TencentOpenAPI/QQApiInterface.h>
+#import "EMSocialSDK.h"
 #import <UIImage-ResizeMagick/UIImage+ResizeMagick.h>
 
 NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
