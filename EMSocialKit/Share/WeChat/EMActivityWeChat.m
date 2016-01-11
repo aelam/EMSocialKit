@@ -86,7 +86,6 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
         return;
     }
     
-    [self observerForOpenURLNotification];
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     req.scene = self.scene;
     req.message = WXMediaMessage.message;
@@ -137,8 +136,8 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     return NO;
 }
 
-- (void)handleOpenURL:(NSURL *)url {
-    [WXApi handleOpenURL:url delegate:self];
+- (BOOL)handleOpenURL:(NSURL *)url {
+    return [WXApi handleOpenURL:url delegate:self];
 }
 
 -(void) onReq:(BaseReq*)req {
@@ -187,8 +186,6 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
         return;
     }
     
-    [self observerForOpenURLNotification];
-    
     SendAuthReq *req = [SendAuthReq new];
     req.scope = [self scope];
     req.state = [NSString stringWithFormat:@"%ld", time(NULL)];
@@ -224,9 +221,5 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     return NO;
 }
 
-
-- (void)dealloc {
-    [self removeObserverForOpenURLNotification];
-}
 
 @end

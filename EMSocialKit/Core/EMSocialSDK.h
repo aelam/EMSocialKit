@@ -17,12 +17,9 @@
 #import "EMActivityQQ.h"
 #import "EMSTransitionAnimator.h"
 #import "EMSSlideUpTransitionAnimator2.h"
+#import "EMActivity.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
-FOUNDATION_EXPORT NSString *const EMSocialOpenURLNotification;
-FOUNDATION_EXPORT NSString *const EMSocialOpenURLKey;
-
-typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 @class EMActivity;
 @class EMActivityViewController;
@@ -81,9 +78,9 @@ typedef void (^EMSocialLoginCompletionHandler)(BOOL completed, NSDictionary *ret
 
 ///////////////////////////////////////////////////////////////////////////
 // Login
-@property (nonatomic, copy, readonly) EMSocialLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic, copy, readonly) EMActivityLoginCompletionHandler loginCompletionHandler;
 
-- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion;
+- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMActivityLoginCompletionHandler) completion;
 
 ///////////////////////////////////////////////////////////////////////////
 

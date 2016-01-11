@@ -11,13 +11,15 @@
 
 
 typedef void (^EMActivityCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+
 typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 
 @interface EMActivity : NSObject
 
 
-@property (nonatomic, copy) EMActivityCompletionHandler completionHandler;
-//@property (nonatomic, copy) EMActivityLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic, copy) EMActivityShareCompletionHandler completionHandler;
+@property (nonatomic, copy) EMActivityLoginCompletionHandler loginCompletionHandler;
 
 
 + (void)registerApp;
@@ -49,16 +51,9 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 
 @end
 
-@interface EMActivity (Notification)
+@interface EMActivity (HandleOpenURL)
 
-// weibo and wechat need URLNotification from `AppDelegate`
-- (void)observerForOpenURLNotification;
-- (void)removeObserverForOpenURLNotification;
-- (void)handleOpenURLNotification:(NSNotification *)notification; // private
-
-// `-handleOpenURLNotification:` will call this
-// you need implement this in your subclass to handle the URL by the specified Social API
-- (void)handleOpenURL:(NSURL *)url;
+- (BOOL)handleOpenURL:(NSURL *)url;
 
 @end
 

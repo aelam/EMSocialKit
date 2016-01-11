@@ -105,7 +105,6 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 }
 
 - (void)performActivity {
-    [self observerForOpenURLNotification];
     
     self.isLogin = NO;
     [super performActivity];
@@ -153,18 +152,18 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 
 - (void)performLogin {
     self.isLogin = YES;
-    [self observerForOpenURLNotification];
+
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     [self.tencentOAuth authorize:self.permissions inSafari:NO];
 }
 
 
 
-- (void)handleOpenURL:(NSURL *)url {
+- (BOOL)handleOpenURL:(NSURL *)url {
     if (self.isLogin) {
-        [TencentOAuth HandleOpenURL:url];
+        return [TencentOAuth HandleOpenURL:url];
     } else {
-        [QQApiInterface handleOpenURL:url delegate:self];
+        return [QQApiInterface handleOpenURL:url delegate:self];
     }
 }
 
@@ -352,10 +351,5 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
       };
 }
 
-
-
-- (void)dealloc {
-    [self removeObserverForOpenURLNotification];
-}
 
 @end

@@ -8,18 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@class EMActivity;
+
 typedef NS_ENUM(NSUInteger, EMActivityStyle){
     EMActivityStyleWhite,
     EMActivityStyleBlack
 };
 
-typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
+typedef void (^EMActivityViewControllerCompletionWithItemsHandler)(EMActivity * activity, BOOL completed, NSArray * returnedItems, NSError * activityError);
+
 
 @interface EMActivityViewController : UIViewController
 
 - (instancetype)initWithActivityItems:(NSArray *)activityItems applicationActivities:(NSArray *)applicationActivities; 
 
-@property(nonatomic, copy) EMActivityShareCompletionHandler completionWithItemsHandler;
+@property(nonatomic, copy) EMActivityViewControllerCompletionWithItemsHandler completionWithItemsHandler;
 @property(nonatomic, assign)EMActivityStyle activityStyle;
 
 

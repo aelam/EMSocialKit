@@ -34,6 +34,7 @@ static CGFloat kDefaultHeight = 166.f;
 @property(nonatomic, strong)UIColor *cancelBorderColor;
 @property(nonatomic, strong)UIColor *backgroundColor;
 @property(nonatomic, strong)UIColor *activityTitleColor;
+@property(nonatomic, strong, readwrite)EMActivity *activeActivity;
 
 @end
 
@@ -238,26 +239,24 @@ static CGFloat kDefaultHeight = 166.f;
         [self dismissViewControllerAnimated:YES completion:^{
             EMActivity *activity = self.applicationActivities[indexPath.row];
             self.selectedActivityType = activity.activityType;
+            self.activeActivity = activity;
             
-            [EMSocialSDK sharedSDK].activityViewController = self;;
-            [activity prepareWithActivityItems:self.activityItems];
-            [activity performActivity];
+            [self.activeActivity prepareWithActivityItems:self.activityItems];
+            [self.activeActivity performActivity];
+            
+            if (self.completionWithItemsHandler) {
+                self.completionWithItemsHandler(self.activeActivity, YES, NULL, nil);
+            }
+
         }];
     }
 }
 
 
-- (void)_handleAcitivityType:(NSString *)activityType completed:(BOOL)completed returnInfo:(NSDictionary *)returnedInfo activityError:(NSError *) activityError {
-        [EMSocialSDK sharedSDK].activityViewController = nil;
-    if (self.completionWithItemsHandler) {
-        self.completionWithItemsHandler(activityType,completed, returnedInfo, activityError);
-    }
-}
-
 - (void)cancelAction:(id)sender {
     if (self.completionWithItemsHandler) {
         NSError *activityError = [NSError errorWithDomain:@"EMActivityViewController" code:100 userInfo:@{NSLocalizedDescriptionKey:@"用户取消"}];
-        self.completionWithItemsHandler(self.selectedActivityType,YES, nil, activityError);
+        self.completionWithItemsHandler(self.activeActivity,YES, nil, activityError);
     }
     [self dismiss:nil];
 }

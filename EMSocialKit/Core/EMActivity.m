@@ -12,11 +12,6 @@
 
 @class EMActivityViewController;
 
-//NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
-//NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
-//NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo";
-
-
 @interface EMActivity ()
 
 @property (nonatomic, strong, readwrite) EMActivityViewController *activityViewController;
@@ -65,25 +60,18 @@
     
 }
 
-- (void)handleOpenURLNotification:(NSNotification *)notification {
-    NSURL *url = [[notification userInfo] objectForKey:EMSocialOpenURLKey];
-    [self handleOpenURL:url];
-}
-
-- (void)handleOpenURL:(NSURL *)url {
+- (BOOL)handleOpenURL:(NSURL *)url {
+    return YES;
 }
 
 - (void)handledShareResponse:(id)response error:(NSError *)error {
     if(self.completionHandler) {
-        self.completionHandler(YES, response, error);
+        self.completionHandler(self.activityType ,YES, response, error);
     }
-    
-    EMActivityViewController *activityViewController_ = [EMSocialSDK sharedSDK].activityViewController;
-    [activityViewController_ _handleAcitivityType:self.activityType completed:YES returnInfo:response activityError:error];
 }
 
 - (void)handledLoginResponse:(id)response error:(NSError *)error {
-    EMSocialLoginCompletionHandler loginCompletionHandler = [EMSocialSDK sharedSDK].loginCompletionHandler;
+    EMActivityLoginCompletionHandler loginCompletionHandler = [EMSocialSDK sharedSDK].loginCompletionHandler;
     if (loginCompletionHandler) {
         loginCompletionHandler(YES, response, error);
     }
@@ -95,20 +83,10 @@
 }
 
 - (void)performLogin {
-    [self observerForOpenURLNotification];
 }
 
-- (void)observerForOpenURLNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:EMSocialOpenURLNotification object:nil];
-}
-
-- (void)removeObserverForOpenURLNotification {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:EMSocialOpenURLNotification object:nil];
-}
 
 - (void)dealloc {
-    [self removeObserverForOpenURLNotification];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

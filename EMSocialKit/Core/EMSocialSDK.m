@@ -27,7 +27,7 @@ static EMSocialSDK *sharedInstance = nil;
 @interface EMSocialSDK ()
 
 @property (nonatomic, strong) EMActivity *activeActivity;
-@property (nonatomic,   copy, readwrite) EMSocialLoginCompletionHandler loginCompletionHandler;
+@property (nonatomic,   copy, readwrite) EMActivityLoginCompletionHandler loginCompletionHandler;
 @property (nonatomic, strong, readwrite) EMSocialDefaultConfigurator *configurator;
 
 @end
@@ -108,8 +108,7 @@ static EMSocialSDK *sharedInstance = nil;
 ///////////////////////////////////////////////////////////////////////////////////
 
 - (BOOL)handleOpenURL:(NSURL *)URL sourceApplication:(NSString *)application {
-    [[NSNotificationCenter defaultCenter] postNotificationName:EMSocialOpenURLNotification object:nil userInfo:@{EMSocialOpenURLKey:URL}];
-    return YES;
+    return [self.activeActivity handleOpenURL:URL];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -123,10 +122,13 @@ static EMSocialSDK *sharedInstance = nil;
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
     activityViewController.activityStyle = self.activityStyle;
     self.activeActivity = nil;
-    activityViewController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-        if (shareCompletionHandler) {
-            shareCompletionHandler(activityType,  completed, returnedInfo, activityError);
-        }
+    activityViewController.completionWithItemsHandler = ^(EMActivity *activity, BOOL completed, NSArray *returnedInfo, NSError *activityError) {
+        self.activeActivity = activity;
+        self.activeActivity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+            if(shareCompletionHandler) {
+                shareCompletionHandler(activityType, completed, returnedInfo, activityError);
+            }
+        };
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
@@ -140,9 +142,9 @@ static EMSocialSDK *sharedInstance = nil;
     if([activity canPerformWithActivityItems:content]) {
         [activity prepareWithActivityItems:content];
         [activity performActivity];
-        activity.completionHandler = ^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        activity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
             if(shareCompletionHandler) {
-                shareCompletionHandler(type, YES, returnedInfo, activityError);
+                shareCompletionHandler(type, completed, returnedInfo, activityError);
             }
         };
     } else {
@@ -151,7 +153,7 @@ static EMSocialSDK *sharedInstance = nil;
 }
 
 
-- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMSocialLoginCompletionHandler) completion {
+- (void)loginWithActivity:(EMActivity *)activity completionHandler:(EMActivityLoginCompletionHandler) completion {
     self.activeActivity = activity;
     if([activity canPerformLogin]) {
         self.loginCompletionHandler = completion;

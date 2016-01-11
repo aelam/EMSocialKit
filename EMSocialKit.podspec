@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'EMSocialKit'
-  s.version      = '0.1.1'
+  s.version      = '0.1.2'
   s.summary      = 'EMSocialKit'
   s.homepage     = 'http://ph.benemind.com/diffusion/EMSK'
   s.license      = { :type => 'Apache License', :file => 'LICENSE' }

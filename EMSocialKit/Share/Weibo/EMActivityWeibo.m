@@ -109,8 +109,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 - (void)performActivity {
     self.isLogin = NO;
     
-    [self observerForOpenURLNotification];
-    
     [super performActivity];
     
     WBMessageObject *message = [WBMessageObject message];
@@ -165,8 +163,6 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
 - (void)performLogin {
     self.isLogin = YES;
     
-    [self observerForOpenURLNotification];
-    
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = self.redirectURI;// @"http://weibo.com";
     request.scope = self.scope;//@"all";
@@ -184,8 +180,8 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     return result;
 }
 
-- (void)handleOpenURL:(NSURL *)url {
-    [WeiboSDK handleOpenURL:url delegate:self];
+- (BOOL)handleOpenURL:(NSURL *)url {
+    return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
 
