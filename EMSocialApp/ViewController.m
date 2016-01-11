@@ -9,7 +9,6 @@
 #import "ViewController.h"
 
 #import "EMSocialSDK.h"
-#import "EMSocialKey.h"
 #import "EMActivityWeChat.h"
 #import "EMActivityWeibo.h"
 #import "EMActivityWeChatSession.h"

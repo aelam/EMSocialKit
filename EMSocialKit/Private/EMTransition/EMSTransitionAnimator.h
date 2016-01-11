@@ -13,6 +13,7 @@
 
 + (instancetype)animator;
 
+@property (nonatomic, assign) BOOL presenting;
 @property (nonatomic, assign) float duration; // default is 0.1s
 
 @end

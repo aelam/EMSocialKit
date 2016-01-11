@@ -117,7 +117,7 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
             image = self.thumbImage;
         }
         
-        UIImage *previewImage = [image resizedImageWithMaximumSize:CGSizeMake(300, 300)];
+//        UIImage *previewImage = [image resizedImageWithMaximumSize:CGSizeMake(300, 300)];
         
         QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(image, 0.5)  targetContentType:QQApiURLTargetTypeNews];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];

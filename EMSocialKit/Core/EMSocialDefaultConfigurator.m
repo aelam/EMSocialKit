@@ -56,5 +56,14 @@
     return @"";   
 }
 
+- (NSString*)tencentAppId {
+    return @"";
+}
+
+- (NSString*)tencentAppKey {
+    return @"";
+}
+
+
 
 @end
