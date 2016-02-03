@@ -23,8 +23,13 @@ typedef NS_ENUM(NSInteger, EMActivityWeiboStatusCode)
 UIKIT_EXTERN NSString *const UIActivityTypePostToSinaWeibo;
 
 UIKIT_EXTERN NSString *const EMActivityWeiboAccessTokenKey;
+UIKIT_EXTERN NSString *const EMActivityWeiboRefreshTokenKey;
+UIKIT_EXTERN NSString *const EMActivityWeiboExpirationDateKey;
+
 UIKIT_EXTERN NSString *const EMActivityWeiboUserIdKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboUserNameKey;
+UIKIT_EXTERN NSString *const EMActivityWeiboProfileImageURLKey;// 头像
+
 UIKIT_EXTERN NSString *const EMActivityWeiboStatusCodeKey;
 UIKIT_EXTERN NSString *const EMActivityWeiboStatusMessageKey;
 

@@ -27,18 +27,18 @@
     UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     UIView *containerView = [transitionContext containerView];
-
+    
     containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
     
     NSTimeInterval duration = [self transitionDuration:transitionContext];
-
+    
     CGRect initialFrameFrom = [transitionContext initialFrameForViewController:fromVC];
-
+    
     UIView *fromView = fromVC.view;
     UIView *toView = toVC.view;
     
     if (self.presenting == NO) {
-        
+        toView.userInteractionEnabled = YES;
         // dismiss
         
         CGRect offscreenRect = initialFrameFrom;
@@ -51,27 +51,32 @@
               initialSpringVelocity:9.0
                             options:UIViewAnimationOptionCurveEaseIn
                          animations:^{
-            fromView.frame = offscreenRect;
+                             fromView.frame = offscreenRect;
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0];
-        } completion: ^(BOOL finished) {
-            [fromView removeFromSuperview];
-            [fromVC removeFromParentViewController];
-            [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        }];
+                             [self removeShadowForView:fromView];
+                             
+                         } completion: ^(BOOL finished) {
+                             [fromView removeFromSuperview];
+                             [fromVC removeFromParentViewController];
+                             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+                         }];
     }
     
     else if (self.presenting) {
+        fromView.userInteractionEnabled = NO;
+        toView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        toView.layer.shadowOffset = CGSizeMake(0, 4);
         
         //2.Insert the toVC view...........................
         [containerView insertSubview:toVC.view aboveSubview:fromVC.view];
-
+        
         CGRect fromVCRect = fromView.frame;
         CGRect toVCRect = fromView.frame;
         toVCRect.origin.y = fromVCRect.size.height;
         toVCRect.size.width = fromVCRect.size.width;
-      
+        
         toView.frame = CGRectMake(0, initialFrameFrom.size.height, fromVCRect.size.width, toView.frame.size.height);
-
+        
         //3.Perform the animation...............................
         [UIView animateWithDuration:duration
                               delay:0.0
@@ -82,13 +87,28 @@
                          animations:^{
                              toView.frame = CGRectMake(0, initialFrameFrom.size.height - toView.frame.size.height, toView.frame.size.width, toView.frame.size.height);
                              containerView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.5];
-
+                             [self addShadowForView:toView];
                          } completion:^(BOOL finished) {
                              [transitionContext completeTransition:YES];
                              
                          }];
     }
+    
+}
 
+- (void)removeShadowForView:(UIView *)toView {
+    [toView.layer setShadowOpacity:0];
+}
+
+- (void)addShadowForView:(UIView *)toView {
+    
+    [toView.layer setShouldRasterize:TRUE];
+    [toView.layer setRasterizationScale:[[UIScreen mainScreen] scale]];
+    [toView.layer setShadowOpacity:1.0];
+    [toView.layer setShadowColor:[[UIColor colorWithWhite:0.2 alpha:1] CGColor]];
+    [toView.layer setShadowOffset:CGSizeMake(0.0, 0.0)];
+    [toView.layer setShadowRadius:20.f];
+    
 }
 
 

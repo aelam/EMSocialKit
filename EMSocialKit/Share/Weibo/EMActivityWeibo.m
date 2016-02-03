@@ -9,8 +9,13 @@
 #import "WeiboUser.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
+NSString *const EMActivityWeiboRefreshTokenKey  = @"EMActivityWeiboRefreshTokenKey";
+NSString *const EMActivityWeiboExpirationDateKey= @"EMActivityWeiboExpirationDateKey";
+
 NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
 NSString *const EMActivityWeiboUserNameKey      = @"EMActivityWeiboUserNameKey";
+NSString *const EMActivityWeiboProfileImageURLKey= @"EMActivityWeiboProfileImageURLKey";// 头像
+
 NSString *const EMActivityWeiboStatusCodeKey    = @"EMActivityWeiboStatusCodeKey";
 NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessageKey";
 
@@ -225,20 +230,39 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     else if ([response isKindOfClass:WBAuthorizeResponse.class])
     {
         NSString* accessToken = [(WBAuthorizeResponse *)response accessToken];
+        NSString* refreshToken = [(WBAuthorizeResponse *)response refreshToken];
+        NSDate* expirationDate = [(WBAuthorizeResponse *)response expirationDate];
+
         NSString* userID = [(WBAuthorizeResponse *)response userID];
         
+        // accessToken
         if (accessToken.length == 0) {
             accessToken = [response.requestUserInfo valueForKeyPath:@"access_token"];
         }
-        
-        if (userID.length == 0) {
-            userID = [response.requestUserInfo valueForKeyPath:@"uid"];
-        }
-        
         if (accessToken.length > 0) {
             [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         }
-        
+
+        // refreshToken
+        if (refreshToken.length == 0) {
+            refreshToken = [response.requestUserInfo valueForKeyPath:@"refresh_token"];
+        }
+        if (refreshToken.length > 0) {
+            [userInfo setObject:refreshToken forKey:EMActivityWeiboRefreshTokenKey];
+        }
+
+        // expirationDate
+        if (expirationDate == nil) {
+            expirationDate = [response.requestUserInfo valueForKeyPath:@"expiration_date"];
+        }
+        if (expirationDate) {
+            [userInfo setObject:expirationDate forKey:EMActivityWeiboExpirationDateKey];
+        }
+
+        // UID
+        if (userID.length == 0) {
+            userID = [response.requestUserInfo valueForKeyPath:@"uid"];
+        }
         if (userID.length > 0) {
             [userInfo setObject:userID forKey:EMActivityWeiboUserIdKey];
         }
@@ -265,6 +289,8 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
             WeiboUser *weiboUser = result;
             NSString *nickname = [weiboUser screenName];
             newUserInfo[EMActivityWeiboUserNameKey] = nickname;
+            newUserInfo[EMActivityWeiboProfileImageURLKey] = [weiboUser avatarLargeUrl];
+            
             [super handledLoginResponse:newUserInfo error:error];
         }];
     }

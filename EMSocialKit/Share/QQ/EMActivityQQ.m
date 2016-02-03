@@ -15,9 +15,13 @@
 NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
 
 NSString *const EMActivityQQAccessTokenKey  = @"EMActivityQQAccessTokenKey";
+NSString *const EMActivityQQRefreshTokenKey = @"EMActivityQQRefreshTokenKey";
+NSString *const EMActivityQQExpirationDateKey= @"EMActivityQQExpirationDateKey";
+
 NSString *const EMActivityQQUserIdKey       = @"EMActivityQQUserIdKey";
 NSString *const EMActivityQQNameKey         = @"EMActivityQQNameKey";           // QQ昵称
-NSString *const EMActivityQQExpirationDateKey=@"EMActivityQQExpirationDateKey"; // expirationDate
+NSString *const EMActivityQQProfileImageURLKey= @"EMActivityQQProfileImageURLKey";// QQ头像
+
 NSString *const EMActivityQQStatusCodeKey   = @"EMActivityQQStatusCodeKey";
 NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 
@@ -273,6 +277,13 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     if ([QQName isKindOfClass:[NSString class]]) {
         userInfo[EMActivityQQNameKey] = QQName;
     }
+
+    NSString *profileImageURL = [response.jsonResponse objectForKey:@"figureurl_2"];
+    if ([profileImageURL isKindOfClass:[NSString class]]) {
+        userInfo[EMActivityQQProfileImageURLKey] = profileImageURL;
+    }
+
+    
     
     [self emQQDidLogIn:self.emAuthInfo];
 }

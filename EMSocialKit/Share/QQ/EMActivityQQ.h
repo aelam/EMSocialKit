@@ -11,8 +11,13 @@
 UIKIT_EXTERN NSString *const UIActivityTypePostToQQ;
 
 UIKIT_EXTERN NSString *const EMActivityQQAccessTokenKey;
+UIKIT_EXTERN NSString *const EMActivityQQRefreshTokenKey;
+UIKIT_EXTERN NSString *const EMActivityQQExpirationDateKey;
+
 UIKIT_EXTERN NSString *const EMActivityQQUserIdKey;         // openId
 UIKIT_EXTERN NSString *const EMActivityQQNameKey;           // QQ昵称
+UIKIT_EXTERN NSString *const EMActivityQQProfileImageURLKey;// QQ头像
+
 UIKIT_EXTERN NSString *const EMActivityQQExpirationDateKey; // expirationDate
 UIKIT_EXTERN NSString *const EMActivityQQStatusCodeKey;
 UIKIT_EXTERN NSString *const EMActivityQQStatusMessageKey;
