@@ -130,7 +130,7 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     NSString *urlString = [url absoluteString];
 
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
-    if (can && ![[url absoluteString] rangeOfString:@"safepay"].location != NSNotFound) {
+    if (can && [[url absoluteString] rangeOfString:@"safepay"].location != NSNotFound) {
         return YES;
     }
     return NO;
