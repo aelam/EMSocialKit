@@ -123,12 +123,15 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
     if (self.shareURL) {
         // 长度太长需要截取
         NSString *shareURLString = [self.shareURL absoluteString];
-        if (shareString.length >0 && shareString.length + shareURLString.length >= 136) {
+        if (shareURLString.length > 136) {
+            shareString = [shareURLString substringToIndex:136];
+        } else if (shareString.length + shareURLString.length >= 136) {
             shareString = [shareString substringToIndex:136 - shareURLString.length];
             shareString = [shareString stringByAppendingFormat:@"... %@", self.shareURL];
         } else {
             shareString = [shareString stringByAppendingFormat:@" %@", self.shareURL];
         }
+        
     }
     
     if (shareString) {
@@ -232,7 +235,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         NSString* accessToken = [(WBAuthorizeResponse *)response accessToken];
         NSString* refreshToken = [(WBAuthorizeResponse *)response refreshToken];
         NSDate* expirationDate = [(WBAuthorizeResponse *)response expirationDate];
-
+        
         NSString* userID = [(WBAuthorizeResponse *)response userID];
         
         // accessToken
@@ -242,7 +245,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         if (accessToken.length > 0) {
             [userInfo setObject:accessToken forKey:EMActivityWeiboAccessTokenKey];
         }
-
+        
         // refreshToken
         if (refreshToken.length == 0) {
             refreshToken = [response.requestUserInfo valueForKeyPath:@"refresh_token"];
@@ -250,7 +253,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         if (refreshToken.length > 0) {
             [userInfo setObject:refreshToken forKey:EMActivityWeiboRefreshTokenKey];
         }
-
+        
         // expirationDate
         if (expirationDate == nil) {
             expirationDate = [response.requestUserInfo valueForKeyPath:@"expiration_date"];
@@ -258,7 +261,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         if (expirationDate) {
             [userInfo setObject:expirationDate forKey:EMActivityWeiboExpirationDateKey];
         }
-
+        
         // UID
         if (userID.length == 0) {
             userID = [response.requestUserInfo valueForKeyPath:@"uid"];
