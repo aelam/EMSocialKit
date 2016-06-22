@@ -125,7 +125,7 @@ NSString *const UIActivityTypePostToSinaWeibo = @"UIActivityTypePostToSinaWeibo"
         NSString *shareURLString = [self.shareURL absoluteString];
         if (shareURLString.length > 136) {
             shareString = [shareURLString substringToIndex:136];
-        } else if (shareString.length + shareURLString.length >= 136) {
+        } else if (shareString.length + shareURLString.length > 136) {
             shareString = [shareString substringToIndex:136 - shareURLString.length];
             shareString = [shareString stringByAppendingFormat:@"... %@", self.shareURL];
         } else {

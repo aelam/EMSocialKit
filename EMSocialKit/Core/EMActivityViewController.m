@@ -236,21 +236,21 @@ static CGFloat kDefaultHeight = 166.f;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.applicationActivities.count > indexPath.row) {
+        __weak __typeof(self) weakSelf = self;
         [self dismissViewControllerAnimated:YES completion:^{
-            EMActivity *activity = self.applicationActivities[indexPath.row];
-            self.selectedActivityType = activity.activityType;
-            self.activeActivity = activity;
+            EMActivity *activity = weakSelf.applicationActivities[indexPath.row];
+            weakSelf.selectedActivityType = activity.activityType;
+            weakSelf.activeActivity = activity;
             
-            [self.activeActivity prepareWithActivityItems:self.activityItems];
-            [self.activeActivity performActivity];
+            [weakSelf.activeActivity prepareWithActivityItems:weakSelf.activityItems];
+            [weakSelf.activeActivity performActivity];
             
-            if (self.completionWithItemsHandler) {
-                self.completionWithItemsHandler(self.activeActivity, YES, NULL, nil);
+            if (weakSelf.completionWithItemsHandler) {
+                weakSelf.completionWithItemsHandler(weakSelf.activeActivity, YES, NULL, nil);
             }
-
+            
         }];
-    }
-}
+    }}
 
 
 - (void)cancelAction:(id)sender {
