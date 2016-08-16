@@ -136,8 +136,14 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     return NO;
 }
 
-- (BOOL)handleOpenURL:(NSURL *)url {
-    return [WXApi handleOpenURL:url delegate:self];
+- (BOOL)handleOpenURL:(NSURL *)URL {
+    NSString *urlString = [URL absoluteString];
+    
+    BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
+    if (can && [urlString rangeOfString:@"safepay"].location == NSNotFound) {
+        return [WXApi handleOpenURL:URL delegate:self];
+    }
+    return NO;
 }
 
 -(void) onReq:(BaseReq*)req {
