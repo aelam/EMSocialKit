@@ -7,8 +7,8 @@
 //
 
 #import "EMActivityQQ.h"
-#import <TencentOpenAPI/TencentOAuth.h>
-#import <TencentOpenAPI/QQApiInterface.h>
+#import "TencentOAuth.h"
+#import "QQApiInterface.h"
 #import "EMSocialSDK.h"
 #import <UIImage-ResizeMagick/UIImage+ResizeMagick.h>
 

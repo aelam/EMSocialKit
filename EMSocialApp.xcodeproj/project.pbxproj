@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DA5907C0FCFCA4A4AF8E2E9 /* libPods-EMSocialApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */; };
 		94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */; };
 		94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */; };
 		94FA511B1AB8282700A81E96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511A1AB8282700A81E96 /* main.m */; };
@@ -15,11 +16,9 @@
 		94FA51241AB8282700A81E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51221AB8282700A81E96 /* Main.storyboard */; };
 		94FA51261AB8282700A81E96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51251AB8282700A81E96 /* Images.xcassets */; };
 		94FA51291AB8282700A81E96 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FA51271AB8282700A81E96 /* LaunchScreen.xib */; };
-		EC2339CF5647E3DCEB2D05AD /* libPods-EMSocialApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocialApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9441ACAD1C3F9F63007B5FA9 /* EMSocialKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EMSocialKit.podspec; sourceTree = "<group>"; };
 		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		949C62F91ABAD834006B4E0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -42,8 +41,9 @@
 		94FA51231AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94FA51251AB8282700A81E96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94FA51281AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
-		D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
+		C3865FB7DF9759A470AB5DCE /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
+		CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocialApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E148F69E46C361A97727AA11 /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC2339CF5647E3DCEB2D05AD /* libPods-EMSocialApp.a in Frameworks */,
+				6DA5907C0FCFCA4A4AF8E2E9 /* libPods-EMSocialApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +68,7 @@
 				949C62FB1ABAD877006B4E0A /* ImageIO.framework */,
 				949C62F91ABAD834006B4E0A /* CoreGraphics.framework */,
 				94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */,
-				02E52F388310BA7B91697BCC /* libPods-EMSocialApp.a */,
+				CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -80,7 +80,7 @@
 				94FA51171AB8282700A81E96 /* EMSocialApp */,
 				94FA51161AB8282700A81E96 /* Products */,
 				275F0F52A7F943FCDF20B20E /* Frameworks */,
-				E0D29C5AFAFC2F0F3BFBB069 /* Pods */,
+				A4752E418935CD8D4E0B9832 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -120,11 +120,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E0D29C5AFAFC2F0F3BFBB069 /* Pods */ = {
+		A4752E418935CD8D4E0B9832 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */,
-				D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */,
+				E148F69E46C361A97727AA11 /* Pods-EMSocialApp.debug.xcconfig */,
+				C3865FB7DF9759A470AB5DCE /* Pods-EMSocialApp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -136,12 +136,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94FA51381AB8282700A81E96 /* Build configuration list for PBXNativeTarget "EMSocialApp" */;
 			buildPhases = (
-				76162248115BEA37C719E597 /* Check Pods Manifest.lock */,
+				F14380BBD61A787FB22A619B /* [CP] Check Pods Manifest.lock */,
 				94FA51111AB8282700A81E96 /* Sources */,
 				94FA51121AB8282700A81E96 /* Frameworks */,
 				94FA51131AB8282700A81E96 /* Resources */,
-				C747BADA0A4DFAF1682FA6AE /* Copy Pods Resources */,
-				017CB3C72624E09FDC823EA5 /* Embed Pods Frameworks */,
+				7250AD35C7DC15121D0387E1 /* [CP] Embed Pods Frameworks */,
+				BFC20C1884865815C88504E2 /* [CP] Copy Pods Resources */,
+				D47D813607F0D31D97E11048 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -158,11 +159,13 @@
 		94FA510D1AB8282700A81E96 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Ryan Wang";
 				TargetAttributes = {
 					94FA51141AB8282700A81E96 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 7RHB83697H;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -200,7 +203,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		017CB3C72624E09FDC823EA5 /* Embed Pods Frameworks */ = {
+		7250AD35C7DC15121D0387E1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFC20C1884865815C88504E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D47D813607F0D31D97E11048 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -215,34 +248,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		76162248115BEA37C719E597 /* Check Pods Manifest.lock */ = {
+		F14380BBD61A787FB22A619B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		C747BADA0A4DFAF1682FA6AE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -286,6 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -295,16 +314,21 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 2J9L4D6D44;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -328,6 +352,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -337,15 +362,20 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 2J9L4D6D44;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -361,9 +391,10 @@
 		};
 		94FA51391AB8282700A81E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9C4022DA58853304C63C3F83 /* Pods-EMSocialApp.debug.xcconfig */;
+			baseConfigurationReference = E148F69E46C361A97727AA11 /* Pods-EMSocialApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7RHB83697H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -372,7 +403,7 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\" /Users/ryan/Documents/EMSocialApp-fix/EMSocialKit",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -395,16 +426,17 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emoneyet.emstock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		94FA513A1AB8282700A81E96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1B65ECDEE7981AF27A2B957 /* Pods-EMSocialApp.release.xcconfig */;
+			baseConfigurationReference = C3865FB7DF9759A470AB5DCE /* Pods-EMSocialApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7RHB83697H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
@@ -413,7 +445,7 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/include\" /Users/ryan/Documents/EMSocialApp-fix/EMSocialKit",
 				);
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -436,7 +468,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sina.weibo.SNWeiboSDKDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emoneyet.emstock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
