@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'EMSocialKit'
-  s.version      = '0.1.8'
+  s.version      = '0.1.9'
   s.summary      = 'EMSocialKit'
   s.homepage     = 'http://ph.benemind.com/diffusion/EMSK'
   s.license      = { :type => 'Apache License', :file => 'LICENSE' }
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'DXYWeChatSDK', '~> 1.5.1'
   s.dependency 'WeiboSDK', '~> 3.0'
-  s.dependency 'UIImage-ResizeMagick', '~> 0.0.1'
+  s.dependency 'UIImage-ResizeMagick@NoWarnings', '~> 0.0.2'
   s.dependency 'TencentOpenApiSDK', '~> 2.9.5'
 
 end
