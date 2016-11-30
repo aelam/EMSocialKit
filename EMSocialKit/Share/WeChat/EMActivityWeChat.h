@@ -4,7 +4,12 @@
 
 #import <UIKit/UIKit.h>
 #import "EMBridgeActivity.h"
-#import "WXApi.h"
+
+typedef NS_ENUM(NSInteger, EMWXScene) {
+    EMWXSceneSession = 0,
+    EMWXSceneTimeline = 1,
+    EMWXSceneFavorite = 2
+};
 
 typedef NS_ENUM(NSInteger, EMActivityWeChatStatusCode) {
     EMActivityWeChatStatusCodeSuccess    = 0,    /**< 成功    */
@@ -31,7 +36,7 @@ UIKIT_EXTERN NSString *const EMActivityWeChatThumbImageKey;
 @property (nonatomic, strong) UIImage *shareThumbImage;
 @property (nonatomic, strong) NSString *shareStringDesc;
 
-@property (nonatomic, assign) enum WXScene scene;
+@property (nonatomic, assign) EMWXScene scene;
 
 @end
 

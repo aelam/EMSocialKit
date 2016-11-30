@@ -15,7 +15,7 @@
 }
 
 - (NSString*)sinaWeiboConsumerKey {
-    return @"2045436852";
+    return @"1779442884";
 }
 
 - (NSString*)sinaWeiboConsumerSecret {
@@ -25,7 +25,7 @@
 // You need to set this if using OAuth (MUST be set and SAME AS "Callback Url" of "OAuth 2.0 Auth Settings" on Sina Weibo open plaform.
 // Url like this: http://open.weibo.com/apps/{app_key}/info/advanced
 - (NSString*)sinaWeiboCallbackUrl {
-    return @"http://weibo.com";
+    return @"http://cell.emoney.cn";
 }
 
 // To use xAuth, set to 1

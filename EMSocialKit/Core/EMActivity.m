@@ -10,6 +10,9 @@
 #import "_EMActivityViewController.h"
 #import "EMSocialSDK.h"
 
+NSString *const EMActivityGeneralStatusCodeKey    = @"code";
+NSString *const EMActivityGeneralMessageKey       = @"message";
+
 @class EMActivityViewController;
 
 @interface EMActivity ()
@@ -88,5 +91,22 @@
 
 - (void)dealloc {
 }
+
++ (NSDictionary *)errorMessages {
+    return
+    @{
+      @(EMActivityGeneralStatusCodeSuccess):         @"发送成功",
+      @(EMActivityGeneralStatusCodeUserCancel):      @"用户取消",
+      @(EMActivityGeneralStatusCodeCommonFail):      @"发送失败",
+      @(EMActivityGeneralStatusCodeUnknownFail):     @"未知错误",
+      @(EMActivityGeneralStatusCodeNotInstall):      @"应用未安装",
+      };
+}
+
+
++ (NSString *)errorMessageWithCode:(NSInteger)code {
+    return [self errorMessages][@(code)];
+}
+
 
 @end

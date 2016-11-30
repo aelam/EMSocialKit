@@ -3,6 +3,7 @@
 //
 
 #import "EMActivityWeChatSession.h"
+#import "UIImage+SocialBundle.h"
 
 NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChatSession";
 
@@ -13,7 +14,7 @@ NSString *const UIActivityTypePostToWeChatSession = @"UIActivityTypePostToWeChat
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocialKit.bundle/wechat"];
+    return [UIImage socialImageNamed:@"EMSocialKit.bundle/wechat"];
 }
 
 - (NSString *)activityTitle {

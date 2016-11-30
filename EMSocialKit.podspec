@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'EMSocialKit'
-  s.version      = '0.1.9'
+  s.version      = '1.0.0-beta.1'
   s.summary      = 'EMSocialKit'
   s.homepage     = 'http://ph.benemind.com/diffusion/EMSK'
   s.license      = { :type => 'Apache License', :file => 'LICENSE' }
@@ -9,16 +9,12 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'http://ph.benemind.com/diffusion/EMSK/emsocialkit-ios.git', :tag => s.version.to_s }
   s.platform     = :ios, '7.0'
   s.requires_arc = true
-  s.frameworks   = "UIKit","Foundation","SystemConfiguration","ImageIO"
-  s.libraries    = "z","c++","sqlite3"
+  s.frameworks   = "UIKit","Foundation"
   s.source_files = 'EMSocialKit/**/*.{h,m,mm,swift,c}'
-  s.exclude_files= 'EMSocialKit/Vendors/'
-  s.resource_bundles = { 'EMSocialKit' => 'EMSocialKit/resources/EMSocialKit.bundle/**/*'}
+  s.public_header_files = 'EMSocialKit/{Core,Share}/**/*.{h}'
+  s.resource_bundles = { 'EMSocialKit' => 'EMSocialKit/resources/EMSocialKit.bundle/**/*.{png}'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
 
-  s.dependency 'DXYWeChatSDK', '~> 1.5.1'
-  s.dependency 'WeiboSDK', '~> 3.0'
-  s.dependency 'UIImage-ResizeMagick@NoWarnings', '~> 0.0.2'
-  s.dependency 'TencentOpenApiSDK', '~> 2.9.5'
+  s.dependency 'UIImage-ResizeMagick@NoWarnings', '~> 1.0.0'
 
 end

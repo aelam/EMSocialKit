@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6DA5907C0FCFCA4A4AF8E2E9 /* libPods-EMSocialApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */; };
+		926FD8D084AD0259C036A90F /* Pods_EMSocialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D767642C0D6BC012154E2E5 /* Pods_EMSocialApp.framework */; };
 		94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */; };
+		94DF0DC51DED872900DE8369 /* NSDictionary+Unicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF0DC41DED872900DE8369 /* NSDictionary+Unicode.m */; };
+		94DF0DC81DEE6BF300DE8369 /* ShareDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF0DC71DEE6BF300DE8369 /* ShareDemoViewController.m */; };
 		94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */; };
 		94FA511B1AB8282700A81E96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511A1AB8282700A81E96 /* main.m */; };
 		94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FA511D1AB8282700A81E96 /* AppDelegate.m */; };
@@ -19,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D767642C0D6BC012154E2E5 /* Pods_EMSocialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSocialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9441ACAD1C3F9F63007B5FA9 /* EMSocialKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EMSocialKit.podspec; sourceTree = "<group>"; };
 		949287C41ABBCAAE00B7D478 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		949C62F91ABAD834006B4E0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -27,6 +30,11 @@
 		949C62FF1ABAD8C3006B4E0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		94A193731AC71A07003AF01E /* DemoUIActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoUIActivityViewController.h; sourceTree = "<group>"; };
 		94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoUIActivityViewController.m; sourceTree = "<group>"; };
+		94DF0DC31DED872900DE8369 /* NSDictionary+Unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Unicode.h"; sourceTree = "<group>"; };
+		94DF0DC41DED872900DE8369 /* NSDictionary+Unicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Unicode.m"; sourceTree = "<group>"; };
+		94DF0DC61DEE6BF300DE8369 /* ShareDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDemoViewController.h; sourceTree = "<group>"; };
+		94DF0DC71DEE6BF300DE8369 /* ShareDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDemoViewController.m; sourceTree = "<group>"; };
+		94DF0DCF1DEEBCA000DE8369 /* Readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Readme.md; sourceTree = "<group>"; };
 		94DF641F1AC3A3D300254B58 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		94DF64B51AC4013E00254B58 /* EMSocialEMoneyConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMSocialEMoneyConfigurator.h; sourceTree = "<group>"; };
 		94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMSocialEMoneyConfigurator.m; sourceTree = "<group>"; };
@@ -42,7 +50,6 @@
 		94FA51251AB8282700A81E96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		94FA51281AB8282700A81E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C3865FB7DF9759A470AB5DCE /* Pods-EMSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.release.xcconfig"; sourceTree = "<group>"; };
-		CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EMSocialApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E148F69E46C361A97727AA11 /* Pods-EMSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSocialApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSocialApp/Pods-EMSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,7 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DA5907C0FCFCA4A4AF8E2E9 /* libPods-EMSocialApp.a in Frameworks */,
+				926FD8D084AD0259C036A90F /* Pods_EMSocialApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +75,7 @@
 				949C62FB1ABAD877006B4E0A /* ImageIO.framework */,
 				949C62F91ABAD834006B4E0A /* CoreGraphics.framework */,
 				94E5F2111ABA7C1000348FC3 /* libsqlite3.dylib */,
-				CD83F5A595B80CE4561E8F15 /* libPods-EMSocialApp.a */,
+				8D767642C0D6BC012154E2E5 /* Pods_EMSocialApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -77,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				9441ACAD1C3F9F63007B5FA9 /* EMSocialKit.podspec */,
+				94DF0DCF1DEEBCA000DE8369 /* Readme.md */,
 				94FA51171AB8282700A81E96 /* EMSocialApp */,
 				94FA51161AB8282700A81E96 /* Products */,
 				275F0F52A7F943FCDF20B20E /* Frameworks */,
@@ -99,10 +107,14 @@
 				94FA511D1AB8282700A81E96 /* AppDelegate.m */,
 				94FA511F1AB8282700A81E96 /* ViewController.h */,
 				94FA51201AB8282700A81E96 /* ViewController.m */,
+				94DF0DC61DEE6BF300DE8369 /* ShareDemoViewController.h */,
+				94DF0DC71DEE6BF300DE8369 /* ShareDemoViewController.m */,
 				94A193731AC71A07003AF01E /* DemoUIActivityViewController.h */,
 				94A193741AC71A07003AF01E /* DemoUIActivityViewController.m */,
 				94DF64B51AC4013E00254B58 /* EMSocialEMoneyConfigurator.h */,
 				94DF64B61AC4013E00254B58 /* EMSocialEMoneyConfigurator.m */,
+				94DF0DC31DED872900DE8369 /* NSDictionary+Unicode.h */,
+				94DF0DC41DED872900DE8369 /* NSDictionary+Unicode.m */,
 				94FA51221AB8282700A81E96 /* Main.storyboard */,
 				94FA51251AB8282700A81E96 /* Images.xcassets */,
 				94FA51271AB8282700A81E96 /* LaunchScreen.xib */,
@@ -272,9 +284,11 @@
 			files = (
 				94A193751AC71A07003AF01E /* DemoUIActivityViewController.m in Sources */,
 				94FA51211AB8282700A81E96 /* ViewController.m in Sources */,
+				94DF0DC51DED872900DE8369 /* NSDictionary+Unicode.m in Sources */,
 				94FA511E1AB8282700A81E96 /* AppDelegate.m in Sources */,
 				94FA511B1AB8282700A81E96 /* main.m in Sources */,
 				94DF64B71AC4013E00254B58 /* EMSocialEMoneyConfigurator.m in Sources */,
+				94DF0DC81DEE6BF300DE8369 /* ShareDemoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,16 +419,10 @@
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocialKit/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocialKit/Vendors/DXYWeChatSDK/SDKExport",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"WeChatSDK\"",
-					"-l\"WeiboSDK\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",
@@ -447,16 +455,10 @@
 				INFOPLIST_FILE = EMSocialApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/EMSocialKit/Vendors/libWeiboSDK",
-					"$(PROJECT_DIR)/EMSocialKit/Vendors/DXYWeChatSDK/SDKExport",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"WeChatSDK\"",
-					"-l\"WeiboSDK\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",

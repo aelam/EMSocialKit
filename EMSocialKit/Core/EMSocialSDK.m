@@ -71,7 +71,7 @@ static EMSocialSDK *sharedInstance = nil;
     self.transitionAnimator = [EMSSlideUpTransitionAnimator new];
 }
 
-- (id)configurationValue:(NSString*)selector withObject:(id)object
+- (NSString *)configurationValue:(NSString*)selector withObject:(id)object
 {
     //SHKLog(@"Looking for a configuration value for %@.", selector);
     
@@ -101,8 +101,6 @@ static EMSocialSDK *sharedInstance = nil;
 
 #pragma mark - Register
 - (void)registerBuiltInSocialApps {
-    [EMActivityWeibo registerApp];
-    [EMActivityWeChat registerApp];
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -132,7 +130,6 @@ static EMSocialSDK *sharedInstance = nil;
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
-        NSLog(@"presentViewController: DONE");
     }];
 }
 

@@ -3,16 +3,17 @@
 //
 
 #import "EMActivityWeChatTimeline.h"
+#import "UIImage+SocialBundle.h"
 
 NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeChatTimeline";
 
 
 @implementation EMActivityWeChatTimeline
 
-- (id)init {
+- (instancetype)init {
   self = [super init];
   if (self) {
-    self.scene = WXSceneTimeline;
+    self.scene = EMWXSceneTimeline;
   }
   return self;
 }
@@ -22,7 +23,7 @@ NSString *const UIActivityTypePostToWeChatTimeline = @"UIActivityTypePostToWeCha
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocialKit.bundle/moment"];
+    return [UIImage socialImageNamed:@"EMSocialKit.bundle/moment"];
 }
 
 - (NSString *)activityTitle {

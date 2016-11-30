@@ -10,13 +10,7 @@
 
 #import "EMSocialDefaultConfigurator.h"
 #import "EMActivityViewController.h"
-#import "EMActivityWeChat.h"
-#import "EMActivityWeibo.h"
-#import "EMActivityWeChatSession.h"
-#import "EMActivityWeChatTimeline.h"
-#import "EMActivityQQ.h"
 #import "EMSTransitionAnimator.h"
-#import "EMSSlideUpTransitionAnimator2.h"
 #import "EMActivity.h"
 
 FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
@@ -40,11 +34,11 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
  */
 + (instancetype)sharedSDKWithConfigurator:(EMSocialDefaultConfigurator *)configor;
 
-- (id)configurationValue:(NSString*)selector withObject:(id)object;
+- (NSString *)configurationValue:(NSString*)selector withObject:(id)object;
 
 ///////////////////////////////////////////////////////////////////////////
 
-- (void)registerBuiltInSocialApps;
+- (void)registerBuiltInSocialApps __deprecated; //不需要调用了
 
 /**
  *

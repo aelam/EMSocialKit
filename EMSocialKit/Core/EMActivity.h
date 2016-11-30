@@ -9,6 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, EMActivityGeneralStatusCode) {
+    EMActivityGeneralStatusCodeSuccess    = 0,    /**< 成功    */
+    EMActivityGeneralStatusCodeCommonFail = -1,   /**< 普通错误类型    */
+    EMActivityGeneralStatusCodeUserCancel = -2,   /**< 用户点击取消并返回    */
+    EMActivityGeneralStatusCodeUnknownFail= -3,    /**< 普通错误类型    */
+    EMActivityGeneralStatusCodeNotInstall = -4    /**< 普通错误类型    */
+
+};
+
+UIKIT_EXTERN NSString *const EMActivityGeneralStatusCodeKey;
+UIKIT_EXTERN NSString *const EMActivityGeneralMessageKey;
+
 
 typedef void (^EMActivityCompletionHandler)(BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
 typedef void (^EMActivityShareCompletionHandler)(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError);
@@ -22,7 +34,7 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 @property (nonatomic, copy) EMActivityLoginCompletionHandler loginCompletionHandler;
 
 
-+ (void)registerApp;
++ (void)registerApp __deprecated;
 + (UIActivityCategory)activityCategory;
 
 - (NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
@@ -56,5 +68,12 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 - (BOOL)handleOpenURL:(NSURL *)url;
 
 @end
+
+@interface EMActivity (GeneralError)
+
++ (NSString *)errorMessageWithCode:(NSInteger)code;
+
+@end
+
 
 

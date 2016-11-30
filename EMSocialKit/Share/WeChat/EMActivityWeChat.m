@@ -2,9 +2,12 @@
 //  EMActivityWeChat.m
 //
 
+#define WITHOUT_SDK  1
+
 #import "EMActivityWeChat.h"
-#import "WXApi.h"
 #import "EMSocialSDK.h"
+#import "NSString+SK_URLParameters.h"
+#import <UIImageResizeMagick/UIImage+ResizeMagick.h>
 
 NSString *const EMActivityWeChatStatusCodeKey       = @"EMActivityWeChatStatusCodeKey";
 NSString *const EMActivityWeChatStatusMessageKey    = @"EMActivityWeChatStatusMessageKey";
@@ -14,9 +17,12 @@ NSString *const EMActivityWeChatAuthCodeKey         = @"EMActivityWeChatAuthCode
 NSString *const EMActivityWeChatThumbImageKey       = @"thumbimage";
 NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 
-@interface EMActivityWeChat ()<WXApiDelegate>
+static NSString *const EMActivityWeChatURL          = @"weixin://";
 
-@property (nonatomic, strong) NSString* state;
+
+@interface EMActivityWeChat ()
+
+@property (nonatomic, copy) NSString* state;
 @property (nonatomic, assign) BOOL isLogin;
 
 @end
@@ -24,7 +30,6 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 @implementation EMActivityWeChat
 
 + (void)registerApp {
-    [WXApi registerApp:EMCONFIG(tencentWeixinAppId)];
 }
 
 - (NSString *)scope {
@@ -32,13 +37,15 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 }
 
 - (BOOL)isAppInstalled {
-    return [WXApi isWXAppInstalled];
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:EMActivityWeChatURL]];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+    if ([self isAppInstalled]) {
         for (id activityItem in activityItems) {
-            if ([activityItem isKindOfClass:[UIImage class]]) {
+            if ([activityItem isKindOfClass:[NSString class]]) {
+                return YES;
+            } if ([activityItem isKindOfClass:[UIImage class]]) {
                 return YES;
             } else if ([activityItem isKindOfClass:[NSData class]]) {
                 return YES;
@@ -86,44 +93,72 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
         return;
     }
     
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
-    req.scene = self.scene;
-    req.message = WXMediaMessage.message;
-    req.message.title       = self.shareStringTitle ? : @"";
-    req.message.description = self.shareStringDesc ? : @"";
-    [self setThumbImage:req];
-    if (self.shareURL) {
-        WXWebpageObject *webObject = WXWebpageObject.object;
-        webObject.webpageUrl    = [self.shareURL absoluteString];
-        req.message.mediaObject = webObject;
-    } else if (self.shareImage) {
-        WXImageObject *imageObject = WXImageObject.object;
-        imageObject.imageData   = UIImageJPEGRepresentation(self.shareImage, 1);
-        req.message.mediaObject = imageObject;
+    NSMutableDictionary *messageInfo = [NSMutableDictionary dictionary];
+    messageInfo[@"result"] = @"1";
+    messageInfo[@"returnFromApp"] = @"0";
+    messageInfo[@"scene"] = @(self.scene).stringValue;
+    messageInfo[@"result"] = @1;
+    messageInfo[@"sdkver"] = @"1.5";
+    messageInfo[@"command"] = @"1010";
+
+    
+    if (self.shareStringTitle) {
+        messageInfo[@"title"] = self.shareStringTitle;
     }
-    [WXApi sendReq:req];
+    
+    if (self.shareStringDesc) {
+        messageInfo[@"description"] = self.shareStringDesc;
+    }
+    
+    UIImage *thumbImage = self.shareThumbImage;
+    
+    if (!thumbImage) {
+        thumbImage = self.shareImage;
+    }
+
+    if (thumbImage) {
+        messageInfo[@"thumbData"] = [self optimizedThumbImageFromOriginal:thumbImage];
+    }
+    
+    if (self.shareURL) {
+        messageInfo[@"objectType"] = @"5";
+        messageInfo[@"mediaUrl"] = self.shareURL.absoluteString;
+    } else if (self.shareImage) {
+        messageInfo[@"objectType"] = @"2";
+        messageInfo[@"fileData"] = UIImageJPEGRepresentation(self.shareImage, 1);
+    } else {
+        // Text share
+        messageInfo[@"command"] = @"1020";
+    }
+
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:@{EMCONFIG(tencentWeixinAppId):messageInfo} format:NSPropertyListBinaryFormat_v1_0 options:0 error:NULL];
+    [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"content"];
+
+    NSString *wechatURLString = [NSString stringWithFormat:@"weixin://app/%@/sendreq/?",EMCONFIG(tencentWeixinAppId)];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:wechatURLString]];
+    
     [self activityDidFinish:YES];
+    
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
-- (void)setThumbImage:(SendMessageToWXReq *)req {
-    if (self.shareThumbImage) {
-        [req.message setThumbImage:[self optimizedThumbImageFromOriginal:self.shareThumbImage]];
-    } else if (self.shareImage) {
-        [req.message setThumbImage:[self optimizedThumbImageFromOriginal:self.shareImage]];
-    }
-}
+- (NSData *)optimizedThumbImageFromOriginal:(UIImage *)oriImage {
+    UIImage *image = [oriImage resizedImageWithMaximumSize:CGSizeMake(240.f, 240.f)];
 
-- (UIImage *)optimizedThumbImageFromOriginal:(UIImage *)oriImage {
-    CGFloat width  = 100.0f;
-    CGFloat height = oriImage.size.height * 100.0f / oriImage.size.width;
-    UIGraphicsBeginImageContext(CGSizeMake(width, height));
-    [oriImage drawInRect:CGRectMake(0, 0, width, height)];
-    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return scaledImage;
+    CGFloat compressionQuality = 0.7;
+    NSInteger dataLengthCeiling = 31500;
+    
+    NSData *imageData;
+    do {
+        compressionQuality -= 0.1;
+        imageData = UIImageJPEGRepresentation(image, compressionQuality);
+    } while (imageData && [imageData length] >= dataLengthCeiling && compressionQuality > 0);
+
+    return imageData;
+    
 }
 
 - (BOOL)canHandleOpenURL:(NSURL *)url {
@@ -141,44 +176,89 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
     if (can && [urlString rangeOfString:@"safepay"].location == NSNotFound) {
-        return [WXApi handleOpenURL:URL delegate:self];
+        if (self.isLogin) {
+            return [self handleOpenLoginURL:URL];
+        } else {
+            return [self handleOpenShareURL:URL];
+        }
     }
     return NO;
 }
 
--(void) onReq:(BaseReq*)req {
+- (BOOL)handleOpenLoginURL:(NSURL *)URL {
+    NSString *urlString = [URL absoluteString];
+    if ([urlString rangeOfString:@"wx"].location == NSNotFound) {
+        return NO;
+    }
     
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    // WeChat OAuth
+    NSString *query = [URL query];
+    NSDictionary *parameters = [query SK_URLParameters];
+    NSString *state = parameters[@"state"];
+    if ([state isEqualToString:@"Weixinauth"]) {
+        userInfo[EMActivityWeChatAuthCodeKey] = parameters[@"code"];
+        userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeSuccess);
+        NSString *errorMessage = [[self errorMessages] objectForKey:@(EMActivityWeChatStatusCodeSuccess)];
+        if (errorMessage) {
+            userInfo[EMActivityWeChatStatusMessageKey] = errorMessage;
+        }
+        
+        {
+            userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
+            NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeSuccess];
+            userInfo[EMActivityGeneralMessageKey] = errorMessage;
+        }
+        
+        [self handledLoginResponse:userInfo error:nil];
+        
+        return YES;
+    }
+    
+    return YES;
 }
 
--(void) onResp:(BaseResp*)resp
-{
+- (BOOL)handleOpenShareURL:(NSURL *)URL {
+
+    NSString *urlString = [URL absoluteString];
+    if ([urlString rangeOfString:@"wx"].location == NSNotFound) {
+        return NO;
+    }
+    
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:@(resp.errCode) forKey:EMActivityWeChatStatusCodeKey];
-    NSString *message = resp.errStr;
-    if (message == nil) {
-        message = [[self errorMessages] objectForKey:@(resp.errCode)];
-    }
-    if (message) {
-        [userInfo setObject:message forKey:EMActivityWeChatStatusMessageKey];
-    }
-
-    if (self.isLogin) {
-        NSError *error = nil;
-        SendAuthResp *authResp = (SendAuthResp *)resp;
-        if ([self.state isEqualToString:authResp.state]) {
-            if (authResp.code) {
-                userInfo[EMActivityWeChatAuthCodeKey] = authResp.code;
-            } else {
-                error = [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"微信授权失败"}];
-            }
-        } else {
-            // error
+    
+    NSData *messageData = [[UIPasteboard generalPasteboard] dataForPasteboardType:@"content"];
+    NSDictionary *message = [NSPropertyListSerialization propertyListWithData:messageData options:0 format:0 error:NULL];
+    
+    NSDictionary *messageInfo = message[EMCONFIG(tencentWeixinAppId)];
+    
+    NSInteger generalErrorCode = 0;
+    
+    NSString *result = messageInfo[@"result"];
+    if(result) {
+        NSInteger errorCode = [result integerValue];
+        userInfo[EMActivityWeChatStatusCodeKey] = @(errorCode);
+        NSString *errorMessage = [[self errorMessages] objectForKey:@(errorCode)];
+        if (errorMessage) {
+            userInfo[EMActivityWeChatStatusMessageKey] = errorMessage;
         }
-
-        [self handledLoginResponse:userInfo error:nil];
-    } else {
-        [self handledShareResponse:userInfo error:nil];
+        
+        if (errorCode == EMActivityWeChatStatusCodeSuccess) {
+            generalErrorCode = EMActivityGeneralStatusCodeSuccess;
+        } else if (errorCode == EMActivityWeChatStatusCodeUserCancel) {
+            generalErrorCode = EMActivityGeneralStatusCodeUserCancel;
+        } else {
+            generalErrorCode = EMActivityGeneralStatusCodeCommonFail;
+        }
     }
+    
+    userInfo[EMActivityGeneralStatusCodeKey] = @(generalErrorCode);
+    NSString *errorMessage = [[self class] errorMessageWithCode:generalErrorCode];
+    userInfo[EMActivityGeneralMessageKey] = errorMessage;
+
+    [self handledShareResponse:userInfo error:nil];
+    
+    return YES;
 }
 
 - (BOOL)canPerformLogin {
@@ -192,11 +272,9 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
         return;
     }
     
-    SendAuthReq *req = [SendAuthReq new];
-    req.scope = [self scope];
-    req.state = [NSString stringWithFormat:@"%ld", time(NULL)];
-    self.state = req.state;
-    [WXApi sendAuthReq:req viewController:nil delegate:self];
+    NSString *wechatURLString = [NSString stringWithFormat:@"weixin://app/%@/auth/?scope=%@&state=Weixinauth", EMCONFIG(tencentWeixinAppId),[self scope]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:wechatURLString]];
+    
 }
 
 - (NSDictionary *)errorMessages{
@@ -216,7 +294,12 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     NSMutableDictionary *userInfo = @{}.mutableCopy;
     userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeAppNotInstall);
     userInfo[EMActivityWeChatStatusMessageKey] = [self errorMessages][@(EMActivityWeChatStatusCodeAppNotInstall)];
-    if (![WXApi isWXAppInstalled]) {
+    
+    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeNotInstall);
+    NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeNotInstall];
+    userInfo[EMActivityGeneralMessageKey] = errorMessage;
+
+    if (![self isAppInstalled]) {
         if (self.isLogin) {
             [self handledLoginResponse:userInfo error:nil];
         } else {

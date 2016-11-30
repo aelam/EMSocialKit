@@ -7,17 +7,8 @@
 //
 
 #import "ViewController.h"
-
-#import "EMSocialSDK.h"
-#import "EMActivityWeChat.h"
-#import "EMActivityWeibo.h"
-#import "EMActivityWeChatSession.h"
-#import "EMActivityWeChatTimeline.h"
+#import <EMSocialKit/EMSocialKit.h>
 #import "DemoUIActivityViewController.h"
-#import "EMActivityWeChat.h"
-#import "EMActivityWeibo.h"
-#import "EMActivityWeChatSession.h"
-#import "EMActivityWeChatTimeline.h"
 
 @interface ViewController ()
 
@@ -72,11 +63,7 @@
             NSLog(@"分享 result %@", returnedInfo);
         }
     }];
-    
 }
-
-
-
 
 - (IBAction)weChatLogin2:(id)sender {
     EMActivityWeChat *wechat = [[EMActivityWeChat alloc] init];
@@ -125,13 +112,6 @@
 
 - (IBAction)qqShare:(id)sender {
     EMActivityQQ *qq = [[EMActivityQQ alloc] init];
-    
-//    [[EMSocialSDK sharedSDK] loginWithActivity:qq completionHandler:^(BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Result" message:[returnedInfo description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alert show];
-//        NSLog(@"login result %@", returnedInfo);
-//    }];
-    
     NSArray *contents = @[@"微信分享",[NSURL URLWithString:@"http://baidu.com"]];
 
     [[EMSocialSDK sharedSDK] shareActivityItems:contents activity:qq completionHandler:^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {

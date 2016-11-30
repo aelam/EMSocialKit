@@ -8,7 +8,7 @@
 typedef NS_ENUM(NSInteger, EMActivityWeiboStatusCode)
 {
     EMActivityWeiboStatusCodeSuccess               = 0,//成功
-    EMActivityWeiboStatusCodeUserCancel            = -1,//用户取消发送
+    EMActivityWeiboStatusCodeUserCancel            = -1,//用户取消发送 TODO: -100?
     EMActivityWeiboStatusCodeSentFail              = -2,//发送失败
     EMActivityWeiboStatusCodeAuthDeny              = -3,//授权失败
     EMActivityWeiboStatusCodeUserCancelInstall     = -4,//用户取消安装微博客户端

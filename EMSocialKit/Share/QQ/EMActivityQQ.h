@@ -26,9 +26,9 @@ UIKIT_EXTERN NSString *const EMActivityQQStatusMessageKey;
 typedef NS_ENUM(NSInteger, EMActivityQQStatusCode)
 {
     EMActivityQQStatusCodeSuccess               = 0,//成功
-    EMActivityQQStatusCodeUserCancel            = -4,//用户取消发送
     EMActivityQQStatusCodeSentFail              = -2,//发送失败
     EMActivityQQStatusCodeAuthDeny              = -3,//授权失败
+    EMActivityQQStatusCodeUserCancel            = -4,//用户取消发送
 //    EMActivityQQStatusCodeUserCancelInstall     = -4,//用户取消
     EMActivityQQStatusCodePayFail               = -5,//支付失败
     EMActivityQQStatusCodeShareInSDKFailed      = -8,//分享失败 详情见response UserInfo

@@ -7,10 +7,11 @@
 //
 
 #import "EMActivityQQ.h"
-#import "TencentOAuth.h"
-#import "QQApiInterface.h"
 #import "EMSocialSDK.h"
-#import <UIImage-ResizeMagick/UIImage+ResizeMagick.h>
+#import <UIImageResizeMagick/UIImage+ResizeMagick.h>
+#import "NSDictionary+SK_toQuery.h"
+#import "NSString+SK_URLParameters.h"
+#import "UIImage+SocialBundle.h"
 
 NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
 
@@ -25,8 +26,9 @@ NSString *const EMActivityQQProfileImageURLKey= @"EMActivityQQProfileImageURLKey
 NSString *const EMActivityQQStatusCodeKey   = @"EMActivityQQStatusCodeKey";
 NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 
+static NSString *const kQQGetUserInfoURL    = @"https://graph.qq.com/user/get_user_info";
 
-@interface EMActivityQQ() <TencentSessionDelegate, QQApiInterfaceDelegate>
+@interface EMActivityQQ()
 
 @property (nonatomic, strong) UIImage *shareImage;  // only support one image
 @property (nonatomic, strong) UIImage *thumbImage;  // only support one image
@@ -34,9 +36,6 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 @property (nonatomic, strong) NSString *shareStringTitle;
 @property (nonatomic, strong) NSString *shareStringDesc;
 @property (nonatomic, assign) BOOL isLogin;
-@property (nonatomic, strong) TencentOAuth *tencentOAuth;
-
-@property (nonatomic, strong) NSMutableDictionary *emAuthInfo; //用于保存登陆信息，然后请求用户信息之后返回
 
 @end
 
@@ -50,29 +49,37 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
 }
 
 - (UIImage *)activityImage {
-    return [UIImage imageNamed:@"EMSocialKit.bundle/qq"];
+    return [UIImage socialImageNamed:@"EMSocialKit.bundle/qq"];
 }
 
 - (NSString *)activityTitle {
     return @"QQ";
 }
 
-////////////////////////////////////////////////////////////////////////////////////////
-- (NSArray *)permissions {
-    return @[kOPEN_PERMISSION_GET_SIMPLE_USER_INFO];
+- (NSString *)scope {
+    return @"get_user_info";
 }
 
+////////////////////////////////////////////////////////////////////////////////////////
+- (NSArray *)permissions {
+    return @[@"get_user_info"];
+}
+
+- (NSString *)_qqCallbackName {
+    NSString *appId = EMCONFIG(tencentAppId);
+    return [NSString stringWithFormat:@"QQ%08llx", [appId longLongValue]];
+}
 
 + (void)registerApp {
 }
 
 
 - (BOOL)isAppInstalled {
-    return [TencentOAuth iphoneQQInstalled];
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mqqapi://"]];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
-    if ([TencentOAuth iphoneQQSupportSSOLogin]) {
+    if ([self isAppInstalled]) {
         for (id activityItem in activityItems) {
             if ([activityItem isKindOfClass:[UIImage class]]) {
                 return YES;
@@ -112,15 +119,101 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
     
     self.isLogin = NO;
     [super performActivity];
+   
+#if 1
+    NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    if (!bundleName) {
+        bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
+    }
+
     
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"version"] = @1;
+    parameters[@"callback_type"] = @"scheme";
+    parameters[@"generalpastboard"] = @1;
+    parameters[@"thirdAppDisplayName"] = [[bundleName dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];;
+    parameters[@"callback_name"] = [self _qqCallbackName];
+    parameters[@"src_type"] = @"app";
+    parameters[@"shareType"] = @0;
+    parameters[@"cflag"] = @4;
+    
+    if (self.shareURL || self.shareImage) {
+        parameters[@"objectlocation"] = @"pasteboard";
+        if (self.shareStringTitle) {
+            parameters[@"title"] = [[self.shareStringTitle dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        }
+        if (self.shareStringDesc) {
+            parameters[@"description"] = [[self.shareStringDesc dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        }
+    }
+    
+    if (self.shareURL) {
+
+        parameters[@"file_type"] = @"news";
+
+        UIImage *image = self.thumbImage;
+        if (image == nil) {
+            image = self.shareImage;
+        }
+
+        if (image) {
+            NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+            NSDictionary *dic = @{@"previewimagedata":imageData};
+            NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
+            [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"com.tencent.mqq.api.apiLargeData"];
+        }
+
+        parameters[@"url"] = [[[self.shareURL absoluteString] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        
+        
+    } else if (self.shareImage) {
+        parameters[@"objectlocation"] = @"pasteboard";
+        
+        if (self.shareStringTitle) {
+            parameters[@"title"] = [[self.shareStringTitle dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        }
+        
+        if (self.shareStringDesc) {
+            parameters[@"description"] = [[self.shareStringDesc dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+        }
+
+        parameters[@"file_type"] = @"img";
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        if (self.thumbImage) {
+            NSData *thumbnail = UIImageJPEGRepresentation(self.thumbImage, 1);
+            dic[@"previewimagedata"] = thumbnail;
+        }
+        dic[@"file_data"] = UIImageJPEGRepresentation(self.shareImage, 1);
+        
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
+        [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"com.tencent.mqq.api.apiLargeData"];
+
+    } else {
+        // 纯文本
+        parameters[@"file_type"] = @"text";
+        parameters[@"cflag"] = @0;
+
+        NSString *des = self.shareStringTitle;
+        if (des && self.shareStringDesc) {
+            des = [des stringByAppendingFormat:@" %@", self.shareStringDesc];
+        }
+        parameters[@"file_data"] = [[des dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
+    }
+    
+    NSMutableString *qqURL = [NSMutableString stringWithFormat:@"mqqapi://share/to_fri?"];
+    NSString *query = [parameters SK_toQuery];
+    NSString *fullQQURL = [qqURL stringByAppendingString:query];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:fullQQURL]];
+    
+    
+#else
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     if (self.shareURL) {
         UIImage *image = self.shareImage;
         if (image == nil) {
             image = self.thumbImage;
         }
-        
-//        UIImage *previewImage = [image resizedImageWithMaximumSize:CGSizeMake(300, 300)];
         
         QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(image, 0.5)  targetContentType:QQApiURLTargetTypeNews];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
@@ -145,204 +238,177 @@ NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
     }
-    
+#endif
     [self activityDidFinish:YES];
 }
 
 
 - (BOOL)canPerformLogin {
-    return YES;
+    return [self isAppInstalled];
 }
 
 - (void)performLogin {
     self.isLogin = YES;
+    
+    NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
+    if (!bundleName) {
+        bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
+    }
+    
+    NSString *appId = EMCONFIG(tencentAppId);
+    
+    NSMutableDictionary *paramaters = [NSMutableDictionary dictionary];
+    paramaters[@"app_id"] = appId;
+    paramaters[@"client_id"] = appId;
+    paramaters[@"app_name"] = bundleName;
+    paramaters[@"response_type"] = @"token";
+    paramaters[@"scope"] = [self scope];
+    paramaters[@"sdkp"] = @"i";
+    paramaters[@"sdkv"] = @"2.9";
+    paramaters[@"status_machine"] = [UIDevice currentDevice].model;
+    paramaters[@"status_os"] = [UIDevice currentDevice].systemVersion;
+    paramaters[@"status_version"] = [UIDevice currentDevice].systemVersion;
 
-    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
-    [self.tencentOAuth authorize:self.permissions inSafari:NO];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:paramaters];
+    [[UIPasteboard generalPasteboard] setData:data forPasteboardType:[NSString stringWithFormat:@"com.tencent.tencent%@",appId]];
+    
+    NSString *QQURLString = [NSString stringWithFormat:@"mqqOpensdkSSoLogin://SSoLogin/tencent%@/com.tencent.tencent\%@?generalpastboard=1", appId,appId];
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:QQURLString]];
 }
 
 
 
 - (BOOL)handleOpenURL:(NSURL *)url {
     if (self.isLogin) {
-        return [TencentOAuth HandleOpenURL:url];
+        return [self handleLoginOpenURL:url];
     } else {
-        return [QQApiInterface handleOpenURL:url delegate:self];
+        return [self handleShareOpenURL:url];
     }
 }
 
+- (BOOL)handleLoginOpenURL:(NSURL *)url {
+    if ([[url scheme] hasPrefix:@"tencent"]) {
+        NSString *appId = EMCONFIG(tencentAppId);
 
-- (void)tencentDidLogin {
+        NSData *messageData = [[UIPasteboard generalPasteboard] dataForPasteboardType:[@"com.tencent.tencent" stringByAppendingString:appId]];
+        NSDictionary *message = [NSKeyedUnarchiver unarchiveObjectWithData:messageData];
+
+        NSInteger errorCode = 0;
+        NSInteger generalErrorCode = 0;
+
+        __block NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+
+        if (message) {
+            NSString *accessToken = message[@"access_token"];
+            NSString *expires_in = message[@"expires_in"];
+            NSString *openid = message[@"openid"];
+
+            
+            if (message[@"ret"]) {
+                errorCode = [message[@"ret"] integerValue];
+                
+                
+                if (errorCode == EMActivityQQStatusCodeSuccess) {
+                    generalErrorCode = EMActivityGeneralStatusCodeSuccess;
+                } else if (errorCode == EMActivityQQStatusCodeUserCancel) {
+                    generalErrorCode = EMActivityGeneralStatusCodeUserCancel;
+                } else if (errorCode == EMActivityQQStatusCodeSentFail) {
+                    generalErrorCode = EMActivityGeneralStatusCodeCommonFail;
+                } else {
+                    generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
+                }
+
+                
+                if (errorCode == EMActivityGeneralStatusCodeSuccess) {
+                    userInfo[EMActivityQQAccessTokenKey] = accessToken;
+                    userInfo[EMActivityQQExpirationDateKey] = expires_in;
+                    userInfo[EMActivityQQUserIdKey] = openid;
+
+                    
+                    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
+                    userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeSuccess];
+
+                    NSURLSession *session = [NSURLSession sharedSession];
+                    NSString *urlString = [NSString stringWithFormat:@"%@?access_token=%@&oauth_consumer_key=%@&openid=%@&format=json",
+                                           kQQGetUserInfoURL, accessToken, EMCONFIG(tencentAppId), openid];
+                    NSURLSessionTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:
+                                              ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                                  if (!error) {
+                                                      NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                                      userInfo[EMActivityQQNameKey] = profile[@"nickname"];
+                                                      userInfo[EMActivityQQProfileImageURLKey] = profile[@"figureurl_2"];
+                                                      
+                                                      if ([NSThread currentThread] == [NSThread mainThread]) {
+                                                          [super handledLoginResponse:userInfo error:error];
+                                                      } else {
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                              [super handledLoginResponse:userInfo error:error];
+                                                          });
+                                                      }
+                                                  }
+                                              }];
+                    
+                    [task resume];
+                    
+                    return YES;
+                } else {
+                    
+                }
+            }
+            
+            
+            
+        } else {
+            errorCode = EMActivityQQStatusCodeUnknown;
+            generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
+        }
+        
+        userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(errorCode)];
+        userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:generalErrorCode];
+        [super handledLoginResponse:userInfo error:nil];
+
+        return YES;
+    }
     
-    NSString *openId = _tencentOAuth.openId;
-    NSString *accessToken = _tencentOAuth.accessToken;
-    NSDate  *expirationDate = _tencentOAuth.expirationDate;
+    return NO;
+}
+
+- (BOOL)handleShareOpenURL:(NSURL *)url {
+    NSString *query = [url query];
+    NSDictionary *parameters = [query SK_URLParameters];
+    NSString *error = parameters[@"error"];
     
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    if (openId) {
-        userInfo[EMActivityQQUserIdKey] = openId;
-    }
     
-    if (accessToken) {
-        userInfo[EMActivityQQAccessTokenKey] = accessToken;
-    }
+    NSInteger errorCode = 0;
+    NSInteger generalErrorCode = 0;
     
-    if (expirationDate) {
-        userInfo[EMActivityQQExpirationDateKey] = expirationDate;
-    }
-    
-    userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeSuccess);
-    userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeSuccess)];
-    
-    self.emAuthInfo = userInfo;
-    [self.tencentOAuth getUserInfo];
-}
-
-/**
- * 登录失败后的回调
- * \param cancelled 代表用户是否主动退出登录
- */
-- (void)tencentDidNotLogin:(BOOL)cancelled {
-    [self emQQDidLogIn:nil];
-}
-
-/**
- * 登录时网络有问题的回调
- */
-- (void)tencentDidNotNetWork {
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeNetworkError);
-    userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeNetworkError)];
-    
-    if (self.isLogin) {
-        [self handledLoginResponse:userInfo error:nil];
+    if (error) {
+        errorCode = [error integerValue];
+        
+        if (errorCode == EMActivityQQStatusCodeSuccess) {
+            generalErrorCode = EMActivityGeneralStatusCodeSuccess;
+        } else if (errorCode == EMActivityQQStatusCodeUserCancel) {
+            generalErrorCode = EMActivityGeneralStatusCodeUserCancel;
+        } else if (errorCode == EMActivityQQStatusCodeSentFail) {
+            generalErrorCode = EMActivityGeneralStatusCodeCommonFail;
+        } else {
+            generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
+        }
     } else {
-        [self handledShareResponse:userInfo error:nil];
+        generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
     }
-}
-
-
-// MARK: TencentDelegate
-- (void)tencentDidLogout {
     
-}
+    userInfo[EMActivityQQStatusCodeKey] = @(errorCode);
+    userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(errorCode)];
 
-/**
- * 因用户未授予相应权限而需要执行增量授权。在用户调用某个api接口时，如果服务器返回操作未被授权，则触发该回调协议接口，由第三方决定是否跳转到增量授权页面，让用户重新授权。
- * \param tencentOAuth 登录授权对象。
- * \param permissions 需增量授权的权限列表。
- * \return 是否仍然回调返回原始的api请求结果。
- * \note 不实现该协议接口则默认为不开启增量授权流程。若需要增量授权请调用\ref TencentOAuth#incrAuthWithPermissions: \n注意：增量授权时用户可能会修改登录的帐号
- */
-- (BOOL)tencentNeedPerformIncrAuth:(TencentOAuth *)tencentOAuth withPermissions:(NSArray *)permissions {
+    userInfo[EMActivityGeneralStatusCodeKey] = @(generalErrorCode);
+    userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:generalErrorCode];
+
+    [super handledShareResponse:userInfo error:nil];
+    
     return YES;
-}
-
-/**
- * [该逻辑未实现]因token失效而需要执行重新登录授权。在用户调用某个api接口时，如果服务器返回token失效，则触发该回调协议接口，由第三方决定是否跳转到登录授权页面，让用户重新授权。
- * \param tencentOAuth 登录授权对象。
- * \return 是否仍然回调返回原始的api请求结果。
- * \note 不实现该协议接口则默认为不开启重新登录授权流程。若需要重新登录授权请调用\ref TencentOAuth#reauthorizeWithPermissions: \n注意：重新登录授权时用户可能会修改登录的帐号
- */
-//- (BOOL)tencentNeedPerformReAuth:(TencentOAuth *)tencentOAuth {
-//    return YES;
-//}
-
-/**
- * 用户通过增量授权流程重新授权登录，token及有效期限等信息已被更新。
- * \param tencentOAuth token及有效期限等信息更新后的授权实例对象
- * \note 第三方应用需更新已保存的token及有效期限等信息。
- */
-- (void)tencentDidUpdate:(TencentOAuth *)tencentOAuth {
-    
-}
-
-/**
- * 用户增量授权过程中因取消或网络问题导致授权失败
- * \param reason 授权失败原因，具体失败原因参见sdkdef.h文件中\ref UpdateFailType
- */
-- (void)tencentFailedUpdate:(UpdateFailType)reason {
-    
-}
-
-/**
- * 获取用户个人信息回调
- * \param response API返回结果，具体定义参见sdkdef.h文件中\ref APIResponse
- * \remarks 正确返回示例: \snippet example/getUserInfoResponse.exp success
- *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
- */
-- (void)getUserInfoResponse:(APIResponse*) response {
-    NSMutableDictionary *userInfo = self.emAuthInfo;
-    NSString *QQName = [response.jsonResponse objectForKey:@"nickname"];
-    if ([QQName isKindOfClass:[NSString class]]) {
-        userInfo[EMActivityQQNameKey] = QQName;
-    }
-
-    NSString *profileImageURL = [response.jsonResponse objectForKey:@"figureurl_2"];
-    if ([profileImageURL isKindOfClass:[NSString class]]) {
-        userInfo[EMActivityQQProfileImageURLKey] = profileImageURL;
-    }
-
-    
-    
-    [self emQQDidLogIn:self.emAuthInfo];
-}
-
-- (void)responseDidReceived:(APIResponse*)response forMessage:(NSString *)message {
-    
-}
-
-- (void)cgiRequest:(TCAPIRequest *)request didResponse:(APIResponse *)response {
-    
-}
-
-
-- (BOOL)onTencentReq:(TencentApiReq *)req {
-    return YES;
-}
-
-
-// 这个返回包含了请求username的信息
-- (void)emQQDidLogIn:(NSDictionary *)userInfo {
-    
-    if (userInfo == nil) {
-        NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
-        newUserInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeUserCancel);
-        newUserInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(EMActivityQQStatusCodeUserCancel)];
-        userInfo = newUserInfo;
-    }
-    
-    if (self.isLogin) {
-        [self handledLoginResponse:userInfo error:nil];
-    } else {
-        [self handledShareResponse:userInfo error:nil];
-    }
-}
-
-// MARK:  用来处理分享消息
-- (void)onReq:(QQBaseReq *)req {
-    
-}
-
-/**
- 处理来至QQ的响应
- */
-- (void)onResp:(QQBaseResp *)resp {
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:resp.result forKey:EMActivityQQStatusCodeKey];
-    NSString *message = nil;// = resp.errorDescription; //默认错误描述是英文
-    if (message == nil) {
-        message = [[self errorMessages] objectForKey:@([resp.result integerValue])];
-    }
-    if (message) {
-        [userInfo setObject:message forKey:EMActivityQQStatusMessageKey];
-    }
-    
-    [self handledShareResponse:userInfo error:nil];
-}
-
-- (void)isOnlineResponse:(NSDictionary *)response {
-    
 }
 
 

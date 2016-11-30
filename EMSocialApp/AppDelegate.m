@@ -7,12 +7,6 @@
 //
 
 #import "AppDelegate.h"
-//#import "WeiboSDK.h"
-//#import "EMStockActivityWeibo.h"
-
-#import "WXApi.h"
-#import "WeiboSDK.h"
-
 #import "EMSocialSDK.h"
 #import "EMSocialEMoneyConfigurator.h"
 
@@ -30,19 +24,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [EMSocialSDK sharedSDKWithConfigurator:[EMSocialEMoneyConfigurator new]];
-    [[EMSocialSDK sharedSDK] registerBuiltInSocialApps];
-    
-//    [EMSocialSDK registerWeiboWithAppKey:@"2045436852" appSecret:nil redirectURI:@"http://weibo.com"];
-//    [EMSocialSDK registerWeChatWithAppId:kWeiChatAppID];
-
-    
-//    [WXApi registerApp:kWeiChatAppID];
-//    [WeiboSDK registerApp:@"2045436852"];
-    [WeiboSDK enableDebugMode:YES];
-    // Override point for customization after application launch.
     
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
