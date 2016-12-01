@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'EMSocialKit'
-  s.version      = '1.0.0-beta.1'
+  s.version      = '1.0.0-beta.2'
   s.summary      = 'EMSocialKit'
   s.homepage     = 'http://ph.benemind.com/diffusion/EMSK'
   s.license      = { :type => 'Apache License', :file => 'LICENSE' }
@@ -14,7 +14,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'EMSocialKit/{Core,Share}/**/*.{h}'
   s.resource_bundles = { 'EMSocialKit' => 'EMSocialKit/resources/EMSocialKit.bundle/**/*.{png}'}
   s.xcconfig = { "GCC_PREPROCESSOR_DEFINITIONS" => '$(inherited) USE_EM_ACTIVITY=1' }
-
-  s.dependency 'UIImage-ResizeMagick@NoWarnings', '~> 1.0.0'
 
 end

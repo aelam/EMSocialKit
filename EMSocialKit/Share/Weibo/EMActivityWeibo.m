@@ -4,8 +4,8 @@
 
 #import "EMActivityWeibo.h"
 #import "EMSocialSDK.h"
-#import <UIImageResizeMagick/UIImage+ResizeMagick.h>
 #import "UIImage+SocialBundle.h"
+#import "UIImage+SK_Resize.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboRefreshTokenKey  = @"EMActivityWeiboRefreshTokenKey";
@@ -213,7 +213,7 @@ static NSString *const WeiboSDKVersion          = @"003013000";
 #pragma mark Private Methods
 - (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
     // Resize if needed
-    UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage resizedImageByMagick:@"1600x1600"] : oriImage;
+    UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(1600,1600)] : oriImage;
     
     return result;
 }

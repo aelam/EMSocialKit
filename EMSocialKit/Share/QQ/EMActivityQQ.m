@@ -8,10 +8,11 @@
 
 #import "EMActivityQQ.h"
 #import "EMSocialSDK.h"
-#import <UIImageResizeMagick/UIImage+ResizeMagick.h>
+
 #import "NSDictionary+SK_toQuery.h"
 #import "NSString+SK_URLParameters.h"
 #import "UIImage+SocialBundle.h"
+#import "UIImage+SK_Resize.h"
 
 NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
 
@@ -220,7 +221,7 @@ static NSString *const kQQGetUserInfoURL    = @"https://graph.qq.com/user/get_us
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         [QQApiInterface sendReq:req];
     } else if (self.shareImage) {
-        UIImage *previewImage = [self.shareImage resizedImageWithMaximumSize:CGSizeMake(200, 200)];
+        UIImage *previewImage = [self.shareImage SK_resizedImageWithMaximumSize:CGSizeMake(200, 200)];
         UIImage *image = [self.shareImage resizedImageByWidth:640];
         
         NSData *previewImageData = UIImageJPEGRepresentation(previewImage, 1);

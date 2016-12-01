@@ -1,8 +1,6 @@
 PODS:
-  - EMSocialKit (0.1.9):
-    - UIImage-ResizeMagick@NoWarnings (~> 1.0.0)
+  - EMSocialKit (1.0.0-beta.2)
   - JRSwizzle (1.0)
-  - UIImage-ResizeMagick@NoWarnings (1.0.0)
 
 DEPENDENCIES:
   - EMSocialKit (from `./EMSocialKit.podspec`)
@@ -13,9 +11,8 @@ EXTERNAL SOURCES:
     :path: "./EMSocialKit.podspec"
 
 SPEC CHECKSUMS:
-  EMSocialKit: 84592d3a4e39e766985cc6a4c1116b1c27109b13
+  EMSocialKit: dca600c3798de9b5087260447ea45a4dba013415
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
-  UIImage-ResizeMagick@NoWarnings: 0f7664f32ce27e5dbe50c2f12171d0408da3b76a
 
 PODFILE CHECKSUM: 780207434b8a91f6ab3358aaf2c5de0a4461e137
 

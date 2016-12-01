@@ -7,7 +7,7 @@
 #import "EMActivityWeChat.h"
 #import "EMSocialSDK.h"
 #import "NSString+SK_URLParameters.h"
-#import <UIImageResizeMagick/UIImage+ResizeMagick.h>
+#import "UIImage+SK_Resize.h"
 
 NSString *const EMActivityWeChatStatusCodeKey       = @"EMActivityWeChatStatusCodeKey";
 NSString *const EMActivityWeChatStatusMessageKey    = @"EMActivityWeChatStatusMessageKey";
@@ -146,7 +146,7 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
 #pragma mark Private Methods
 
 - (NSData *)optimizedThumbImageFromOriginal:(UIImage *)oriImage {
-    UIImage *image = [oriImage resizedImageWithMaximumSize:CGSizeMake(240.f, 240.f)];
+    UIImage *image = [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(240.f, 240.f)];
 
     CGFloat compressionQuality = 0.7;
     NSInteger dataLengthCeiling = 31500;
