@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, EMActivityQQStatusCode)
     EMActivityQQStatusCodeUnsupport             = -99,//不支持的请求
     EMActivityQQStatusCodeUnknown               = -100,
     EMActivityQQStatusCodeNetworkError          = -101,//网络错误
+    EMActivityQQStatusCodeAppNotInstall         = -102
 };
 
 

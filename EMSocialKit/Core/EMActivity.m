@@ -37,6 +37,10 @@ NSString *const EMActivityGeneralMessageKey       = @"message";
     return UIActivityCategoryAction;
 }
 
++ (BOOL)isAppInstalled {
+    return NO;
+}
+
 - (NSString *)activityType {
     return nil;
 };

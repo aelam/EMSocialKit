@@ -36,8 +36,12 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
     return @"snsapi_userinfo";
 }
 
-- (BOOL)isAppInstalled {
++ (BOOL)isAppInstalled {
     return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:EMActivityWeChatURL]];
+}
+
+- (BOOL)isAppInstalled {
+    return [[self class] isAppInstalled];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
@@ -262,7 +266,7 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
 }
 
 - (BOOL)canPerformLogin {
-    return YES;
+    return [self isAppInstalled];
 }
 
 - (void)performLogin {

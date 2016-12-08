@@ -36,6 +36,7 @@ typedef void (^EMActivityLoginCompletionHandler)(BOOL completed, NSDictionary *r
 
 + (void)registerApp __deprecated;
 + (UIActivityCategory)activityCategory;
++ (BOOL)isAppInstalled;
 
 - (NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
 - (NSString *)activityTitle;      // default returns nil. subclass must override and must return non-nil value

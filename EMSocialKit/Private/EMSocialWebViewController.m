@@ -11,8 +11,6 @@
 @interface EMSocialWebViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) NSURL* loadingURL;
-
 @property (nonatomic, strong) NSURLRequest* loadRequest;
 
 @end
@@ -23,30 +21,29 @@
     _webView.delegate = nil;
 }
 
-- (id)initWithRequest:(NSURLRequest *)request {
+
+- (instancetype)initWithURL:(NSURL *)URL {
+    return [self initWithRequest:[NSURLRequest requestWithURL:URL]];
+}
+
+- (instancetype)initWithRequest:(NSURLRequest *)request {
     if ((self = [super initWithNibName:nil bundle:nil])) {
         self.hidesBottomBarWhenPushed = YES;
-        
-        if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-        }
-        
         [self openRequest:request];
     }
     return self;
 }
 
-- (id)initWithURL:(NSURL *)URL {
-    return [self initWithRequest:[NSURLRequest requestWithURL:URL]];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     return [self initWithRequest:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+    self.navigationItem.rightBarButtonItem = cancelItem;
+    
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.webView.delegate = self;
@@ -55,7 +52,6 @@
     if (nil != self.loadRequest) {
         [self.webView loadRequest:self.loadRequest];
     }
-
 }
 
 - (void)openURL:(NSURL*)URL {
@@ -76,19 +72,13 @@
     }
 }
 
+- (void)cancel:(UIBarButtonItem *)item {
+    [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

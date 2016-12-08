@@ -6,6 +6,8 @@
 #import "EMSocialSDK.h"
 #import "UIImage+SocialBundle.h"
 #import "UIImage+SK_Resize.h"
+#import "EMSocialWebViewController.h"
+#import "NSString+SK_URLParameters.h"
 
 NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
 NSString *const EMActivityWeiboRefreshTokenKey  = @"EMActivityWeiboRefreshTokenKey";
@@ -21,8 +23,12 @@ NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessage
 NSString *const UIActivityTypePostToSinaWeibo   = @"UIActivityTypePostToSinaWeibo";
 
 static NSString *const WeiboSDKVersion          = @"003013000";
+static NSString *const WeiboAutorizeURL         = @"https://open.weibo.cn/oauth2/authorize";
+static NSString *const WeiboAccessTokenURL      = @"https://api.weibo.com/oauth2/access_token";
 
-@interface EMActivityWeibo ()
+static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/users/show.json";
+
+@interface EMActivityWeibo () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIImage *shareImage; // only support one image
 @property (nonatomic, strong) NSString *shareString;
@@ -71,8 +77,20 @@ static NSString *const WeiboSDKVersion          = @"003013000";
     return [UIImage socialImageNamed:@"EMSocialKit.bundle/weibo"];
 }
 
++ (BOOL)isAppInstalled {
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibo://"]];
+}
+
+- (BOOL)isAppInstalled {
+    return [[self class] isAppInstalled];
+}
+
 // URL will be converted to string
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
+    if (![self isAppInstalled]) {
+        return NO;
+    }
+    
     for (id item in activityItems) {
         if ([item isKindOfClass:[UIImage class]]) {
             return YES;
@@ -104,8 +122,10 @@ static NSString *const WeiboSDKVersion          = @"003013000";
 
 - (void)performActivity {
     self.isLogin = NO;
-    
-    [super performActivity];
+
+    if ([self handleAppNotInstall]) {
+        return;
+    }
     
     NSMutableDictionary *messageInfo = [NSMutableDictionary dictionary];
     messageInfo[@"__class"] = @"WBMessageObject";
@@ -170,6 +190,11 @@ static NSString *const WeiboSDKVersion          = @"003013000";
 - (void)performLogin {
     self.isLogin = YES;
 
+    if (![self isAppInstalled]) {
+        [self performLoginInWeb];
+        return;
+    }
+    
     NSString *appID = EMCONFIG(sinaWeiboConsumerKey);
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
     if (!bundleID) {
@@ -208,15 +233,6 @@ static NSString *const WeiboSDKVersion          = @"003013000";
 
 }
 
-
-#pragma mark -
-#pragma mark Private Methods
-- (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
-    // Resize if needed
-    UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(1600,1600)] : oriImage;
-    
-    return result;
-}
 
 - (BOOL)handleOpenURL:(NSURL *)url {
     return [self _handleOpenURL:url];
@@ -301,6 +317,10 @@ static NSString *const WeiboSDKVersion          = @"003013000";
     return YES;
 }
 
+- (void)_handleWebAuthWithInfo:(NSDictionary *)info {
+    
+}
+
 - (void)handledLoginResponse:(NSDictionary *)userInfo error:(NSError *)error {
     NSString *userId = userInfo[EMActivityWeiboUserIdKey];
     NSString *accessToken = userInfo[EMActivityWeiboAccessTokenKey];
@@ -310,7 +330,8 @@ static NSString *const WeiboSDKVersion          = @"003013000";
     } else {
         __block NSMutableDictionary *newUserInfo = [userInfo mutableCopy];
         
-        NSString *userInfoURL = [NSString stringWithFormat:@"https://api.weibo.com/2/users/show.json?uid=%@&access_token=%@",
+        NSString *userInfoURL = [NSString stringWithFormat:@"%@?uid=%@&access_token=%@",
+                                 WeiboUserInfoURL,
                                  newUserInfo[EMActivityWeiboUserIdKey],
                                  newUserInfo[EMActivityWeiboAccessTokenKey]];
 
@@ -359,9 +380,12 @@ static NSString *const WeiboSDKVersion          = @"003013000";
 
 - (BOOL)handleAppNotInstall {
     NSMutableDictionary *userInfo = @{}.mutableCopy;
+    
+    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeNotInstall);
+    userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeNotInstall];
     userInfo[EMActivityWeiboStatusCodeKey] = @(EMActivityWeiboStatusCodeAppNotInstall);
     userInfo[EMActivityWeiboStatusMessageKey] = [self errorMessages][@(EMActivityWeiboStatusCodeAppNotInstall)];
-    if (![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibo://"]]) {
+    if (![self isAppInstalled]) {
         if (self.isLogin) {
             [self handledLoginResponse:userInfo error:nil];
         } else {
@@ -372,6 +396,86 @@ static NSString *const WeiboSDKVersion          = @"003013000";
     return NO;
 }
 
+#pragma mark - 
+#pragma mark - WebApp OAuth2
+- (void)performLoginInWeb {
+    [self getRequestCodeInWeb];
+}
+
+- (void)getRequestCodeInWeb {
+    NSString *appID = EMCONFIG(sinaWeiboConsumerKey);
+    
+    NSString *accessTokenAPI = [NSString stringWithFormat:@"%@?client_id=%@&response_type=code&redirect_uri=%@&scope=%@",WeiboAutorizeURL, appID, self.redirectURI, self.scope];
+    
+    EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:accessTokenAPI]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webController];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:navigationController animated:YES completion:^{
+        webController.webView.delegate = self;
+    }];
+    
+}
+
+- (NSString *)_accessTokenInWebWithCode:(NSString *)code {
+    NSString *appID = EMCONFIG(sinaWeiboConsumerKey);
+    NSString *appKey = EMCONFIG(sinaWeiboConsumerSecret);
+
+    NSString *accessTokenURL = [NSString stringWithFormat:@"%@?client_id=%@&client_secret=%@&grant_type=authorization_code&redirect_uri=%@&code=%@", WeiboAccessTokenURL, appID,appKey,self.redirectURI, code];
+    
+    return accessTokenURL;
+}
+
+- (void)getAccessTokenWithCode:(NSString *)code {
+    NSString *url = [self _accessTokenInWebWithCode:code];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                        NSDictionary *profile = nil;
+                                        if (!error) {
+                                            profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                            
+                                            NSString *userId = profile[@"uid"];
+                                            NSString *accessToken = profile[@"access_token"];
+                                            
+                                            NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                            newUserInfo[EMActivityWeiboUserIdKey] = userId;
+                                            newUserInfo[EMActivityWeiboAccessTokenKey] = accessToken;
+                                            
+                                            [self handledLoginResponse:newUserInfo error:nil];
+                                        }
+                                        
+                                    }];
+    
+    // 启动任务
+    [task resume];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSURL *URL = [request URL];
+    if ([[self redirectURI] rangeOfString:[URL host]].length > 0) {
+
+        NSDictionary *parameters = [[URL query] SK_URLParameters];
+        NSString *code = parameters[@"code"];
+        [self getAccessTokenWithCode:code];
+        
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:NULL];
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+#pragma mark -
+#pragma mark Private Methods
+- (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
+    // Resize if needed
+    UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(1600,1600)] : oriImage;
+    
+    return result;
+}
 
 
 - (void)dealloc {
