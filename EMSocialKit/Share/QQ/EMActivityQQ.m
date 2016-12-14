@@ -16,22 +16,22 @@
 #import "EMSocialWebViewController.h"
 #import "NSString+SK_URLEncode.h"
 
-NSString *const UIActivityTypePostToQQ      = @"UIActivityTypePostToQQ";
+NSString *const UIActivityTypePostToQQ          = @"UIActivityTypePostToQQ";
 
-NSString *const EMActivityQQAccessTokenKey  = @"EMActivityQQAccessTokenKey";
-NSString *const EMActivityQQRefreshTokenKey = @"EMActivityQQRefreshTokenKey";
-NSString *const EMActivityQQExpirationDateKey= @"EMActivityQQExpirationDateKey";
+NSString *const EMActivityQQAccessTokenKey      = @"accessToken";
+NSString *const EMActivityQQRefreshTokenKey     = @"refreshToken";
+NSString *const EMActivityQQExpirationDateKey   = @"expireDate";
 
-NSString *const EMActivityQQUserIdKey       = @"EMActivityQQUserIdKey";
-NSString *const EMActivityQQNameKey         = @"EMActivityQQNameKey";           // QQ昵称
-NSString *const EMActivityQQProfileImageURLKey= @"EMActivityQQProfileImageURLKey";// QQ头像
+NSString *const EMActivityQQUserIdKey           = @"userId";
+NSString *const EMActivityQQNameKey             = @"name";           // QQ昵称
+NSString *const EMActivityQQProfileImageURLKey  = @"profileImageURL";// QQ头像
 
-NSString *const EMActivityQQStatusCodeKey   = @"EMActivityQQStatusCodeKey";
-NSString *const EMActivityQQStatusMessageKey= @"EMActivityQQStatusMessageKey";
+NSString *const EMActivityQQStatusCodeKey       = @"EMActivityQQStatusCodeKey";
+NSString *const EMActivityQQStatusMessageKey    = @"EMActivityQQStatusMessageKey";
 
-static NSString *const kQQGetUserInfoURL    = @"https://graph.qq.com/user/get_user_info";
-static NSString *const kQQAccessTokenURL    = @"https://xui.ptlogin2.qq.com/cgi-bin/xlogin";
-static NSString *const kQQRedirectURL       = @"auth://www.qq.com";
+static NSString *const kQQGetUserInfoURL        = @"https://graph.qq.com/user/get_user_info";
+static NSString *const kQQAccessTokenURL        = @"https://xui.ptlogin2.qq.com/cgi-bin/xlogin";
+static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 
 @interface EMActivityQQ() <UIWebViewDelegate>
 
