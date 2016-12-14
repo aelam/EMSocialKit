@@ -35,7 +35,7 @@
 
 // To use xAuth, set to 1
 - (NSNumber*)sinaWeiboUseXAuth {
-    return [NSNumber numberWithInt:0];
+    return @0;
 }
 
 // Enter your sina weibo screen name (Only for xAuth)

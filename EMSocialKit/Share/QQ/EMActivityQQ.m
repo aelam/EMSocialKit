@@ -267,6 +267,8 @@ static NSString *const kQQRedirectURL       = @"auth://www.qq.com";
     
     if (![self isAppInstalled]) {
         [self performLoginInWeb];
+        
+        return;
     }
     
     NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];

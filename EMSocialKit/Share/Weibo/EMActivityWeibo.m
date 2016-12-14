@@ -9,13 +9,13 @@
 #import "EMSocialWebViewController.h"
 #import "NSString+SK_URLParameters.h"
 
-NSString *const EMActivityWeiboAccessTokenKey   = @"EMActivityWeiboAccessTokenKey";
-NSString *const EMActivityWeiboRefreshTokenKey  = @"EMActivityWeiboRefreshTokenKey";
-NSString *const EMActivityWeiboExpirationDateKey= @"EMActivityWeiboExpirationDateKey";
+NSString *const EMActivityWeiboAccessTokenKey   = @"accessToken";
+NSString *const EMActivityWeiboRefreshTokenKey  = @"refreshToken";
+NSString *const EMActivityWeiboExpirationDateKey= @"expireDate";
 
-NSString *const EMActivityWeiboUserIdKey        = @"EMActivityWeiboUserIdKey";
-NSString *const EMActivityWeiboUserNameKey      = @"EMActivityWeiboUserNameKey";
-NSString *const EMActivityWeiboProfileImageURLKey= @"EMActivityWeiboProfileImageURLKey";// 头像
+NSString *const EMActivityWeiboUserIdKey            = @"userId";
+NSString *const EMActivityWeiboUserNameKey          = @"name";
+NSString *const EMActivityWeiboProfileImageURLKey   = @"profileImageURL";// 头像
 
 NSString *const EMActivityWeiboStatusCodeKey    = @"EMActivityWeiboStatusCodeKey";
 NSString *const EMActivityWeiboStatusMessageKey = @"EMActivityWeiboStatusMessageKey";
@@ -25,7 +25,6 @@ NSString *const UIActivityTypePostToSinaWeibo   = @"UIActivityTypePostToSinaWeib
 static NSString *const WeiboSDKVersion          = @"003013000";
 static NSString *const WeiboAutorizeURL         = @"https://open.weibo.cn/oauth2/authorize";
 static NSString *const WeiboAccessTokenURL      = @"https://api.weibo.com/oauth2/access_token";
-
 static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/users/show.json";
 
 @interface EMActivityWeibo () <UIWebViewDelegate>
@@ -317,49 +316,35 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
     return YES;
 }
 
-- (void)_handleWebAuthWithInfo:(NSDictionary *)info {
+- (void)getUserInfoWithAccessToken:(NSString *)token openId:(NSString *)openId result:(void (^)(NSDictionary *userInfo))result {
     
+    NSString *userInfoURL = [NSString stringWithFormat:@"%@?uid=%@&access_token=%@",
+                             WeiboUserInfoURL,openId,token];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithURL:[NSURL URLWithString:userInfoURL]
+                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                        
+                                        if (!error) {
+                                            NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                            NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                            NSString *nickname = profile[@"name"];
+                                            newUserInfo[EMActivityWeiboUserNameKey] = nickname;
+                                            newUserInfo[EMActivityWeiboProfileImageURLKey] = profile[@"avatar_large"];
+                                            
+                                            result(newUserInfo);
+                                        } else {
+                                            result(nil);
+                                        }
+                                    }];
+    
+    // 启动任务
+    [task resume];
 }
 
 - (void)handledLoginResponse:(NSDictionary *)userInfo error:(NSError *)error {
-    NSString *userId = userInfo[EMActivityWeiboUserIdKey];
-    NSString *accessToken = userInfo[EMActivityWeiboAccessTokenKey];
-    
-    if (userId == nil || accessToken == nil) {
-        [super handledLoginResponse:userInfo error:error];
-    } else {
-        __block NSMutableDictionary *newUserInfo = [userInfo mutableCopy];
-        
-        NSString *userInfoURL = [NSString stringWithFormat:@"%@?uid=%@&access_token=%@",
-                                 WeiboUserInfoURL,
-                                 newUserInfo[EMActivityWeiboUserIdKey],
-                                 newUserInfo[EMActivityWeiboAccessTokenKey]];
-
-        NSURLSession *session = [NSURLSession sharedSession];
-        // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
-        NSURLSessionTask *task = [session dataTaskWithURL:[NSURL URLWithString:userInfoURL]
-                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                                            NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
-                                            
-                                            if (!error) {
-                                                NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                                                NSString *nickname = profile[@"name"];
-                                                newUserInfo[EMActivityWeiboUserNameKey] = nickname;
-                                                newUserInfo[EMActivityWeiboProfileImageURLKey] = profile[@"avatar_large"];
-                                            }
-
-                                            if ([NSThread currentThread] == [NSThread mainThread]) {
-                                                [super handledLoginResponse:newUserInfo error:error];
-                                            } else {
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    [super handledLoginResponse:newUserInfo error:error];
-                                                });
-                                            }
-                                        }];
-        
-        // 启动任务
-        [task resume];
-    }
+    [super handledLoginResponse:userInfo error:error];
 }
 
 - (NSDictionary *)errorMessages{
@@ -415,18 +400,15 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
     
 }
 
-- (NSString *)_accessTokenInWebWithCode:(NSString *)code {
+- (void)getAccessTokenWithCode:(NSString *)code result:(void(^)(NSDictionary *userInfo))result {
     NSString *appID = EMCONFIG(sinaWeiboConsumerKey);
     NSString *appKey = EMCONFIG(sinaWeiboConsumerSecret);
+    
+    NSAssert(appKey.length > 0, @"sinaWeiboConsumerSecret shouldn't be nil");
 
     NSString *accessTokenURL = [NSString stringWithFormat:@"%@?client_id=%@&client_secret=%@&grant_type=authorization_code&redirect_uri=%@&code=%@", WeiboAccessTokenURL, appID,appKey,self.redirectURI, code];
-    
-    return accessTokenURL;
-}
 
-- (void)getAccessTokenWithCode:(NSString *)code {
-    NSString *url = [self _accessTokenInWebWithCode:code];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:accessTokenURL]];
     request.HTTPMethod = @"POST";
     NSURLSession *session = [NSURLSession sharedSession];
     // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
@@ -438,14 +420,14 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
                                             
                                             NSString *userId = profile[@"uid"];
                                             NSString *accessToken = profile[@"access_token"];
-                                            
+                                            NSString *expires_in = profile[@"expires_in"];
+                                            NSDate *expireDate = [NSDate dateWithTimeIntervalSinceNow:[expires_in integerValue]];
                                             NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
                                             newUserInfo[EMActivityWeiboUserIdKey] = userId;
                                             newUserInfo[EMActivityWeiboAccessTokenKey] = accessToken;
-                                            
-                                            [self handledLoginResponse:newUserInfo error:nil];
+                                            newUserInfo[EMActivityWeiboExpirationDateKey] = expireDate;
+                                            result(newUserInfo);
                                         }
-                                        
                                     }];
     
     // 启动任务
@@ -458,7 +440,18 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
 
         NSDictionary *parameters = [[URL query] SK_URLParameters];
         NSString *code = parameters[@"code"];
-        [self getAccessTokenWithCode:code];
+        __weak __typeof(self) weakSelf = self;
+        NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+        [self getAccessTokenWithCode:code result:^(NSDictionary *userInfo) {
+            NSString *userId = userInfo[EMActivityWeiboUserIdKey];
+            NSString *accessToken = userInfo[EMActivityWeiboAccessTokenKey];
+            
+            [newUserInfo addEntriesFromDictionary:userInfo];
+            [weakSelf getUserInfoWithAccessToken:accessToken openId:userId result:^(NSDictionary *userInfo_) {
+                [newUserInfo addEntriesFromDictionary:userInfo_];
+                [self _handledLoginInMainThreadResponse:newUserInfo error:nil];
+            }];
+        }];
         
         [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:NULL];
         return NO;
@@ -470,6 +463,18 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
 
 #pragma mark -
 #pragma mark Private Methods
+
+- (void)_handledLoginInMainThreadResponse:(NSDictionary *)response error:(NSError *)error {
+    if ([NSThread isMainThread]) {
+        [self handledLoginResponse:response error:error];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self handledLoginResponse:response error:error];
+        });
+    }
+}
+
+
 - (UIImage *)optimizedImageFromOriginalImage:(UIImage *)oriImage {
     // Resize if needed
     UIImage *result = (oriImage.size.width > 1600 || oriImage.size.height > 1600) ? [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(1600,1600)] : oriImage;

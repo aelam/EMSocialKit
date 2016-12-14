@@ -19,7 +19,7 @@
 }
 
 - (NSString*)sinaWeiboConsumerSecret {
-    return @"";
+    return @"b2ffe92dcb045d20309a2d6d015c51a7";
 }
 
 // You need to set this if using OAuth (MUST be set and SAME AS "Callback Url" of "OAuth 2.0 Auth Settings" on Sina Weibo open plaform.
@@ -30,7 +30,7 @@
 
 // To use xAuth, set to 1
 - (NSNumber*)sinaWeiboUseXAuth {
-    return [NSNumber numberWithInt:0];
+    return @0;
 }
 
 // Enter your sina weibo screen name (Only for xAuth)

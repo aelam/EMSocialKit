@@ -14,11 +14,22 @@ NSString *const EMActivityWeChatStatusMessageKey    = @"EMActivityWeChatStatusMe
 NSString *const EMActivityWeChatSummaryKey          = @"EMActivityWeChatSummaryKey";
 NSString *const EMActivityWeChatAuthCodeKey         = @"EMActivityWeChatAuthCodeKey";
 
+NSString *const EMActivityWeChatAccessTokenKey      = @"accessToken";
+NSString *const EMActivityWeChatRefreshTokenKey     = @"refreshToken";
+NSString *const EMActivityWeChatExpirationDateKey   = @"expireDate";
+
+NSString *const EMActivityWeChatUserIdKey           = @"openId";
+NSString *const EMActivityWeChatOpenIdKey           = @"openId";
+NSString *const EMActivityWeChatUnionIdKey          = @"unionId";
+NSString *const EMActivityWeChatNameKey             = @"name";           // WeChat昵称
+NSString *const EMActivityWeChatProfileImageURLKey  = @"profileImageURL";// WeChat头像
+
 NSString *const EMActivityWeChatThumbImageKey       = @"thumbimage";
 NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
 
 static NSString *const EMActivityWeChatURL          = @"weixin://";
-
+static NSString *const kWeChatAccessTokenURL        = @"https://api.weixin.qq.com/sns/oauth2/access_token";
+static NSString *const kWeChatUserInfoURL           = @"https://api.weixin.qq.com/sns/userinfo";
 
 @interface EMActivityWeChat ()
 
@@ -44,6 +55,9 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
     return [[self class] isAppInstalled];
 }
 
+
+#pragma mark - 
+#pragma mark - Share
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems {
     if ([self isAppInstalled]) {
         for (id activityItem in activityItems) {
@@ -146,25 +160,28 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
     
 }
 
-#pragma mark -
-#pragma mark Private Methods
 
-- (NSData *)optimizedThumbImageFromOriginal:(UIImage *)oriImage {
-    UIImage *image = [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(240.f, 240.f)];
+#pragma mark - 
+#pragma mark - Login
+- (BOOL)canPerformLogin {
+    return [self isAppInstalled];
+}
 
-    CGFloat compressionQuality = 0.7;
-    NSInteger dataLengthCeiling = 31500;
+- (void)performLogin {
+    self.isLogin = YES;
     
-    NSData *imageData;
-    do {
-        compressionQuality -= 0.1;
-        imageData = UIImageJPEGRepresentation(image, compressionQuality);
-    } while (imageData && [imageData length] >= dataLengthCeiling && compressionQuality > 0);
-
-    return imageData;
+    if ([self handleAppNotInstall]) {
+        return;
+    }
+    
+    NSString *wechatURLString = [NSString stringWithFormat:@"weixin://app/%@/auth/?scope=%@&state=Weixinauth", EMCONFIG(tencentWeixinAppId),[self scope]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:wechatURLString]];
     
 }
 
+
+#pragma mark -
+#pragma mark - HandleURL
 - (BOOL)canHandleOpenURL:(NSURL *)url {
     NSString *urlString = [url absoluteString];
 
@@ -195,27 +212,19 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
         return NO;
     }
     
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+
     // WeChat OAuth
     NSString *query = [URL query];
     NSDictionary *parameters = [query SK_URLParameters];
     NSString *state = parameters[@"state"];
     if ([state isEqualToString:@"Weixinauth"]) {
-        userInfo[EMActivityWeChatAuthCodeKey] = parameters[@"code"];
-        userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeSuccess);
-        NSString *errorMessage = [[self errorMessages] objectForKey:@(EMActivityWeChatStatusCodeSuccess)];
-        if (errorMessage) {
-            userInfo[EMActivityWeChatStatusMessageKey] = errorMessage;
+        NSString *code = parameters[@"code"];
+        
+        if (code.length == 0) {
+            [self _handleLoginError];
+        } else {
+            [self getAccessTokenWithCode:code];
         }
-        
-        {
-            userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
-            NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeSuccess];
-            userInfo[EMActivityGeneralMessageKey] = errorMessage;
-        }
-        
-        [self handledLoginResponse:userInfo error:nil];
-        
         return YES;
     }
     
@@ -223,7 +232,6 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
 }
 
 - (BOOL)handleOpenShareURL:(NSURL *)URL {
-
     NSString *urlString = [URL absoluteString];
     if ([urlString rangeOfString:@"wx"].location == NSNotFound) {
         return NO;
@@ -265,21 +273,141 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
     return YES;
 }
 
-- (BOOL)canPerformLogin {
-    return [self isAppInstalled];
+- (BOOL)handleAppNotInstall {
+    NSMutableDictionary *userInfo = @{}.mutableCopy;
+    userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeAppNotInstall);
+    userInfo[EMActivityWeChatStatusMessageKey] = [self errorMessages][@(EMActivityWeChatStatusCodeAppNotInstall)];
+    
+    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeNotInstall);
+    NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeNotInstall];
+    userInfo[EMActivityGeneralMessageKey] = errorMessage;
+    
+    if (![self isAppInstalled]) {
+        if (self.isLogin) {
+            [self handledLoginResponse:userInfo error:nil];
+        } else {
+            [self handledShareResponse:userInfo error:nil];
+        }
+        return YES;
+    }
+    return NO;
 }
 
-- (void)performLogin {
-    self.isLogin = YES;
+
+- (void)handledLoginResponse:(NSDictionary *)response error:(NSError *)error {
     
-    if ([self handleAppNotInstall]) {
-        return;
-    }
-    
-    NSString *wechatURLString = [NSString stringWithFormat:@"weixin://app/%@/auth/?scope=%@&state=Weixinauth", EMCONFIG(tencentWeixinAppId),[self scope]];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:wechatURLString]];
-    
+    [super handledLoginResponse:response error:error];
 }
+
+
+- (void)getAccessTokenWithCode:(NSString *)code {
+    
+    NSString *appID = EMCONFIG(tencentWeixinAppId);
+    NSString *appKey = EMCONFIG(tencentWeixinAppKey);
+
+    NSAssert(appID.length > 0, @"tencentWeixinAppId shouldn't be nil");
+    NSAssert(appKey.length > 0, @"tencentWeixinAppKey shouldn't be nil");
+
+    NSString *accessTokenURL = [NSString stringWithFormat:@"%@?appid=%@&secret=%@&grant_type=authorization_code&code=%@", kWeChatAccessTokenURL, appID,appKey, code];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:accessTokenURL]];
+    request.HTTPMethod = @"POST";
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            NSDictionary *profile = nil;
+                                            if (!error) {
+                                                profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                                
+                                                NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+
+                                                NSString *userId = profile[@"openid"];
+                                                NSString *unionid = profile[@"unionid"];
+                                                NSString *accessToken = profile[@"access_token"];
+                                                NSString *refreshToken = profile[@"refresh_token"];
+                                                NSInteger expireIn = [profile[@"expire_in"] integerValue];
+                                                
+                                                userInfo[EMActivityWeChatUserIdKey] = userId;
+                                                userInfo[EMActivityWeChatUnionIdKey] = unionid;
+                                                userInfo[EMActivityWeChatAccessTokenKey] = accessToken;
+                                                userInfo[EMActivityWeChatRefreshTokenKey] = refreshToken;
+                                                userInfo[EMActivityWeChatExpirationDateKey] = [NSDate dateWithTimeIntervalSinceNow:expireIn];
+  
+                                                [self getUserInfoWithAccessToken:accessToken openId:userId result:^(NSDictionary *userInfo_) {
+                                                    [userInfo addEntriesFromDictionary:userInfo_];
+                                                    [self _handledLoginInMainThreadResponse:userInfo error:nil];
+                                                }];
+                                                
+                                            } else {
+                                                [self _handledLoginInMainThreadResponse:nil error:error];
+                                            }
+                                            
+                                        }];
+    
+    // 启动任务
+    [task resume];
+}
+
+- (void)_handledLoginInMainThreadResponse:(NSDictionary *)response error:(NSError *)error {
+    if ([NSThread isMainThread]) {
+        [self handledLoginResponse:response error:error];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self handledLoginResponse:response error:error];
+        });
+    }
+}
+
+
+- (void)getUserInfoWithAccessToken:(NSString *)token openId:(NSString *)openId result:(void (^)(NSDictionary *userInfo))result{
+    
+    NSString *userInfoURL = [NSString stringWithFormat:@"%@?openid=%@&access_token=%@", kWeChatUserInfoURL, openId, token];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:userInfoURL]];
+    request.HTTPMethod = @"POST";
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            NSDictionary *profile = nil;
+                                            if (!error) {
+                                                profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                                
+                                                NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+                                                
+                                                NSString *nickname = profile[@"nickname"];
+                                                NSString *headimgurl = profile[@"headimgurl"];
+                                                
+                                                userInfo[EMActivityWeChatNameKey] = nickname;
+                                                userInfo[EMActivityWeChatProfileImageURLKey] = headimgurl;
+                                                result(userInfo);
+                                            } else {
+                                                result(nil);
+                                            }
+                                            
+                                        }];
+    
+    // 启动任务
+    [task resume];
+}
+
+
+- (void)_handleLoginError {
+    __block NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+
+    userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeSentFail);
+    userInfo[EMActivityWeChatStatusMessageKey] = [self errorMessages][@(EMActivityWeChatStatusCodeSentFail)];
+    
+    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeCommonFail);
+    NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeCommonFail];
+    userInfo[EMActivityGeneralMessageKey] = errorMessage;
+    
+    [self handledLoginResponse:userInfo error:nil];
+
+}
+
+
 
 - (NSDictionary *)errorMessages{
     return
@@ -294,25 +422,22 @@ static NSString *const EMActivityWeChatURL          = @"weixin://";
       };
 }
 
-- (BOOL)handleAppNotInstall {
-    NSMutableDictionary *userInfo = @{}.mutableCopy;
-    userInfo[EMActivityWeChatStatusCodeKey] = @(EMActivityWeChatStatusCodeAppNotInstall);
-    userInfo[EMActivityWeChatStatusMessageKey] = [self errorMessages][@(EMActivityWeChatStatusCodeAppNotInstall)];
+#pragma mark -
+#pragma mark Private Methods
+- (NSData *)optimizedThumbImageFromOriginal:(UIImage *)oriImage {
+    UIImage *image = [oriImage SK_resizedImageWithMaximumSize:CGSizeMake(240.f, 240.f)];
     
-    userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeNotInstall);
-    NSString *errorMessage = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeNotInstall];
-    userInfo[EMActivityGeneralMessageKey] = errorMessage;
-
-    if (![self isAppInstalled]) {
-        if (self.isLogin) {
-            [self handledLoginResponse:userInfo error:nil];
-        } else {
-            [self handledShareResponse:userInfo error:nil];
-        }
-        return YES;
-    }
-    return NO;
+    CGFloat compressionQuality = 0.7;
+    NSInteger dataLengthCeiling = 31500;
+    
+    NSData *imageData;
+    do {
+        compressionQuality -= 0.1;
+        imageData = UIImageJPEGRepresentation(image, compressionQuality);
+    } while (imageData && [imageData length] >= dataLengthCeiling && compressionQuality > 0);
+    
+    return imageData;
+    
 }
-
 
 @end
