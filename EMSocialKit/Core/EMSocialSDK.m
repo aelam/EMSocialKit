@@ -15,6 +15,7 @@
 #import "EMActivityWeChatSession.h"
 #import "EMActivityQQ.h"
 #import "EMSSlideUpTransitionAnimator.h"
+#import "TencentOAuth.h"
 
 NSString *const EMSocialSDKErrorDomain      = @"com.emoney.emsocialsdk";
 
@@ -121,12 +122,20 @@ static EMSocialSDK *sharedInstance = nil;
     activityViewController.activityStyle = self.activityStyle;
     self.activeActivity = nil;
     activityViewController.completionWithItemsHandler = ^(EMActivity *activity, BOOL completed, NSArray *returnedInfo, NSError *activityError) {
+        
         self.activeActivity = activity;
-        self.activeActivity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+        if (![TencentOAuth iphoneQQInstalled] || ![WXApi isWXAppInstalled]) {
             if(shareCompletionHandler) {
-                shareCompletionHandler(activityType, completed, returnedInfo, activityError);
+                shareCompletionHandler(activity.activityType, completed, returnedInfo, activityError);
             }
-        };
+        }else {
+            self.activeActivity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
+                if(shareCompletionHandler) {
+                    shareCompletionHandler(activityType, completed, returnedInfo, activityError);
+                }
+            };
+        }
+
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
