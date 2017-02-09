@@ -1,10 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'EMSocialKit'
-<<<<<<< HEAD
   s.version      = '1.0.0'
-=======
-  s.version      = '0.1.10'
->>>>>>> 判断是否有客户端
   s.summary      = 'EMSocialKit'
   s.homepage     = 'http://ph.benemind.com/diffusion/EMSK'
   s.license      = { :type => 'Apache License', :file => 'LICENSE' }

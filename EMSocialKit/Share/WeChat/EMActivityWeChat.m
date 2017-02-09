@@ -186,7 +186,7 @@ static NSString *const kWeChatUserInfoURL           = @"https://api.weixin.qq.co
     NSString *urlString = [url absoluteString];
 
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
-    if (can && [[url absoluteString] rangeOfString:@"safepay"].location != NSNotFound) {
+    if (can && [[url absoluteString] rangeOfString:@"pay"].location == NSNotFound) {
         return YES;
     }
     return NO;
@@ -196,7 +196,7 @@ static NSString *const kWeChatUserInfoURL           = @"https://api.weixin.qq.co
     NSString *urlString = [URL absoluteString];
     
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
-    if (can && [urlString rangeOfString:@"safepay"].location == NSNotFound) {
+    if (can && [urlString rangeOfString:@"pay"].location == NSNotFound) {
         if (self.isLogin) {
             return [self handleOpenLoginURL:URL];
         } else {
