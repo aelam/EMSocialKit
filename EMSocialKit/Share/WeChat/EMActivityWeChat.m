@@ -130,7 +130,7 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     NSString *urlString = [url absoluteString];
 
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
-    if (can && [[url absoluteString] rangeOfString:@"safepay"].location != NSNotFound) {
+    if (can && [[url absoluteString] rangeOfString:@"pay"].location == NSNotFound) {
         return YES;
     }
     return NO;
@@ -140,7 +140,7 @@ NSString *const EMActivityWeChatDescriptionKey      = @"descstring";
     NSString *urlString = [URL absoluteString];
     
     BOOL can = [urlString rangeOfString:@"wx"].location != NSNotFound;
-    if (can && [urlString rangeOfString:@"safepay"].location == NSNotFound) {
+    if (can && [urlString rangeOfString:@"pay"].location == NSNotFound) {
         return [WXApi handleOpenURL:URL delegate:self];
     }
     return NO;
