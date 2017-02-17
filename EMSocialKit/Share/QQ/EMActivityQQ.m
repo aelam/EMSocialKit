@@ -29,8 +29,12 @@ NSString *const EMActivityQQProfileImageURLKey  = @"profileImageURL";// QQ头像
 NSString *const EMActivityQQStatusCodeKey       = @"EMActivityQQStatusCodeKey";
 NSString *const EMActivityQQStatusMessageKey    = @"EMActivityQQStatusMessageKey";
 
+static NSString *const kQQAuthorizeURL           = @"https://graph.qq.com/oauth2.0/authorize";
+static NSString *const kQQAccessTokenURL           = @"https://graph.qq.com/oauth2.0/token";
+static NSString *const kQQOpenIdURL           = @"https://graph.qq.com/oauth2.0/me";
+
 static NSString *const kQQGetUserInfoURL        = @"https://graph.qq.com/user/get_user_info";
-static NSString *const kQQAccessTokenURL        = @"https://xui.ptlogin2.qq.com/cgi-bin/xlogin";
+//static NSString *const kQQAccessTokenURL        = @"https://xui.ptlogin2.qq.com/cgi-bin/xlogin";
 static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 
 @interface EMActivityQQ() <UIWebViewDelegate>
@@ -486,9 +490,9 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 - (void)getAccessTokenInWeb {
     NSString *appID = EMCONFIG(tencentAppId);
     
-    NSString *accessTokenAPI = [NSString stringWithFormat:@"%@?appid=716027609&pt_3rd_aid=209656&style=35&s_url=https%%3A%%2F%%2Fconnect.qq.com&refer_cgi=m_authorize&client_id=%@&redirect_uri=%@&response_type=token&scope=%@", kQQAccessTokenURL,appID, [kQQRedirectURL SK_URLEncodedString], [self scope]];
+    NSString *authorizeTokenAPI = [NSString stringWithFormat:@"%@?client_id=%@&redirect_uri=%@&response_type=token&state=test&scope=%@", kQQAuthorizeURL,appID, [kQQRedirectURL SK_URLEncodedString], [self scope]];
     
-    EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:accessTokenAPI]];
+    EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:authorizeTokenAPI]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webController];
     self.webAuthNavigationController = navigationController;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:navigationController animated:YES completion:^{
@@ -496,19 +500,77 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     }];
 }
 
+- (void)getOpenIdWithAccessToken:(NSString *)token result:(void(^)(NSDictionary *userInfo))result {
+
+    NSString *accessTokenAPI = [NSString stringWithFormat:@"%@?access_token=%@", kQQOpenIdURL,token];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:accessTokenAPI]];
+    request.HTTPMethod = @"GET";
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            if (!error) {
+                                                NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                NSRange beginRange = [dataString rangeOfString:@"{"];
+                                                NSRange endRange = [dataString rangeOfString:@"}"];
+
+                                                if (beginRange.location != NSNotFound && endRange.location != NSNotFound) {
+                                                    NSInteger location = beginRange.location;
+                                                    NSInteger len = endRange.location - location + 1;
+                                                    dataString = [dataString substringWithRange:NSMakeRange(location, len)];
+                                                    NSData *resultData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+                                                    NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:resultData options:kNilOptions error:nil];
+                                                    NSString *openId= profile[@"openid"];
+                                                    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                                    newUserInfo[EMActivityQQUserIdKey] = openId;
+                                                    newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
+                                                    result(newUserInfo);
+                                                }
+                                                else {
+                                                    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                                    newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeCommonFail);
+                                                    result(newUserInfo);
+                                                }
+                                            }
+                                        }];
+    
+    // 启动任务
+    [task resume];
+}
+
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSURL *URL = [request URL];
-    
-    if ([[URL scheme] isEqualToString:@"auth"]) {
-        [self handleLoginOpenURL:URL];
-        [self.webAuthNavigationController dismissViewControllerAnimated:YES completion:NULL];
-        self.webAuthNavigationController = nil;
+    if ([kQQRedirectURL rangeOfString:[URL host]].length > 0) {
         
+        NSDictionary *parameters = [[URL fragment] SK_URLParameters];
+        NSInteger cancel = [parameters[@"usercancel"] integerValue];
+        if (cancel == 1) {
+            NSDictionary *userInfo = @{EMActivityGeneralStatusCodeKey:@(EMActivityGeneralStatusCodeUserCancel)};
+            [self handledLoginResponse:userInfo error:nil];
+        }
+        else
+        {
+            NSMutableDictionary *resultUserInfo = [NSMutableDictionary dictionaryWithDictionary:parameters];
+            NSString *accessToken = parameters[@"access_token"];
+            NSString *expires_in = parameters[@"expires_in"];
+            NSDate *expireDate = [NSDate dateWithTimeIntervalSinceNow:[expires_in integerValue]];
+            resultUserInfo[EMActivityQQAccessTokenKey] = accessToken;
+            resultUserInfo[EMActivityQQExpirationDateKey] = expireDate;
+            
+            [self getOpenIdWithAccessToken:accessToken result:^(NSDictionary *userInfo) {
+                [resultUserInfo addEntriesFromDictionary:userInfo];
+                [self handledLoginResponse:resultUserInfo error:nil];
+            }];
+        }
+        
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:NULL];
         return NO;
     }
-
+    
     return YES;
 }
+
 
 - (void)dealloc {
     self.webAuthNavigationController = nil;

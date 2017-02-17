@@ -332,7 +332,9 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
                                             NSString *nickname = profile[@"name"];
                                             newUserInfo[EMActivityWeiboUserNameKey] = nickname;
                                             newUserInfo[EMActivityWeiboProfileImageURLKey] = profile[@"avatar_large"];
-                                            
+                                            newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
+                                            newUserInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:@(EMActivityGeneralStatusCodeSuccess)];
+
                                             result(newUserInfo);
                                         } else {
                                             result(nil);

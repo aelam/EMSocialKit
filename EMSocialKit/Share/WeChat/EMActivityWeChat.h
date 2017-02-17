@@ -49,5 +49,7 @@ UIKIT_EXTERN NSString *const EMActivityWeChatThumbImageKey;
 
 @property (nonatomic, assign) EMWXScene scene;
 
+- (BOOL)handleOpenLoginURL:(NSURL *)URL;
+
 @end
 

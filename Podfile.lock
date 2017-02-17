@@ -1,15 +1,5 @@
 PODS:
-  - AFNetworking/NSURLSession (3.1.0):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.1.0)
-  - AFNetworking/Security (3.1.0)
-  - AFNetworking/Serialization (3.1.0)
-  - AFOAuth2Manager (3.0.0):
-    - AFNetworking/NSURLSession (~> 3.0)
-  - EMSocialKit (1.0.0-beta.3):
-    - AFOAuth2Manager (~> 3.0.0)
+  - EMSocialKit (1.0.0-beta.4)
   - JRSwizzle (1.0)
 
 DEPENDENCIES:
@@ -18,12 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   EMSocialKit:
-    :path: "./EMSocialKit.podspec"
+    :path: ./EMSocialKit.podspec
 
 SPEC CHECKSUMS:
-  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  AFOAuth2Manager: 0566da1be64883e339813d411229fdc9a84dab7c
-  EMSocialKit: 9b2ac2b52b4ec0723f8aa3bdaf60c5d98cd032d1
+  EMSocialKit: 0fbad3f9b72e826556d18c7c4776822da79185a1
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
 
 PODFILE CHECKSUM: 780207434b8a91f6ab3358aaf2c5de0a4461e137

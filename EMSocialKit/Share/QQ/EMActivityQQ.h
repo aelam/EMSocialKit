@@ -42,4 +42,6 @@ typedef NS_ENUM(NSInteger, EMActivityQQStatusCode)
 
 @interface EMActivityQQ : EMBridgeActivity
 
+- (BOOL)handleLoginOpenURL:(NSURL *)url;
+
 @end
