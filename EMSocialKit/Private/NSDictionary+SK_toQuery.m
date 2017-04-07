@@ -6,7 +6,7 @@
 //
 //
 
-#import "NSDictionary+sk_toQuery.h"
+#import "NSDictionary+SK_toQuery.h"
 #import "NSString+SK_URLEncode.h"
 
 @implementation NSDictionary (sk_toQuery)
