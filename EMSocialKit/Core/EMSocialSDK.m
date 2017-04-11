@@ -112,12 +112,15 @@ static EMSocialSDK *sharedInstance = nil;
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-- (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
-    NSArray *activies = @[[[EMActivityWeChatSession alloc]init],
-                          [[EMActivityWeChatTimeline alloc]init],
-                          [[EMActivityWeibo alloc]init],
-                          [[EMActivityQQ alloc]init]
-                         ];
+- (void)shareActivies:(NSArray *)activies withItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+    if (!activies) {
+        activies = @[[[EMActivityWeChatSession alloc]init],
+                     [[EMActivityWeChatTimeline alloc]init],
+                     [[EMActivityWeibo alloc]init],
+                     [[EMActivityQQ alloc]init]
+                     ];
+    }
+    
     EMActivityViewController *activityViewController = [[EMActivityViewController alloc] initWithActivityItems:content applicationActivities:activies];
     activityViewController.activityStyle = self.activityStyle;
     self.activeActivity = nil;
@@ -135,11 +138,17 @@ static EMSocialSDK *sharedInstance = nil;
                 }
             };
         }
-
+        
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
     }];
+}
+
+- (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
+    
+    [self shareActivityItems:content rootViewController:controller completionHandler:shareCompletionHandler];
+    
 }
 
 - (void)shareActivityItems:(NSArray *)content activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
