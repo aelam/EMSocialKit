@@ -147,7 +147,7 @@ static EMSocialSDK *sharedInstance = nil;
 
 - (void)shareActivityItems:(NSArray *)content rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler {
     
-    [self shareActivityItems:content rootViewController:controller completionHandler:shareCompletionHandler];
+    [self shareActivies:nil withItems:content rootViewController:controller completionHandler:shareCompletionHandler];
     
 }
 
