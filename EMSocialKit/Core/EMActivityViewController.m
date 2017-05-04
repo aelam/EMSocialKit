@@ -242,16 +242,15 @@ static CGFloat kDefaultHeight = 166.f;
             weakSelf.selectedActivityType = activity.activityType;
             weakSelf.activeActivity = activity;
             
-            [weakSelf.activeActivity prepareWithActivityItems:weakSelf.activityItems];
-            [weakSelf.activeActivity performActivity];
-            
             if (weakSelf.completionWithItemsHandler) {
                 weakSelf.completionWithItemsHandler(weakSelf.activeActivity, YES, NULL, nil);
             }
-            
-        }];
-    }}
 
+            [weakSelf.activeActivity prepareWithActivityItems:weakSelf.activityItems];
+            [weakSelf.activeActivity performActivity];
+        }];
+    }
+}
 
 - (void)cancelAction:(id)sender {
     if (self.completionWithItemsHandler) {

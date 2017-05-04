@@ -1,5 +1,5 @@
 PODS:
-  - EMSocialKit (1.0.0-beta.5)
+  - EMSocialKit (1.0.0)
   - JRSwizzle (1.0)
 
 DEPENDENCIES:
@@ -8,10 +8,10 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   EMSocialKit:
-    :path: "./EMSocialKit.podspec"
+    :path: ./EMSocialKit.podspec
 
 SPEC CHECKSUMS:
-  EMSocialKit: 68dee5f846cfcd774e8d5b4fa2f20aa876f8b734
+  EMSocialKit: 1eed86be3f1b16dd4f28393c44b3ba4069d02ce8
   JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
 
 PODFILE CHECKSUM: 780207434b8a91f6ab3358aaf2c5de0a4461e137

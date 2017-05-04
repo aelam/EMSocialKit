@@ -15,7 +15,6 @@
 #import "EMActivityWeChatSession.h"
 #import "EMActivityQQ.h"
 #import "EMSSlideUpTransitionAnimator.h"
-#import "TencentOAuth.h"
 
 NSString *const EMSocialSDKErrorDomain      = @"com.emoney.emsocialsdk";
 
@@ -127,18 +126,11 @@ static EMSocialSDK *sharedInstance = nil;
     activityViewController.completionWithItemsHandler = ^(EMActivity *activity, BOOL completed, NSArray *returnedInfo, NSError *activityError) {
         
         self.activeActivity = activity;
-        if (![TencentOAuth iphoneQQInstalled] || ![WXApi isWXAppInstalled]) {
+        self.activeActivity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
             if(shareCompletionHandler) {
-                shareCompletionHandler(activity.activityType, completed, returnedInfo, activityError);
+                shareCompletionHandler(activityType, completed, returnedInfo, activityError);
             }
-        }else {
-            self.activeActivity.completionHandler = ^(NSString *activityType, BOOL completed, NSDictionary *returnedInfo, NSError *activityError) {
-                if(shareCompletionHandler) {
-                    shareCompletionHandler(activityType, completed, returnedInfo, activityError);
-                }
-            };
-        }
-        
+        };
     };
     
     [controller presentViewController:activityViewController animated:YES completion:^{
@@ -163,7 +155,8 @@ static EMSocialSDK *sharedInstance = nil;
             }
         };
     } else {
-        shareCompletionHandler(type, NO, nil, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
+        NSDictionary *resultInfo = @{EMActivityGeneralStatusCodeKey:@(EMActivityGeneralStatusCodeNotInstall)};
+        shareCompletionHandler(type, NO, resultInfo, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
     }
 }
 
