@@ -21,8 +21,8 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 
 @interface EMSocialSDK : NSObject
 
-@property(nonatomic, assign)EMActivityStyle activityStyle;
-@property(nonatomic, strong)EMSTransitionAnimator *transitionAnimator;
+@property(nonatomic, assign) EMActivityStyle activityStyle;
+@property(nonatomic, strong) EMSTransitionAnimator *transitionAnimator;
 
 + (instancetype)sharedSDK;
 
@@ -52,28 +52,28 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 @property(nonatomic,copy, readonly) EMActivityShareCompletionHandler shareCompletionHandler;
 
 /**
- * @param activies: @[EMActivityWeChatSession, EMActivityWeChatTimeline] 指定分享平台,如果为nil，就支持全平台
- * @param items : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * @param activies  @[EMActivityWeChatSession, EMActivityWeChatTimeline] 指定分享平台,如果为nil，就支持全平台
+ * @param items      @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
  * 微信的thumbData设置使用@{EMActivityWeChatThumbImageKey:[UIImage imageNamed:@"ThumbData"]}
- * @param controller: 用于present出社交选择器
+ * @param controller 用于present出社交选择器
  *
  */
 - (void)shareActivies:(NSArray *)activies withItems:(NSArray *)items rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
 
 /**
  *
- * @param items : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * @param items  @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
  * 微信的thumbData设置使用@{EMActivityWeChatThumbImageKey:[UIImage imageNamed:@"ThumbData"]}
- * @param controller: 用于present出社交选择器
+ * @param controller 用于present出社交选择器
  *
  */
 - (void)shareActivityItems:(NSArray *)items rootViewController:(UIViewController *)controller completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;
 
 /**
  *
- * @param items : @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
+ * @param items     @[@"plain text", [UIImage imageName:@"shareimage"], [NSURL URLWithString:@"http://baidu.com"]]
  * 微信的thumbData设置使用@{EMActivityWeChatThumbImageKey:[UIImage imageNamed:@"ThumbData"]}
- * @param activity: 指定社交应用直接分享
+ * @param activity  指定社交应用直接分享
  *
  */
 - (void)shareActivityItems:(NSArray *)items activity:(EMActivity *)activity completionHandler:(EMActivityShareCompletionHandler)shareCompletionHandler;

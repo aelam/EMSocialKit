@@ -8,7 +8,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   EMSocialKit:
-    :path: ./EMSocialKit.podspec
+    :path: "./EMSocialKit.podspec"
 
 SPEC CHECKSUMS:
   EMSocialKit: 1eed86be3f1b16dd4f28393c44b3ba4069d02ce8
@@ -16,4 +16,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 780207434b8a91f6ab3358aaf2c5de0a4461e137
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.1
