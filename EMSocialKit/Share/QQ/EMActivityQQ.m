@@ -495,7 +495,12 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:authorizeTokenAPI]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webController];
     self.webAuthNavigationController = navigationController;
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:navigationController animated:YES completion:^{
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (presentingController.presentedViewController) {
+        presentingController = presentingController.presentedViewController;
+    }
+
+    [presentingController presentViewController:navigationController animated:YES completion:^{
         webController.webView.delegate = self;
     }];
 }

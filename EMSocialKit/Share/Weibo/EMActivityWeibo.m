@@ -396,7 +396,12 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
     
     EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:accessTokenAPI]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webController];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:navigationController animated:YES completion:^{
+    UIViewController *presentingController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (presentingController.presentedViewController) {
+        presentingController = presentingController.presentedViewController;
+    }
+    
+    [presentingController presentViewController:navigationController animated:YES completion:^{
         webController.webView.delegate = self;
     }];
     
@@ -454,7 +459,7 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
                 [self _handledLoginInMainThreadResponse:newUserInfo error:nil];
             }];
         }];
-        
+
         [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:NULL];
         return NO;
     }
