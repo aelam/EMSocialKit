@@ -16,8 +16,7 @@
 #define EMSOCIAL_RGB(r,g,b) EMSOCIAL_RGBA(r,g,b,1)
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
-static CGFloat kDefaultHeight = 166.f;
-
+static CGFloat kContentHeight = 166.f;
 
 @interface EMActivityViewController () <UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -28,6 +27,7 @@ static CGFloat kDefaultHeight = 166.f;
 @property (nonatomic, strong, readwrite) UIButton *closeButton;
 @property (nonatomic, assign) NSString *selectedActivityType;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, assign) CGFloat bottomPadding;
 
 // About Theme 
 @property(nonatomic, strong)UIColor *cancelBackgroundColor;
@@ -50,6 +50,11 @@ static CGFloat kDefaultHeight = 166.f;
         self.backgroundColor = [UIColor whiteColor];
         self.activityTitleColor = [UIColor darkGrayColor];
         self.activityStyle = EMActivityStyleBlack;
+        if (@available(iOS 11.0, *)) {
+            self.bottomPadding = [UIApplication sharedApplication].keyWindow.safeAreaInsets.bottom;
+        } else {
+            self.bottomPadding = 0;
+        }
     }
     
     return self;
@@ -57,11 +62,11 @@ static CGFloat kDefaultHeight = 166.f;
 
 - (void)loadView {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, kDefaultHeight)];
+    self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, kContentHeight + self.bottomPadding)];
 }
 
 - (CGSize)preferredContentSize {
-    return CGSizeMake(self.view.frame.size.width, kDefaultHeight);
+    return CGSizeMake(self.view.frame.size.width, kContentHeight + self.bottomPadding);
 }
 
 
@@ -99,6 +104,11 @@ static CGFloat kDefaultHeight = 166.f;
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+    self.bottomPadding = self.view.safeAreaInsets.bottom;
 }
 
 - (void)loadWhiteTheme {
@@ -148,9 +158,12 @@ static CGFloat kDefaultHeight = 166.f;
 }
 
 - (void)setUpActivitiesUI {
+    const CGFloat closeButtonHeight = 60;
+    const CGFloat collectionViewHeight = 110.f;
+
     self.view.backgroundColor = self.backgroundColor;
     CGRect collectionViewRect = self.view.bounds;
-    collectionViewRect.size.height = collectionViewRect.size.height - 50;
+    collectionViewRect.size.height = collectionViewHeight;
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat screenWidth = [UIScreen mainScreen].applicationFrame.size.width;
@@ -172,7 +185,7 @@ static CGFloat kDefaultHeight = 166.f;
     self.closeButton = [UIButton buttonWithType:UIButtonTypeSystem];
     CGRect closeRect = self.view.bounds;//
     closeRect.origin.y = collectionViewRect.size.height;
-    closeRect.size.height = 60;
+    closeRect.size.height = closeButtonHeight;
     closeRect = UIEdgeInsetsInsetRect(closeRect, UIEdgeInsetsMake(0, 15, 20, 15));
     self.closeButton.frame = closeRect;
     [self.closeButton setTitleColor:EMSOCIAL_RGB(0x51, 0x96, 0xef) forState:UIControlStateNormal];
