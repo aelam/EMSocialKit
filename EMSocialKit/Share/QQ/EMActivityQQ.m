@@ -23,6 +23,8 @@ NSString *const EMActivityQQRefreshTokenKey     = @"refreshToken";
 NSString *const EMActivityQQExpirationDateKey   = @"expireDate";
 
 NSString *const EMActivityQQUserIdKey           = @"userId";
+NSString *const EMActivityQQUnionIDIdKey           = @"unionId";
+
 NSString *const EMActivityQQNameKey             = @"name";           // QQ昵称
 NSString *const EMActivityQQProfileImageURLKey  = @"profileImageURL";// QQ头像
 
@@ -95,7 +97,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     if (![self isAppInstalled]) {
         return NO;
     }
-    
+
     for (id activityItem in activityItems) {
         if ([activityItem isKindOfClass:[UIImage class]]) {
             return YES;
@@ -109,7 +111,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             return YES;
         }
     }
-    
+
     return NO;
 }
 
@@ -132,20 +134,20 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 }
 
 - (void)performActivity {
-    
+
     self.isLogin = NO;
 
     if ([self handleAppNotInstall]) {
         return;
     }
-    
+
 #if 1
     NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     if (!bundleName) {
         bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
     }
 
-    
+
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"version"] = @1;
     parameters[@"callback_type"] = @"scheme";
@@ -155,7 +157,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     parameters[@"src_type"] = @"app";
     parameters[@"shareType"] = @0;
     parameters[@"cflag"] = @4;
-    
+
     if (self.shareURL || self.shareImage) {
         parameters[@"objectlocation"] = @"pasteboard";
         if (self.shareStringTitle) {
@@ -165,7 +167,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             parameters[@"description"] = [[self.shareStringDesc dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
         }
     }
-    
+
     if (self.shareURL) {
 
         parameters[@"file_type"] = @"news";
@@ -183,28 +185,28 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
         }
 
         parameters[@"url"] = [[[self.shareURL absoluteString] dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
-        
-        
+
+
     } else if (self.shareImage) {
         parameters[@"objectlocation"] = @"pasteboard";
-        
+
         if (self.shareStringTitle) {
             parameters[@"title"] = [[self.shareStringTitle dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
         }
-        
+
         if (self.shareStringDesc) {
             parameters[@"description"] = [[self.shareStringDesc dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
         }
 
         parameters[@"file_type"] = @"img";
-        
+
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         if (self.thumbImage) {
             NSData *thumbnail = UIImageJPEGRepresentation(self.thumbImage, 1);
             dic[@"previewimagedata"] = thumbnail;
         }
         dic[@"file_data"] = UIImageJPEGRepresentation(self.shareImage, 1);
-        
+
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dic];
         [[UIPasteboard generalPasteboard] setData:data forPasteboardType:@"com.tencent.mqq.api.apiLargeData"];
 
@@ -219,13 +221,13 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
         }
         parameters[@"file_data"] = [[des dataUsingEncoding:NSUTF8StringEncoding] base64EncodedStringWithOptions:0];
     }
-    
+
     NSMutableString *qqURL = [NSMutableString stringWithFormat:@"mqqapi://share/to_fri?"];
     NSString *query = [parameters SK_toQuery];
     NSString *fullQQURL = [qqURL stringByAppendingString:query];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:fullQQURL]];
-    
-    
+
+
 #else
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:EMCONFIG(tencentAppId) andDelegate:self];
     if (self.shareURL) {
@@ -233,7 +235,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
         if (image == nil) {
             image = self.thumbImage;
         }
-        
+
         QQApiURLObject *newsObj = [QQApiURLObject objectWithURL:self.shareURL title:self.shareStringTitle description:self.shareStringDesc previewImageData:UIImageJPEGRepresentation(image, 0.5)  targetContentType:QQApiURLTargetTypeNews];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
@@ -241,10 +243,10 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     } else if (self.shareImage) {
         UIImage *previewImage = [self.shareImage SK_resizedImageWithMaximumSize:CGSizeMake(200, 200)];
         UIImage *image = [self.shareImage resizedImageByWidth:640];
-        
+
         NSData *previewImageData = UIImageJPEGRepresentation(previewImage, 1);
         NSData *imageData = UIImageJPEGRepresentation(image, 1);
-        
+
         QQApiImageObject *newsObj = [QQApiImageObject objectWithData:imageData previewImageData:previewImageData title:self.shareStringTitle description:self.shareStringDesc];
         [newsObj setCflag:kQQAPICtrlFlagQQShare];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
@@ -268,20 +270,20 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 
 - (void)performLogin {
     self.isLogin = YES;
-    
+
     if (![self isAppInstalled]) {
         [self performLoginInWeb];
-        
+
         return;
     }
-    
+
     NSString *bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
     if (!bundleName) {
         bundleName = [[NSBundle mainBundle] infoDictionary][@"CFBundleName"];
     }
-    
+
     NSString *appId = EMCONFIG(tencentAppId);
-    
+
     NSMutableDictionary *paramaters = [NSMutableDictionary dictionary];
     paramaters[@"app_id"] = appId;
     paramaters[@"client_id"] = appId;
@@ -296,9 +298,9 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:paramaters];
     [[UIPasteboard generalPasteboard] setData:data forPasteboardType:[NSString stringWithFormat:@"com.tencent.tencent%@",appId]];
-    
+
     NSString *QQURLString = [NSString stringWithFormat:@"mqqOpensdkSSoLogin://SSoLogin/tencent%@/com.tencent.tencent\%@?generalpastboard=1", appId,appId];
-    
+
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:QQURLString]];
 }
 
@@ -313,9 +315,9 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 }
 
 - (BOOL)handleLoginOpenURL:(NSURL *)url {
-    
+
     NSMutableDictionary *message;
-    
+
     NSInteger errorCode = 0;
     NSInteger generalErrorCode = 0;
 
@@ -331,19 +333,19 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             message[@"ret"] = @"0";
         }
     }
-    
+
     __block NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    
+
     if (message) {
         NSString *accessToken = message[@"access_token"];
         NSString *expires_in = message[@"expires_in"];
         NSString *openid = message[@"openid"];
-        
-        
+
+
         if (message[@"ret"]) {
             errorCode = [message[@"ret"] integerValue];
-            
-            
+
+
             if (errorCode == EMActivityQQStatusCodeSuccess) {
                 generalErrorCode = EMActivityGeneralStatusCodeSuccess;
             } else if (errorCode == EMActivityQQStatusCodeUserCancel) {
@@ -353,56 +355,40 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             } else {
                 generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
             }
-            
-            
+
+
             if (errorCode == EMActivityGeneralStatusCodeSuccess) {
                 userInfo[EMActivityQQAccessTokenKey] = accessToken;
                 userInfo[EMActivityQQExpirationDateKey] = expires_in;
                 userInfo[EMActivityQQUserIdKey] = openid;
-                
-                
+
+
                 userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
                 userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeSuccess];
-                
-                NSURLSession *session = [NSURLSession sharedSession];
-                NSString *urlString = [NSString stringWithFormat:@"%@?access_token=%@&oauth_consumer_key=%@&openid=%@&format=json",
-                                       kQQGetUserInfoURL, accessToken, EMCONFIG(tencentAppId), openid];
-                NSURLSessionTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:
-                                          ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                                              if (!error) {
-                                                  NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                                                  userInfo[EMActivityQQNameKey] = profile[@"nickname"];
-                                                  userInfo[EMActivityQQProfileImageURLKey] = profile[@"figureurl_2"];
-                                                  
-                                                  if ([NSThread currentThread] == [NSThread mainThread]) {
-                                                      [super handledLoginResponse:userInfo error:error];
-                                                  } else {
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                          [super handledLoginResponse:userInfo error:error];
-                                                      });
-                                                  }
-                                              }
-                                          }];
-                
-                [task resume];
-                
+
+                [self getUnionIdWithAccessToken:accessToken result:^(NSDictionary *newUserInfo) {
+                    [userInfo addEntriesFromDictionary:newUserInfo];
+
+                    [self getUserInfoWithAccessToken:accessToken openId:openid result:^(NSDictionary *newNewUserInfo) {
+                        [userInfo addEntriesFromDictionary:newNewUserInfo];
+                        [super handledLoginResponse:userInfo error:nil];
+                    }];
+                }];
                 return YES;
-            } else {
-                
             }
         }
-        
-        
-        
+
+
+
     } else {
         errorCode = EMActivityQQStatusCodeUnknown;
         generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
     }
-    
+
     userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(errorCode)];
     userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:generalErrorCode];
     [super handledLoginResponse:userInfo error:nil];
-    
+
     return YES;
 }
 
@@ -411,15 +397,15 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     NSString *query = [url query];
     NSDictionary *parameters = [query SK_URLParameters];
     NSString *error = parameters[@"error"];
-    
+
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    
+
     NSInteger errorCode = 0;
     NSInteger generalErrorCode = 0;
-    
+
     if (error) {
         errorCode = [error integerValue];
-        
+
         if (errorCode == EMActivityQQStatusCodeSuccess) {
             generalErrorCode = EMActivityGeneralStatusCodeSuccess;
         } else if (errorCode == EMActivityQQStatusCodeUserCancel) {
@@ -432,7 +418,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     } else {
         generalErrorCode = EMActivityGeneralStatusCodeUnknownFail;
     }
-    
+
     userInfo[EMActivityQQStatusCodeKey] = @(errorCode);
     userInfo[EMActivityQQStatusMessageKey] = [self errorMessages][@(errorCode)];
 
@@ -440,14 +426,14 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
     userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:generalErrorCode];
 
     [super handledShareResponse:userInfo error:nil];
-    
+
     return YES;
 }
 
 
 - (BOOL)handleAppNotInstall {
     NSMutableDictionary *userInfo = @{}.mutableCopy;
-    
+
     userInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeNotInstall);
     userInfo[EMActivityGeneralMessageKey] = [[self class] errorMessageWithCode:EMActivityGeneralStatusCodeNotInstall];
     userInfo[EMActivityQQStatusCodeKey] = @(EMActivityQQStatusCodeAppNotInstall);
@@ -489,9 +475,9 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 
 - (void)getAccessTokenInWeb {
     NSString *appID = EMCONFIG(tencentAppId);
-    
+
     NSString *authorizeTokenAPI = [NSString stringWithFormat:@"%@?client_id=%@&redirect_uri=%@&response_type=token&state=test&scope=%@", kQQAuthorizeURL,appID, [kQQRedirectURL SK_URLEncodedString], [self scope]];
-    
+
     EMSocialWebViewController *webController = [[EMSocialWebViewController alloc] initWithURL:[NSURL URLWithString:authorizeTokenAPI]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:webController];
     self.webAuthNavigationController = navigationController;
@@ -508,7 +494,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
 - (void)getOpenIdWithAccessToken:(NSString *)token result:(void(^)(NSDictionary *userInfo))result {
 
     NSString *accessTokenAPI = [NSString stringWithFormat:@"%@?access_token=%@", kQQOpenIdURL,token];
-    
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:accessTokenAPI]];
     request.HTTPMethod = @"GET";
     NSURLSession *session = [NSURLSession sharedSession];
@@ -539,15 +525,79 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
                                                 }
                                             }
                                         }];
-    
+
     // 启动任务
+    [task resume];
+}
+
+- (void)getUnionIdWithAccessToken:(NSString *)token result:(void(^)(NSDictionary *userInfo))result {
+
+    NSString *accessTokenAPI = [NSString stringWithFormat:@"%@?access_token=%@&unionid=1", kQQOpenIdURL,token];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:accessTokenAPI]];
+    request.HTTPMethod = @"GET";
+    NSURLSession *session = [NSURLSession sharedSession];
+    // 通过URL初始化task,在block内部可以直接对返回的数据进行处理
+    NSURLSessionTask *task = [session dataTaskWithRequest:request
+                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                            if (!error) {
+                                                NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                NSRange beginRange = [dataString rangeOfString:@"{"];
+                                                NSRange endRange = [dataString rangeOfString:@"}"];
+
+                                                if (beginRange.location != NSNotFound && endRange.location != NSNotFound) {
+                                                    NSInteger location = beginRange.location;
+                                                    NSInteger len = endRange.location - location + 1;
+                                                    dataString = [dataString substringWithRange:NSMakeRange(location, len)];
+                                                    NSData *resultData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
+                                                    NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:resultData options:kNilOptions error:nil];
+                                                    NSString *unionid= profile[@"unionid"];
+                                                    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                                    newUserInfo[EMActivityQQUnionIDIdKey] = unionid;
+                                                    newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
+                                                    result(newUserInfo);
+                                                }
+                                                else {
+                                                    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                                    newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeCommonFail);
+                                                    result(newUserInfo);
+                                                }
+                                            }
+                                        }];
+
+    // 启动任务
+    [task resume];
+}
+
+- (void)getUserInfoWithAccessToken:(NSString *)token openId:(NSString *)openId result:(void(^)(NSDictionary *userInfo))result {
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSString *urlString = [NSString stringWithFormat:@"%@?access_token=%@&oauth_consumer_key=%@&openid=%@&format=json",
+                           kQQGetUserInfoURL, token, EMCONFIG(tencentAppId), openId];
+    NSURLSessionTask *task = [session dataTaskWithURL:[NSURL URLWithString:urlString] completionHandler:
+                              ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                  if (!error) {
+                                      NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                                      NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                      newUserInfo[EMActivityQQNameKey] = profile[@"nickname"];
+                                      newUserInfo[EMActivityQQProfileImageURLKey] = profile[@"figureurl_2"];
+                                      result(newUserInfo);
+                                      //                                      if ([NSThread currentThread] == [NSThread mainThread]) {
+                                      //                                          [super handledLoginResponse:userInfo error:error];
+                                      //                                      } else {
+                                      //                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                      //                                              [super handledLoginResponse:userInfo error:error];
+                                      //                                          });
+                                      //                                      }
+                                  }
+                              }];
+
     [task resume];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSURL *URL = [request URL];
     if ([kQQRedirectURL rangeOfString:[URL host]].length > 0) {
-        
+
         NSDictionary *parameters = [[URL fragment] SK_URLParameters];
         NSInteger cancel = [parameters[@"usercancel"] integerValue];
         if (cancel == 1) {
@@ -562,17 +612,18 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             NSDate *expireDate = [NSDate dateWithTimeIntervalSinceNow:[expires_in integerValue]];
             resultUserInfo[EMActivityQQAccessTokenKey] = accessToken;
             resultUserInfo[EMActivityQQExpirationDateKey] = expireDate;
-            
+
             [self getOpenIdWithAccessToken:accessToken result:^(NSDictionary *userInfo) {
                 [resultUserInfo addEntriesFromDictionary:userInfo];
+
                 [self handledLoginResponse:resultUserInfo error:nil];
             }];
         }
-        
+
         [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:NULL];
         return NO;
     }
-    
+
     return YES;
 }
 
