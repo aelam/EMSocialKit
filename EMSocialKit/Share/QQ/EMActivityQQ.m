@@ -552,7 +552,9 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
                                                     NSData *resultData = [dataString dataUsingEncoding:NSUTF8StringEncoding];
                                                     NSDictionary *profile = [NSJSONSerialization JSONObjectWithData:resultData options:kNilOptions error:nil];
                                                     NSString *unionid= profile[@"unionid"];
+                                                    NSString *openId= profile[@"openid"];
                                                     NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionary];
+                                                    newUserInfo[EMActivityQQUserIdKey] = openId;
                                                     newUserInfo[EMActivityQQUnionIDIdKey] = unionid;
                                                     newUserInfo[EMActivityGeneralStatusCodeKey] = @(EMActivityGeneralStatusCodeSuccess);
                                                     result(newUserInfo);
@@ -581,13 +583,6 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
                                       newUserInfo[EMActivityQQNameKey] = profile[@"nickname"];
                                       newUserInfo[EMActivityQQProfileImageURLKey] = profile[@"figureurl_2"];
                                       result(newUserInfo);
-                                      //                                      if ([NSThread currentThread] == [NSThread mainThread]) {
-                                      //                                          [super handledLoginResponse:userInfo error:error];
-                                      //                                      } else {
-                                      //                                          dispatch_async(dispatch_get_main_queue(), ^{
-                                      //                                              [super handledLoginResponse:userInfo error:error];
-                                      //                                          });
-                                      //                                      }
                                   }
                               }];
 
@@ -613,7 +608,7 @@ static NSString *const kQQRedirectURL           = @"auth://www.qq.com";
             resultUserInfo[EMActivityQQAccessTokenKey] = accessToken;
             resultUserInfo[EMActivityQQExpirationDateKey] = expireDate;
 
-            [self getOpenIdWithAccessToken:accessToken result:^(NSDictionary *userInfo) {
+            [self getUnionIdWithAccessToken:accessToken result:^(NSDictionary *userInfo) {
                 [resultUserInfo addEntriesFromDictionary:userInfo];
 
                 [self handledLoginResponse:resultUserInfo error:nil];
