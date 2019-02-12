@@ -19,10 +19,17 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 @class EMActivityViewController;
 @class EMSocialDefaultConfigurator;
 
+@protocol EMSocialSnapshotGenerator<NSObject>
+
+- (UIImage *)generateSnapshot:(CGFloat)resolution;
+
+@end
+
 @interface EMSocialSDK : NSObject
 
 @property(nonatomic, assign) EMActivityStyle activityStyle __deprecated_msg("使用EMSocialThemeConf");
 @property(nonatomic, strong) EMSTransitionAnimator *transitionAnimator;
+@property(nonatomic, strong) id<EMSocialSnapshotGenerator> snapshotGenerator;
 
 + (instancetype)sharedSDK;
 
@@ -91,3 +98,11 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 #define EMCONFIG_WITH_ARGUMENT(_CONFIG_KEY, _CONFIG_ARG) [[EMSocialSDK sharedSDK] configurationValue:@#_CONFIG_KEY withObject:_CONFIG_ARG]
 
 @end
+
+
+@interface EMSocialSDK (Snapshot)
+
+- (UIImage *)generateSnapshot:(CGFloat)resolution;
+
+@end
+

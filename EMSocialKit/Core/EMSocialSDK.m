@@ -173,3 +173,12 @@ static EMSocialSDK *sharedInstance = nil;
 
 
 @end
+
+
+@implementation EMSocialSDK (Snapshot)
+
+- (UIImage *)generateSnapshot:(CGFloat)resolution {
+    return [self.snapshotGenerator generateSnapshot:resolution];
+}
+
+@end
