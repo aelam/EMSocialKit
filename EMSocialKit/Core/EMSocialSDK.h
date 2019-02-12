@@ -21,7 +21,7 @@ FOUNDATION_EXPORT NSString *const EMSocialSDKErrorDomain;
 
 @interface EMSocialSDK : NSObject
 
-@property(nonatomic, assign) EMActivityStyle activityStyle;
+@property(nonatomic, assign) EMActivityStyle activityStyle __deprecated_msg("使用EMSocialThemeConf");
 @property(nonatomic, strong) EMSTransitionAnimator *transitionAnimator;
 
 + (instancetype)sharedSDK;

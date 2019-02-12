@@ -11,12 +11,13 @@
 #import "_EMActivityViewCell.h"
 #import "EMActivity.h"
 #import "EMSocialSDK.h"
+#import "EMSocialThemeConf.h"
 
 #define EMSOCIAL_RGBA(r,g,b,a) [UIColor colorWithRed:r / 255.0 green:g / 255.0 blue:b / 255.0 alpha:a]
 #define EMSOCIAL_RGB(r,g,b) EMSOCIAL_RGBA(r,g,b,1)
 
 static NSString *kActivityCellIdentifier = @"kActivityCellIdentifier";
-static CGFloat kContentHeight = 166.f;
+static CGFloat kContentHeight = 156.f;
 
 @interface EMActivityViewController () <UIViewControllerTransitioningDelegate,UIGestureRecognizerDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -29,11 +30,6 @@ static CGFloat kContentHeight = 166.f;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (nonatomic, assign) CGFloat bottomPadding;
 
-// About Theme 
-@property(nonatomic, strong)UIColor *cancelBackgroundColor;
-@property(nonatomic, strong)UIColor *cancelBorderColor;
-@property(nonatomic, strong)UIColor *backgroundColor;
-@property(nonatomic, strong)UIColor *activityTitleColor;
 @property(nonatomic, strong, readwrite)EMActivity *activeActivity;
 
 @end
@@ -47,8 +43,6 @@ static CGFloat kContentHeight = 166.f;
         self.applicationActivities = applicationActivities;
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self;
-        self.backgroundColor = [UIColor whiteColor];
-        self.activityTitleColor = [UIColor darkGrayColor];
         self.activityStyle = EMActivityStyleBlack;
         if (@available(iOS 11.0, *)) {
             self.bottomPadding = [UIApplication sharedApplication].keyWindow.safeAreaInsets.bottom;
@@ -73,12 +67,6 @@ static CGFloat kContentHeight = 166.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpActivitiesUI];
-    
-    if (self.activityStyle == EMActivityStyleWhite) {
-        [self loadWhiteTheme];
-    } else {
-        [self loadBlackTheme];
-    }
     [self updateUIForTheme];
 
 }
@@ -112,25 +100,22 @@ static CGFloat kContentHeight = 166.f;
 }
 
 - (void)loadWhiteTheme {
-    self.backgroundColor = EMSOCIAL_RGB(0xf2,0xf2,0xF2);
-    self.activityTitleColor = EMSOCIAL_RGB(0x3d,0x3d,0x3d);
-    self.cancelBackgroundColor = [UIColor whiteColor];
-    self.cancelBorderColor = [UIColor whiteColor];
+//    self.backgroundColor = EMSOCIAL_RGB(0xf2,0xf2,0xF2);
+//    self.activityTitleColor = EMSOCIAL_RGB(0x3d,0x3d,0x3d);
+//    self.cancelBackgroundColor = [UIColor whiteColor];
+//    self.cancelBorderColor = [UIColor whiteColor];
 }
 
 - (void)loadBlackTheme {
-    self.backgroundColor = EMSOCIAL_RGB(0x28,0x29,0x2c);
-    self.activityTitleColor = [UIColor whiteColor];
-    self.cancelBackgroundColor = EMSOCIAL_RGB(0x3e,0x40,0x4f);
-    self.cancelBorderColor = EMSOCIAL_RGB(0x5b,0x5b,0x5b);
+//    self.backgroundColor = EMSOCIAL_RGB(0x28,0x29,0x2c);
+//    self.activityTitleColor = [UIColor whiteColor];
+//    self.cancelBackgroundColor = EMSOCIAL_RGB(0x3e,0x40,0x4f);
+//    self.cancelBorderColor = EMSOCIAL_RGB(0x5b,0x5b,0x5b);
 }
 
 - (void)updateUIForTheme {
-    self.view.backgroundColor = self.backgroundColor;
-    self.closeButton.backgroundColor = self.cancelBackgroundColor;
-    self.closeButton.layer.borderWidth = 1;
-    self.closeButton.layer.cornerRadius = 3;
-    self.closeButton.layer.borderColor = self.cancelBorderColor.CGColor;
+    self.view.backgroundColor = EMSocialThemeConf.defaultConf.backgroundColor;
+    self.closeButton.backgroundColor = EMSocialThemeConf.defaultConf.cancelBackgroundColor;
 }
 
 - (void)setApplicationActivities:(NSArray *)applicationActivities {
@@ -150,18 +135,11 @@ static CGFloat kContentHeight = 166.f;
     [self.view.window removeGestureRecognizer:self.tapGestureRecognizer];
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-    _backgroundColor = backgroundColor;
-    if ([self isViewLoaded]) {
-        self.view.backgroundColor = _backgroundColor;
-    }
-}
-
 - (void)setUpActivitiesUI {
-    const CGFloat closeButtonHeight = 60;
+    const CGFloat closeButtonHeight = 50;
     const CGFloat collectionViewHeight = 110.f;
 
-    self.view.backgroundColor = self.backgroundColor;
+    self.view.backgroundColor = EMSocialThemeConf.defaultConf.backgroundColor;
     CGRect collectionViewRect = self.view.bounds;
     collectionViewRect.size.height = collectionViewHeight;
     
@@ -186,11 +164,22 @@ static CGFloat kContentHeight = 166.f;
     CGRect closeRect = self.view.bounds;//
     closeRect.origin.y = collectionViewRect.size.height;
     closeRect.size.height = closeButtonHeight;
-    closeRect = UIEdgeInsetsInsetRect(closeRect, UIEdgeInsetsMake(0, 15, 20, 15));
+    //closeRect = UIEdgeInsetsInsetRect(closeRect, UIEdgeInsetsMake(0, 0, 20, 15));
     self.closeButton.frame = closeRect;
-    [self.closeButton setTitleColor:EMSOCIAL_RGB(0x51, 0x96, 0xef) forState:UIControlStateNormal];
+    [self.closeButton setTitleColor:EMSocialThemeConf.defaultConf.cancelTitleColor forState:UIControlStateNormal];
+    self.closeButton.titleLabel.font = [UIFont systemFontOfSize:16];
+
     self.closeButton.backgroundColor = [UIColor clearColor];
+    self.closeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     [self.view addSubview:self.closeButton];
+
+    CGRect separatorRect = self.view.bounds;//
+    separatorRect.origin.y = collectionViewRect.size.height;
+    separatorRect.size.height = 0.5;
+    
+    UIView *separator = [[UIView alloc] initWithFrame:separatorRect];
+    separator.backgroundColor = EMSocialThemeConf.defaultConf.separatorColor;
+    [self.view addSubview:separator];
     
     [self.closeButton setTitle:NSLocalizedString(@"取消", nil) forState:UIControlStateNormal];
     [self.closeButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -241,7 +230,7 @@ static CGFloat kContentHeight = 166.f;
         EMActivity *activity = self.applicationActivities[indexPath.row];
         cell.activityTitleLabel.text = activity.activityTitle;
         cell.activityImageView.image = activity.activityImage;
-        cell.activityTitleLabel.textColor = self.activityTitleColor;
+        cell.activityTitleLabel.textColor = EMSocialThemeConf.defaultConf.activityTitleColor;
     }
     return cell;
 }
