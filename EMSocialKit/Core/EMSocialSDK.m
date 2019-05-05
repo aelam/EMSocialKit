@@ -167,7 +167,8 @@ static EMSocialSDK *sharedInstance = nil;
         self.loginCompletionHandler = completion;
         [self.activeActivity performLogin];
     } else {
-        completion(NO, nil, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
+        NSDictionary *resultInfo = @{EMActivityGeneralStatusCodeKey:@(EMActivityGeneralStatusCodeNotInstall)};
+        completion(NO, resultInfo, [NSError errorWithDomain:EMSocialSDKErrorDomain code:100 userInfo:@{NSLocalizedDescriptionKey:@"应用未安装"}]);
     }
 }
 
