@@ -77,7 +77,7 @@ static NSString *const WeiboUserInfoURL         = @"https://api.weibo.com/2/user
 }
 
 + (BOOL)isAppInstalled {
-    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"weibo://"]];
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibo://"]];
 }
 
 - (BOOL)isAppInstalled {
